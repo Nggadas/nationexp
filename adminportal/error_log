@@ -1,0 +1,4 @@
+[25-Sep-2017 15:20:28 Europe/London] PHP Parse error:  syntax error, unexpected '$first_name' (T_VARIABLE) in /home/nationex/public_html/adminportal/register.php on line 92
+[25-Sep-2017 15:20:34 Europe/London] PHP Parse error:  syntax error, unexpected '$first_name' (T_VARIABLE) in /home/nationex/public_html/adminportal/register.php on line 92
+[25-Sep-2017 15:20:42 Europe/London] PHP Parse error:  syntax error, unexpected '$first_name' (T_VARIABLE) in /home/nationex/public_html/adminportal/register.php on line 92
+[10-Nov-2017 14:16:38 Europe/London] PHP Parse error:  syntax error, unexpected '}' in /home/nationex/public_html/adminportal/orders_info.php on line 148
