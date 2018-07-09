@@ -77,11 +77,16 @@ var_dump($_SESSION['isAdmin']);
 								<div class="title">
 									<h2>Admin Portal</h2>
 									<p>Now, you can manage orders, users and set price.</p>
+									<?php
+										if (!empty($_SESSION['success'])) {
+											echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #008000;">' . $_SESSION['success'] . '</span>';
+											$_SESSION['success'] = "";
+										}
+									?>
 								</div>
 							</div>
 						</div>
 					</div>
-					
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">

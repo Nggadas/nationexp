@@ -20,7 +20,6 @@ $('#login-form').on('submit', function() {
 			url: "loginnow",
 			data: {email:email,pass:pass},
 			success: function(result){
-				console.log(result);
 				if(result=='open'){
 					window.open(
 					'members/',

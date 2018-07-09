@@ -14,13 +14,35 @@
 
 			$query_admin = mysqli_query($connect, "SELECT * FROM `smart_admin` WHERE `password`='$current_password' ORDER BY ID DESC LIMIT 1");
 			$row_admin = mysqli_num_rows($query_admin);
+			$val_admin = mysqli_fetch_assoc($query_admin);
+			$secret_pin = $val_admin['admin_pin'];
+			$pass = $val_admin['password'];
+
 
 			if($row_admin > 0){
 				if ($new_password != $confirm_password){
-					$error = "New Password and Confirm Password don't match";
+					$error = "Confirm password does not match the new password";
+				}else{
+					if ($admin_pin != $secret_pin) {
+						$error = "Admin pin does not match";
+					}else{
+						$sql = "UPDATE smart_admin SET password='$new_password' WHERE admin_id=010101 ";
+
+						if (mysqli_query($connect, $sql)) {
+							$_SESSION['success'] = "Password changed successfully!"; ?>
+							<script>
+								window.location.href = 'index';
+							</script>
+						<?php } else {
+							$error = mysqli_error($connect);
+							// $error = "Error: Could not change password.";
+						}
+						
+						mysqli_close($connect);
+					}
 				}
 			}else{
-				$error = "Current password does not match with admin password";
+				$error = "Current password does not match with admin password" . ' A ' . $pass . ' C ' . $current_password;
 			}
 		}
 	}
