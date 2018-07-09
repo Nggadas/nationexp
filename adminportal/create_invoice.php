@@ -1,10 +1,35 @@
-<?php
-	include("check.php");
-	include("register_submit.php");	
-?>
+<?php include("check.php"); ?>
 <!DOCTYPE html>
+<?php
+	if (isset($_POST['submit'])) {
+		$error = "";
+
+		if (empty($_POST['email']) || empty($_POST['full_name']) || empty($_POST['status'])) {
+			$error = "All fields required";
+		}else{
+
+			$email = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['email'])));
+			$full_name = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['full_name'])));
+			$invoice_no = rand(100000,999999);
+			$status = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['status'])));
+
+			$sql = "INSERT INTO invoices (email,full_name,invoice_no,invoice_status) VALUES ('$email','$full_name','$invoice_no','$status')";
+
+			if (mysqli_query($connect, $sql)) {
+				$_SESSION['success'] = "Invoice created successfully!"; ?>
+				<script>
+					window.location.href = 'invoices';
+				</script>
+			<?php } else {
+				// $error = mysqli_error($connect);
+				$error = "Error: Invoice was not created.";
+			}
+			
+			mysqli_close($connect);
+		}
+	}
+?>
 <html lang="en">
-	
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,31 +38,41 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Register User - NationExpress24 Delivery</title>
-		
+		<title>Create Invoice - NationExpress24 Delivery</title>
+		<!--  bootstrap css -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<!--  font Awesome Css  -->
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+		<!--    stylesheet for fonts-->
 		<link href="resources/fonts/stylesheet.css" rel="stylesheet">
+		<!-- Reset css-->
 		<link href="resources/css/reset.css" rel="stylesheet">
+		
+		<!--slick css-->
 		<link href="resources/css/slick.css" rel="stylesheet">
-		<link href="resources/css/jquery.mb.YTPlayer.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="resources/css/meanmenu.css">
+		<!--  owl-carousel css -->
 		<link href="resources/css/owl.carousel.css" rel="stylesheet">
+		<!--  YTPlayer css For Background Video -->
+		<link href="resources/css/jquery.mb.YTPlayer.min.css" rel="stylesheet">
+		<!--  style css  -->
+		<link rel="stylesheet" href="resources/css/meanmenu.css">
 		<link href="resources/css/style.css" rel="stylesheet">
+		<!--  Responsive Css  -->
 		<link href="resources/css/responsive.css" rel="stylesheet">
 		
+		<!--  browser campatibel css files-->
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
 	</head>
 	
-	<body class="js">
+	<body class="js1">
 		<div class="tel_header"><i class="fa fa-envelope" aria-hidden="true"></i> <font color="red">info@nationexpress24.com</font>  &nbsp;&nbsp;<i class="fa fa-phone" aria-hidden="true"></i> Call our hotline 0805-773-2873 or <i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp 0817-033-3258</div>
+		<!--start header area-->
 		<div id="preloader"></div>
-		
 		<section class="about-us">
+			<!--   start logo & menu markup    -->
 			<div class="logo_menu" id="sticker1">
 				<div class="container">
 					<div class="row">
@@ -50,7 +85,8 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <?php echo $first_name; ?></a>
+                                    <li class="current-menu-item">
+										<a href="./" title="Go to Admin Portal" >Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -64,122 +100,53 @@
 					</div>
 				</div>
 			</div>
+			<!--   end of logo menu markup     -->
+			
+		<!--end of header area-->
 		</section>
-		
-		<!--    start pricing area-->
-		<!-- Pricing Area -->
-		<section class="calculate_area pricing-area version-16" id="tracking">
+		<!--    end of about top area-->
+	
+		<!--start calculate area-->
+		<section class="calculate_area pricing-area version-6" id="tracking">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2>Register a new user</h2>
-							<p>Here is where will register a new customer before you can place an order.</p>
-							<?php if($mycolor){ ?>
-								<div class="invalid-login" id="invalid-login">
-									<h5><font color="<?php echo $mycolor; ?>"><i class="fa fa-<?php echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><?php echo $statusmessage; ?></span></font></h5>
-									
-								</div>
-							<?php } ?>
+							<h2>Create Invoice</h2>
+							<p>You can create invoice here</p>
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+                                }
+                            ?>
 						</div>
-						<?php if($mycolor =="green"){ ?>
-						<span><a href="./">Back to Admin Portal</a> | <a href="register">Register another customer</a></span>
-						<?php } ?>
-				<?php if($mycolor !="green"){ ?>		
 						<div class="calculate_form">
-							<form role="form" id="register-form" name="register-form" method="post" action="" class="register-form" autocomplete="OFF">
+							<form method="post">
 								<div class="single_calculate">
-									<input type="text" name="first_name" id="first_name" <?php print $first_name; ?>required="required">
-									<label>First Name</label>
+									<input type="email" id="email" name="email">
+									<label>Email</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="last_name" id="last_name" required="required">
-									<label>Surname</label>
+									<input type="text" id="full_name" name="full_name">
+									<label>Full Name</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="business_name" id="business_name">
-									<label>Business Name</label>
+									<input type="text" id="status" name="status">
+									<label>Status</label>
 								</div>
-								<div class="single_calculate">
-									<input type="text" name="phone_no" id="phone_no" required="required" maxlength="11">
-									<label>Phone Number</label>
-								</div>
-								
-								<div class="single_calculate">
-									<input type="text" name="alt_phone_no" id="alt_phone_no" maxlength="11">
-									<label>2nd Phone Number</label>
-								</div>
-								<div class="single_calculate">
-									<input type="email" name="email" id="email" required="required">
-									<label>Email Address</label>
-								</div>
-								<div class="single_calculate">
-									<input type="text" name="address" id="address" required="required">
-									<label>Street Address</label>
-								</div>
-								<div class="single_calculate">
-									<input type="text" name="city" id="city" required="required">
-									<label>City</label>
-								</div>
-								<div class="single_calculate">
-									<input type="text" name="bus_stop" id="bus_stop">
-									<label>Bus Stop</label>
-								</div>
-								<div class="single_calculate">
-									<select name="state" id="state" required="required">
-										<option value="" selected="selected">SELECT STATE</option>
-										<option value="Abuja FCT">Abuja FCT</option>
-										<option value="Abia">Abia</option>
-										<option value="Adamawa">Adamawa</option>
-										<option value="Akwa Ibom">Akwa Ibom</option>
-										<option value="Anambra">Anambra</option>
-										<option value="Bauchi">Bauchi</option>
-										<option value="Bayelsa">Bayelsa</option>
-										<option value="Benue">Benue</option>
-										<option value="Borno">Borno</option>
-										<option value="Cross River">Cross River</option>
-										<option value="Delta">Delta</option>
-										<option value="Ebonyi">Ebonyi</option>
-										<option value="Edo">Edo</option>
-										<option value="Ekiti">Ekiti</option>
-										<option value="Enugu">Enugu</option>
-										<option value="Gombe">Gombe</option>
-										<option value="Imo">Imo</option>
-										<option value="Jigawa">Jigawa</option>
-										<option value="Kaduna">Kaduna</option>
-										<option value="Kano">Kano</option>
-										<option value="Katsina">Katsina</option>
-										<option value="Kebbi">Kebbi</option>
-										<option value="Kogi">Kogi</option>
-										<option value="Kwara">Kwara</option>
-										<option value="Lagos">Lagos</option>
-										<option value="Nassarawa">Nassarawa</option>
-										<option value="Niger">Niger</option>
-										<option value="Ogun">Ogun</option>
-										<option value="Ondo">Ondo</option>
-										<option value="Osun">Osun</option>
-										<option value="Oyo">Oyo</option>
-										<option value="Plateau">Plateau</option>
-										<option value="Rivers">Rivers</option>
-										<option value="Sokoto">Sokoto</option>
-										<option value="Taraba">Taraba</option>
-										<option value="Yobe">Yobe</option>
-										<option value="Zamfara">Zamfara</option>
-									</select>
-								</div>
-								<div class="calculat-button">
-									<input type="submit" class="calulate" value="SUBMIT" id="submit_button" name="submit_button">
+								<div class="calculate-button">
+									<input type="submit" class="calulate" id="submit" name="submit" value="SUBMIT">
 								</div>
 							</form>
 						</div>
-				<?php } ?>
 					</div>
 				</div>
 			</div>
-			
-			
+			<div class="calculat-image">
+				<img src="resources/img/boxes.png" height="347" width="537" style="padding-right:100px;padding-bottom:40px;">
+			</div>
 		</section>
-		<!-- /.End Of Pricing Area -->
+		<!--    end of calculate area-->
 		
 		<section class="footer-area" id="contact">
 			<div class="container">
@@ -206,7 +173,7 @@
 					<div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
 						<div class="single-footer">
 							<h2>We Accept</h2>
-							<a href=""><img src="resources/img/cards_credt_1.png"></a>
+							<a href=""><img src="resources/img/cards_credt_1.png" alt="#"></a>
 						</div>
 					</div>
 					<div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">
@@ -241,22 +208,30 @@
 		</div>
 		<!--    end of copyright text area-->
 		
-		
-		
+		<!--  jquery.min.js  -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<!--    bootstrap.min.js-->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-		<script src="resources/js/jquery.counterup.min.js"></script>
+		<!--    jquery.sticky.js-->
 		<script src="resources/js/jquery.sticky.js"></script>
-		<script src="resources/js/owl.carousel.min.js"></script>
+		<!--  owl.carousel.min.js  -->
 		<script src="resources/js/jquery.meanmenu.js"></script>
-		<script src="resources/js/slick.min.js"></script>
-		<script src="resources/js/jquery.nav.js"></script>
+		<script src="resources/js/owl.carousel.min.js"></script>
+		<!--  jquery.mb.YTPlayer.min.js   -->
 		<script src="resources/js/jquery.mb.YTPlayer.min.js"></script>
+		<!--    slick.min.js-->
+		<script src="resources/js/slick.min.js"></script>
+		<!--    jquery.nav.js-->
+		<script src="resources/js/jquery.nav.js"></script>
+		<!--jquery waypoints js-->
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+		<!--    jquery counterup js-->
+		<script src="resources/js/jquery.counterup.min.js"></script>
+		<!--    main.js-->
 		<script src="resources/js/main.js"></script>
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
 	</body>
 	
-</html>		
+</html>

@@ -51,7 +51,8 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal" >Welcome, <?php echo $first_name; ?></a>
+                                    <li class="current-menu-item">
+										<a href="./" title="Go to Admin Portal" >Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -83,6 +84,12 @@
 						</div>
 					</div>
 				</div>
+				<?php
+					if (!empty($_SESSION['success'])) {
+						echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #008000;">' . $_SESSION['success'] . '</span>';
+						$_SESSION['success'] = "";
+					}
+				?>
 				<div class="row">
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
@@ -118,30 +125,30 @@
 												</tr>
 											</tfoot>
 											<tbody>
-												<?php do {?>
-													<?php
-														$sql_b_inv = mysqli_query("SELECT * FROM `invoices` WHERE `email` != '' AND `account_id`!='' ORDER BY ID DESC");
-														$row_b_inv = mysqli_num_rows($sql_b_inv);
-														$val_b_inv = mysqli_fetch_assoc($sql_b_inv);
+												<?php 
+												$sql_b_inv = mysqli_query($connect,"SELECT * FROM `invoices` WHERE `email` != '' ORDER BY ID DESC");
+												
+												while($row = mysqli_fetch_assoc($sql_b_inv)) {
 
-														$inv_date = $val_b_inv['date'];
-														$inv_full_name = $val_b_inv['full_name'];
-														$inv_invoice_no = $val_b_inv['invoice_no'];
-														$inv_status = $val_b_inv['status'];
-														$inv_email = $val_b_inv['email'];
+													$timestamp = $row['date'];
+													$pieces = explode(' ', $timestamp);
+													$inv_date = $pieces[0];
+													$inv_full_name = $row['full_name'];
+													$inv_invoice_no = $row['invoice_no'];
+													$inv_status = $row['invoice_status'];
+													$inv_email = $row['email'];
 
-													?>
-													<?php if($inv_invoice_no){ ?>
-															<tr>
-																<td><?php echo $inv_date; ?></td>
-																<td><?php echo $inv_full_name; ?></td>
-																<td><?php echo $inv_invoice_no; ?></td>
-																<td><?php echo $inv_status; ?></td>
-																<td><?php echo $reg_email; ?></td>
-																<td><a href="invoices_info?no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">More info</button></a></td>
-															</tr>
+													if($inv_invoice_no){ ?>
+														<tr>
+															<td><?php echo $inv_date; ?></td>
+															<td><?php echo $inv_full_name; ?></td>
+															<td><?php echo $inv_invoice_no; ?></td>
+															<td><?php echo $inv_status; ?></td>
+															<td><?php echo $inv_email; ?></td>
+															<td><a href="invoices_info?no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">More info</button></a></td>
+														</tr>
 														<?php } ?>
-													<?php }while($val_b_inv = mysqli_fetch_array($sql_b_inv)) ?>
+													<?php } ?>
 
 											</tbody>
 										</table>

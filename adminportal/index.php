@@ -115,7 +115,7 @@ var_dump($_SESSION['isAdmin']);
 								<a href="register"><li><span style="margin-right:10px;"><i class="fa fa-user"></i></span> Register User </li></a>
 							</ul>
 							<div class="order-buton">
-								<a href="create_invoice">Create Invoice</a>
+								<a href="create_invoice" target="_blank">Create Invoice</a>
 							</div>
 						</div>
 					</div>
@@ -132,7 +132,7 @@ var_dump($_SESSION['isAdmin']);
 								<a href="zones"><li>Manage Zone/Pricing</li></a>
 							</ul>
 							<div class="order-buton">
-								<a href="change_password">Change Password</a>
+								<a href="change_password" target="_blank">Change Password</a>
 							</div>
 						</div>
 					</div>

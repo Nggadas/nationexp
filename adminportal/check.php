@@ -1,9 +1,15 @@
 <?php
 	session_start();
 
+	// make sure user is logged in
 	if(empty($_SESSION['id'])){
 		header("Location: ../");
 		exit();
+	}
+
+	// make sure user is admin
+	if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "false") {
+		header("Location: ../");
 	}
 
 	header("Expires: Tue, 01 Jul 2001 06:00:00 GMT");

@@ -11,7 +11,7 @@
      $bookingNum = $val_tracking['booking_no'];
      //redirects back to the tracking page
      if ($trackingNo != $bookingNum) {
-       header("Location: http://127.0.0.1/demo/demo_html/track.php");
+       header("Location: track.php");
      }
      $shipdate = $val_tracking['ship_date'];
      $tdate = $val_tracking['tdate'];
@@ -91,13 +91,12 @@
                                 <ul class="nav navbar-nav navbar-right menu">
 									<?php
 										if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "true") {?>
-											<li class="current-menu-item"><a href="adminportal/">Welcome, <?php echo $_SESSION['first']; ?></a>
+											<li class="current-menu-item"><a href="adminportal/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "false"){ ?>
-											<li class="current-menu-item"><a href="members/">Welcome, <?php echo $_SESSION['first']; ?></a>
+											<li class="current-menu-item"><a href="members/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(empty($_SESSION['isAdmin'])){ ?>
 											<li><a href="index.html">home</a></li>
-										<?php } ?>
-									</li>
+									<?php } ?>
                                     <li><a href="service.php">services</a></li>
 									<li><a href="track.php">track your parcel</a></li>
                                     <li><a href="pricing.php">pricing</a></li>
@@ -107,7 +106,7 @@
 											<li class="signup1"><a href="adminportal/logout">logout</a></li>
 										<?php }else{ ?>
 											<li class="signup1"><a href="login.html">login</a></li>
-										<?php } ?>
+									<?php } ?>
 								</ul>
 								<!-- /.navbar-collapse -->
 							</nav>

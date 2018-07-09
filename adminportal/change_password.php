@@ -1,4 +1,30 @@
+<?php include("check.php"); ?>
 <!DOCTYPE html>
+<?php
+	if (isset($_POST['submit'])) {
+		$error = "";
+
+		if (empty($_POST['current_password']) || empty($_POST['new_password']) || empty($_POST['confirm_password']) || empty($_POST['admin_pin'])) {
+			$error = "All fields required";
+		} else {
+			$current_password = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['current_password'])));
+			$new_password = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['new_password'])));
+			$confirm_password = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['confirm_password'])));
+			$admin_pin = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['admin_pin'])));
+
+			$query_admin = mysqli_query($connect, "SELECT * FROM `smart_admin` WHERE `password`='$current_password' ORDER BY ID DESC LIMIT 1");
+			$row_admin = mysqli_num_rows($query_admin);
+
+			if($row_admin > 0){
+				if ($new_password != $confirm_password){
+					$error = "New Password and Confirm Password don't match";
+				}
+			}else{
+				$error = "Current password does not match with admin password";
+			}
+		}
+	}
+?>
 <html lang="en">
 	
 	<head>
@@ -56,13 +82,14 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="index.html">home</a></li>
+                                    <li class="current-menu-item">
+										<a href="./" title="Go to Admin Portal" >Welcome, <?php echo $first_name; ?></a>
+									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
                                     <li><a href="../pricing.php">pricing</a></li>
                                     <li><a href="../contact.php">contact</a></li>
-									<li class="signup1"><a href="../login.html">login</a></li>
-									<li class="signup2"><a href="../signup.html">sign up</a></li>
+									<li class="signup1"><a href="logout">logout</a></li>
 								</ul>
 								<!-- /.navbar-collapse -->
 							</nav>
@@ -84,32 +111,32 @@
 						<div class="calculate_title">
 							<h2>Change Password</h2>
 							<p>You can change admin password here</p>
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+                                }
+                            ?>
 						</div>
 						<div class="calculate_form">
-							<form action="post">
+							<form method="post">
 								<div class="single_calculate">
-									<input type="password">
+									<input id="current_password" name="current_password" type="password">
 									<label>Current Password</label>
 								</div>
 								<div class="single_calculate">
-									<input type="password">
+									<input id="new_password" name="new_password" type="password">
 									<label>New Password</label>
 								</div>
 								<div class="single_calculate">
-									<input type="password">
+									<input id="confirm_password" name="confirm_password" type="password">
 									<label>Confirm Password</label>
 								</div>
 								<div class="single_calculate">
-									<input type="number">
+									<input id="admin_pin" name="admin_pin" type="number">
 									<label>Admin PIN</label>
 								</div>
-								<div class="calculat-button">
-									<input type="submit" class="calulate" value="SUBMIT">
-								</div>
-								<div class="totla-cost" style="display:none">
-									<h5>Estimated Cost: <span>$ 30</span></h5>
-									<h5>Duration: <span>1-3 days</span></h5>
-									<h5><input type="button" class="calulatea" value="ORDER NOW"></h5>
+								<div class="calculate-button">
+									<input type="submit" class="calulate" id="submit" name="submit" value="SUBMIT">
 								</div>
 							</form>
 						</div>
