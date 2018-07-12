@@ -51,7 +51,7 @@
 				<div class="row">
 						<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2 style="text-align:center"><a href="index.html"><img src="img/logo1.png"  width="100px" height="100px"></a></h2>
+							<h2 style="text-align:center"><a href="index.php"><img src="img/logo1.png"  width="100px" height="100px"></a></h2>
 						<h2 style="text-align:center">Login</h2>
 							<p>Sign in to your NationExpress24 account to place your order</p>
 						<div class="invalid-login" id="invalid-login" style="display:none">

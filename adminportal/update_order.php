@@ -1,8 +1,7 @@
+<!DOCTYPE html>
 <?php
 	include("check.php");
-	include("update_order_submit.php");	
 ?>
-<!DOCTYPE html>
 <html lang="en">
 	
 	<head>
@@ -13,7 +12,7 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Update Status - NationExpress24 Delivery</title>
+		<title>Edit Order - NationExpress24 Delivery</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -43,14 +42,14 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <? echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -73,60 +72,97 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
+							<?php
+								$get_data =trim($_GET['booking_no']);
+								$get_data  = htmlentities($get_data);
+								$booking_no = $get_data;
+
+								if(!$booking_no){ ?>
+									<script>
+										window.location.href = "orders?status=order_booked";
+									</script>
+								<?php }else{
+									$sql= mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `booking_no`='$booking_no' ORDER BY id DESC LIMIT 1");
+									$row_count = mysqli_num_rows($sql);
+									$delivery = mysqli_fetch_assoc($sql);
+
+									if ($row_count > 0) {
+										$customer_id = $delivery['account_id'];
+										$contact_person = $delivery['full_name'];
+										$phone_no = $delivery['phone'];
+										$second_phone_no = $delivery['alt_phone'];
+										$address = $delivery['address'];
+										$city = $delivery['city'];
+										$bus_stop = $delivery['bus_stop'];
+										$state = $delivery['state'];
+										$country = $delivery['country'];
+										
+										$sql= mysqli_query($connect,"SELECT * FROM `register` WHERE `account_id`='$customer_id' ORDER BY id DESC LIMIT 1");
+										$user = mysqli_fetch_assoc($sql);
+
+										$customer_name = $user['first_name'] . ' ' . $user['sur_name'];
+										$email = $delivery['email'];
+									} else { ?>
+										<script>
+											window.location.href = "orders?status=order_booked";
+										</script>
+									<?php }
+								}
+							?>
 							<h2>Update Order Status</h2>
-							<p>Here you can update an order status for tracking number <? echo $booking_no; ?>.</p>
-							<? if($mycolor){ ?>
+							<p>Here you can update an order status for tracking number <?php echo $booking_no; ?>.</p>
+							<?php if($mycolor){ ?>
 								<div class="invalid-login" id="invalid-login">
-									<h5><font color="<? echo $mycolor; ?>"><i class="fa fa-<? echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><? echo $statusmessage; ?></span></font></h5>
+									<h5><font color="<?php echo $mycolor; ?>"><i class="fa fa-<?php echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><?php echo $statusmessage; ?></span></font></h5>
 									
 								</div>
-							<? } ?>
+							<?php } ?>
 							<p><font color="#000"><b>Order Information</b></font></p>
 						</div>
 						<div class="calculate_form">
 							<form role="form" id="delivery-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
 								<div class="single_calculate">
 										<select name="customer_name" id="customer_name">
-											<option value="" selected="selected">Customer Name: <? echo $myid_firstname; ?> <? echo $myid_lastname; ?></option>
+											<option value="" selected="selected">Customer Name: <?php echo $customer_name ?></option>
 										</select>	
 									</div>
 								<div class="single_calculate">
 										<select name="acct_id" id="acct_id" required="required">
-											<option value="<? echo $myid_exists; ?>" selected="selected">Customer ID: <? echo $myid_exists; ?></option>
+											<option value="<?php echo $customer_id; ?>" selected="selected">Customer ID: <?php echo $customer_id; ?></option>
 										</select>	
 									</div>
 								<div class="single_calculate">
-									<input type="text" name="last_name" id="last_name" required="required">
+									<input type="text" name="contact_person" id="last_name" required="required" value="<?php echo $contact_person ?>">
 									<label>Contact Person</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="phone_no" id="phone_no" required="required" maxlength="11">
+									<input type="text" name="phone_no" id="phone_no" required="required" value="<?php echo $phone_no ?>" maxlength="11">
 									<label>Phone Number</label>
 								</div>
 								
 								<div class="single_calculate">
-									<input type="text" name="alt_phone_no" id="alt_phone_no" maxlength="11">
+									<input type="text" name="alt_phone_no" id="alt_phone_no" maxlength="11" value="<?php echo $second_phone_no ?>">
 									<label>2nd Phone Number</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="email" id="email">
+									<input type="text" name="email" id="email" value="<?php echo $email ?>">
 									<label>Email Address</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="address" id="address" required="required">
+									<input type="text" name="address" id="address" required="required" value="<?php echo $address ?>">
 									<label>Street Address</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="city" id="city" required="required">
+									<input type="text" name="city" id="city" required="required"  value="<?php echo $city ?>">
 									<label>City</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="bus_stop" id="bus_stop">
+									<input type="text" name="bus_stop" id="bus_stop" value="<?php echo $bus_stop ?>">
 									<label>Bus Stop</label>
 								</div>
 								<div class="single_calculate">
 								<select name="state" id="state">
-									<option value="" selected="selected">SELECT STATE</option>
+									<option value="" selected="selected"><?php echo strtoupper($state) ?> : CHANGE STATE</option>
 													<option value="Abuja FCT">Abuja FCT</option>
 													<option value="Abia">Abia</option>
 													<option value="Adamawa">Adamawa</option>
@@ -167,7 +203,7 @@
 												</select>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="country" id="country">
+									<input type="text" name="country" id="country" value="<?php echo $country ?>">
 									<label>Country</label>
 								</div>
 								<div class="calculat-button">

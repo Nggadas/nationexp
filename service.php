@@ -42,7 +42,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="index.html"><img src="img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="index.php"><img src="img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -55,7 +55,7 @@
 										<?php }else if(!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "false"){ ?>
 											<li class="menu-item"><a href="members/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(empty($_SESSION['isAdmin'])){ ?>
-											<li><a href="index.html">home</a></li>
+											<li><a href="index.php">home</a></li>
 									<?php } ?>
                                     <li class="current-menu-item"><a href="service.php">services</a></li>
 									<li><a href="track.php">track your parcel</a></li>

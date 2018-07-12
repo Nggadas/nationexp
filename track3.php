@@ -44,7 +44,7 @@ session_start();
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-12">
 							<div class="logo">
-								<a href="index.html"><img src="tracking/logo_1.png" alt="logo" height="90px"></a>
+								<a href="index.php"><img src="tracking/logo_1.png" alt="logo" height="90px"></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">

@@ -82,7 +82,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-12">
 							<div class="logo">
-								<a href="index.html"><img src="tracking/logo_1.png" alt="logo" height="90px"></a>
+								<a href="index.php"><img src="tracking/logo_1.png" alt="logo" height="90px"></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -91,14 +91,14 @@
                                 <ul class="nav navbar-nav navbar-right menu">
 									<?php
 										if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "true") {?>
-											<li class="current-menu-item"><a href="adminportal/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
+											<li><a href="adminportal/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "false"){ ?>
 											<li class="current-menu-item"><a href="members/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(empty($_SESSION['isAdmin'])){ ?>
-											<li><a href="index.html">home</a></li>
+											<li><a href="index.php">home</a></li>
 									<?php } ?>
                                     <li><a href="service.php">services</a></li>
-									<li><a href="track.php">track your parcel</a></li>
+									<li class="current-menu-item"><a href="track.php">track your parcel</a></li>
                                     <li><a href="pricing.php">pricing</a></li>
                                     <li><a href="contact.php">contact</a></li>
 									<?php
@@ -106,6 +106,7 @@
 											<li class="signup1"><a href="adminportal/logout">logout</a></li>
 										<?php }else{ ?>
 											<li class="signup1"><a href="login.html">login</a></li>
+											<li class="signup2"><a href="signup.html">sign up</a></li>
 									<?php } ?>
 								</ul>
 								<!-- /.navbar-collapse -->

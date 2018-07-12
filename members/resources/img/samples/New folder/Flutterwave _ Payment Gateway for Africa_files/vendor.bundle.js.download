@@ -26327,7 +26327,7 @@
 	      case 'topVolumeChange':
 	      case 'topWaiting':
 	        // HTML Events
-	        // @see http://www.w3.org/TR/html5/index.html#events-0
+	        // @see http://www.w3.org/TR/html5/index.php#events-0
 	        EventConstructor = SyntheticEvent;
 	        break;
 	      case 'topKeyPress':

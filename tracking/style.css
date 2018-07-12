@@ -281,7 +281,7 @@ nav.navbar {
 }
 
 .welcome_text:before {
-    background: #fffff none repeat scroll 0 0;
+    background: #ffffff none repeat scroll 0 0;
     content: "";
     height: 2px;
     left: 50%;
@@ -1307,6 +1307,11 @@ ul.breadcrumbs li {
     margin-bottom: 10px;
     padding-bottom: 40px;
     position: relative;
+}
+
+.price-list{
+    text-align: left;
+    padding-left: 10px;
 }
 
 .price-list li {

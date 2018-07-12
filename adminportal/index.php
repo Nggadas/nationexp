@@ -1,10 +1,8 @@
 <?php
 include("check.php");	
-var_dump($_SESSION['isAdmin']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-	
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,7 +41,7 @@ var_dump($_SESSION['isAdmin']);
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -114,6 +112,7 @@ var_dump($_SESSION['isAdmin']);
 								<h5>list of customers</h5>
 							</div>
 							<ul class=price-list>
+								<a href="customers"><li>All Customers <span style="margin-left:10px;" class="badge"><?php echo $allcustomers; ?></span></li></a>
 								<a href="customers?type=new"><li>New Customers <span style="margin-left:10px;" class="badge"><?php echo $newcustomers; ?></span></li></a>
 								<a href="customers?type=returning"><li>Returning Customers <span style="margin-left:10px;" class="badge"><?php echo $returningcustomers; ?></span></li></a>
 								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><?php echo $invoices; ?></span></li></a>

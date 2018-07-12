@@ -13,7 +13,7 @@ include("orders_info_check.php");
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Order Details for <? echo $typereg; ?> - NationExpress24 Delivery</title>
+		<title>Order Details for <?php echo $typereg; ?> - NationExpress24 Delivery</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -43,14 +43,14 @@ include("orders_info_check.php");
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="">Welcome, <? echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="index">Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -76,7 +76,7 @@ include("orders_info_check.php");
 							<div class="pricing-desc-title">
 								<div class="title">
 									<h2>Order Details</h2>
-									<p>Tracking Number: <? echo $typereg; ?></p>
+									<p>Tracking Number: <?php echo $typereg; ?></p>
 								</div>
 							</div>
 						</div>
@@ -93,18 +93,18 @@ include("orders_info_check.php");
 							</div>
 							<ul class="price-list">
 								<li><u><font color="red">PICKUP ADDRESS </font></u></li>
-								<li><span class="badge">CONTACT PERSON</span> <? echo $p_contact_person; ?></li>
-								<li><span class="badge">ADDRESS</span> <? echo $p_full_address; ?></li>
-								<li><span class="badge">PHONE NUMBER</span> <? echo $p_phone; ?><? echo $p_altphone; ?></li>
-								<li><span class="badge">SCHEDULED PICKUP DATE</span> <? echo $p_scheduled_date; ?></li>
+								<li><span class="badge">CONTACT PERSON</span> <?php echo $p_contact_person; ?></li>
+								<li><span class="badge">ADDRESS</span> <?php echo $p_full_address; ?></li>
+								<li><span class="badge">PHONE NUMBER</span> <?php echo $p_phone; ?><?php echo $p_altphone; ?></li>
+								<li><span class="badge">SCHEDULED PICKUP DATE</span> <?php echo $p_scheduled_date; ?></li>
 							</ul>
 							<ul class="price-list">
 								<li><u><font color="red">DELIVERY ADDRESS </font></u></li>
-								<li><span class="badge">CONTACT PERSON</span> <? echo $d_contact_person; ?></li>
-								<li><span class="badge">ADDRESS</span> <? echo $d_full_address; ?></li>
-								<li><span class="badge">PHONE NUMBER</span> <? echo $d_phone; ?><? echo $d_altphone; ?></li>
-								<li><span class="badge">ESTIMATED DELIVERY DATE</span> <? echo $d_est_delivery_date; ?></li>
-								<li><span class="badge">DELIVERY TYPE</span> <? echo $d_delivery_type; ?></li>
+								<li><span class="badge">CONTACT PERSON</span> <?php echo $d_contact_person; ?></li>
+								<li><span class="badge">ADDRESS</span> <?php echo $d_full_address; ?></li>
+								<li><span class="badge">PHONE NUMBER</span> <?php echo $d_phone; ?><?php echo $d_altphone; ?></li>
+								<li><span class="badge">ESTIMATED DELIVERY DATE</span> <?php echo $d_est_delivery_date; ?></li>
+								<li><span class="badge">DELIVERY TYPE</span> <?php echo $d_delivery_type; ?></li>
 							</ul>
 						</div>
 					</div>
@@ -116,20 +116,20 @@ include("orders_info_check.php");
 								<h5>delivery cost, payment method & pickup cost</h5>
 							</div>
 							<ul class="price-list">
-								<li><span class="badge">DELIVERY COST</span> ₦<? echo number_format($delivery_cost); ?></li>
-								<li><span class="badge">PICKUP COST</span> ₦<? echo number_format($pickup_cost); ?></li>
-								<li><span class="badge">PAYMENT METHOD</span> <? echo $payment_method; ?></li>
-								<li><span class="badge">PAYMENT STATUS</span> <? echo $payment_status; ?></li>
-<? if($payment_date){ ?>		<li><span class="badge">PAYMENT DATE</span> <? echo $payment_date; ?></li> <? }?>
-								<li><span class="badge">INSURANCE FEE</span> <? if($insurance_fee){ ?>₦<? echo number_format($insurance_fee); ?><? }?></li>
-								<li><span class="badge">TOTAL AMOUNT</span> ₦<? echo number_format($total_cost); ?></li>
+								<li><span class="badge">DELIVERY COST</span> ₦<?php echo number_format($delivery_cost); ?></li>
+								<li><span class="badge">PICKUP COST</span> ₦<?php echo number_format($pickup_cost); ?></li>
+								<li><span class="badge">PAYMENT METHOD</span> <?php echo $payment_method; ?></li>
+								<li><span class="badge">PAYMENT STATUS</span> <?php echo $payment_status; ?></li>
+<?php if($payment_date){ ?>		<li><span class="badge">PAYMENT DATE</span> <?php echo $payment_date; ?></li> <?php }?>
+								<li><span class="badge">INSURANCE FEE</span> ₦<?php echo ($insurance_fee) ? number_format($insurance_fee) : 0 ;?></li>
+								<li><span class="badge">TOTAL AMOUNT</span> ₦<?php echo number_format($total_cost); ?></li>
 							</ul>
 							<ul class="price-list">
 								<li><u><font color="red">USER DETAILS </font></u></li>
-								<li><span class="badge">FULL NAME</span> <? echo $u_contact_person; ?></li>
-								<li><span class="badge">E-MAIL ADDRESS</span> <? echo $u_email; ?></li>
-								<li><span class="badge">PHONE NUMBER</span> <? echo $u_phone; ?><? echo $u_altphone; ?></li>
-								<li><span class="badge">BUSINESS NAME</span> <? echo $u_business_name; ?></li>
+								<li><span class="badge">FULL NAME</span> <?php echo $u_contact_person; ?></li>
+								<li><span class="badge">E-MAIL ADDRESS</span> <?php echo $u_email; ?></li>
+								<li><span class="badge">PHONE NUMBER</span> <?php echo $u_phone; ?><?php echo $u_altphone; ?></li>
+								<li><span class="badge">BUSINESS NAME</span> <?php echo $u_business_name; ?></li>
 							</ul>
 						</div>
 					</div>
@@ -141,14 +141,14 @@ include("orders_info_check.php");
 								<h5>package information</h5>
 							</div>
 							<ul class="price-list">
-								<li><span class="badge">NO OF PARCEL</span> <? echo $no_of_parcel; ?></li>
-								<li><span class="badge">WEIGHT IN KG</span> <? echo $weight_kg; ?></li>
-								<li><span class="badge">DESCRIPTION</span> <? echo $goods_description; ?></li>
-								<li><span class="badge">CASH TO COLLECT ON DELIVERY</span> <? if($value_of_contents){ ?>₦<? echo number_format($value_of_contents); ?><? }?></li>
-								<li><span class="badge">ORDER STATUS</span> <? echo $order_status; ?></li>
+								<li><span class="badge">NO OF PARCEL</span> <?php echo $no_of_parcel; ?></li>
+								<li><span class="badge">WEIGHT IN KG</span> <?php echo $weight_kg; ?></li>
+								<li><span class="badge">DESCRIPTION</span> <?php echo $goods_description; ?></li>
+								<li><span class="badge">CASH TO COLLECT ON DELIVERY</span> <?php if($value_of_contents){ ?>₦<?php echo number_format($value_of_contents); ?><?php }?></li>
+								<li><span class="badge">ORDER STATUS</span> <?php echo $order_status; ?></li>
 							</ul>
 							<div class="order-buton">
-								<a href="track?booking_no=<? echo $typereg; ?>" title="Tracking Number: <? echo $typereg; ?>">Track this parcel</a>
+								<a href="../track1?id=<?php echo $typereg; ?>" title="Tracking Number: <?php echo $typereg; ?>">Track this parcel</a>
 							</div>
 						</div>
 					</div>

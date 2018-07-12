@@ -37,16 +37,15 @@
 	}
 
 	if($status){
-		$sql_tr_orders = mysqli_query("SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `status`='$status' AND `old`='' ORDER BY id DESC");
+		$sql_tr_orders = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC");
 		$row_tr_orders = mysqli_num_rows($sql_tr_orders);
 		$val_tr_orders = mysqli_fetch_assoc($sql_tr_orders);
-	}
-	elseif(!$status){
-		$sql_tr_orders = mysqli_query("SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `status`!='' AND `old`='' ORDER BY id DESC");
+
+	}elseif(!$status){
+		$sql_tr_orders = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`!='' AND `old`='' ORDER BY id DESC");
 		$row_tr_orders = mysqli_num_rows($sql_tr_orders);
 		$val_tr_orders = mysqli_fetch_assoc($sql_tr_orders);
+
 	}
-	$myaccount_id = $val_tr_orders['account_id'];
-	$b_status = $val_tr_orders['status'];
 
 ?>

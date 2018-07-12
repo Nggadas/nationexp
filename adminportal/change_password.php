@@ -3,6 +3,10 @@
 <?php
 	if (isset($_POST['submit'])) {
 		$error = "";
+		$old_current_password = $_POST['current_password'];
+		$old_new_password = $_POST['new_password'];
+		$old_confirm_password = $_POST['confirm_password'];
+		$old_admin_pin = $_POST['admin_pin'];
 
 		if (empty($_POST['current_password']) || empty($_POST['new_password']) || empty($_POST['confirm_password']) || empty($_POST['admin_pin'])) {
 			$error = "All fields required";
@@ -17,28 +21,35 @@
 			$val_admin = mysqli_fetch_assoc($query_admin);
 			$secret_pin = $val_admin['admin_pin'];
 			$pass = $val_admin['password'];
-
+			$uppercase = preg_match('@[A-Z]@', $new_password);
+			$lowercase = preg_match('@[a-z]@', $new_password);
+			$number    = preg_match('@[0-9]@', $new_password);
 
 			if($row_admin > 0){
-				if ($new_password != $confirm_password){
-					$error = "Confirm password does not match the new password";
-				}else{
-					if ($admin_pin != $secret_pin) {
-						$error = "Admin pin does not match";
+			
+				if(!$uppercase || !$lowercase || !$number || strlen($new_password) < 8) {
+					$error = "New password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters";
+				}else {
+					if ($new_password != $confirm_password){
+						$error = "Confirm password does not match the new password";
 					}else{
-						$sql = "UPDATE smart_admin SET password='$new_password' WHERE admin_id=010101 ";
-
-						if (mysqli_query($connect, $sql)) {
-							$_SESSION['success'] = "Password changed successfully!"; ?>
-							<script>
-								window.location.href = 'index';
-							</script>
-						<?php } else {
-							$error = mysqli_error($connect);
-							// $error = "Error: Could not change password.";
+						if ($admin_pin != $secret_pin) {
+							$error = "Admin pin does not match";
+						}else{
+							$sql = "UPDATE smart_admin SET password='$new_password' WHERE admin_id=010101 ";
+	
+							if (mysqli_query($connect, $sql)) {
+								$_SESSION['success'] = "Password changed successfully!"; ?>
+								<script>
+									window.location.href = 'index';
+								</script>
+							<?php } else {
+								$error = mysqli_error($connect);
+								// $error = "Error: Could not change password.";
+							}
+							
+							mysqli_close($connect);
 						}
-						
-						mysqli_close($connect);
 					}
 				}
 			}else{
@@ -97,7 +108,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -142,19 +153,19 @@
 						<div class="calculate_form">
 							<form method="post">
 								<div class="single_calculate">
-									<input id="current_password" name="current_password" type="password">
+									<input id="current_password" name="current_password" type="password" value"asdasd" value="<?php echo $old_current_password ?>" required>
 									<label>Current Password</label>
 								</div>
 								<div class="single_calculate">
-									<input id="new_password" name="new_password" type="password">
+									<input id="new_password" name="new_password" type="password" value="<?php echo $old_new_password ?>" required>
 									<label>New Password</label>
 								</div>
 								<div class="single_calculate">
-									<input id="confirm_password" name="confirm_password" type="password">
+									<input id="confirm_password" name="confirm_password" type="password" value="<?php echo $old_confirm_password ?>" required>
 									<label>Confirm Password</label>
 								</div>
 								<div class="single_calculate">
-									<input id="admin_pin" name="admin_pin" type="number">
+									<input id="admin_pin" name="admin_pin" type="number" value="<?php echo $old_admin_pin ?>" required>
 									<label>Admin PIN</label>
 								</div>
 								<div class="calculate-button">

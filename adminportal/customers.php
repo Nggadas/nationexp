@@ -45,7 +45,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -123,35 +123,42 @@
 												</tr>
 											</tfoot>
 											<tbody>
-												<?php do {?>
-													<?php
-													$myregacct = $val_newr_orders['account_id'];
+												<?php
 
-														$sql_b_reg = mysql_query("SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$myregacct' AND `status`='Enabled' ORDER BY ID DESC");
-														$row_b_reg = mysql_num_rows($sql_b_reg);
-														$val_b_reg = mysql_fetch_assoc($sql_b_reg);
+												if (!$type) {
+													$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` != '' AND `status`='Enabled' ORDER BY ID DESC");
+													$row_b_reg = mysqli_num_rows($sql_b_reg);
+												} else {
+													$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` != '' AND `old`='$old' AND `status`='Enabled' ORDER BY ID DESC");
+													$row_b_reg = mysqli_num_rows($sql_b_reg);
+												}
 
+												if ($row_b_reg > 0) {
+													// output data of each row
+													while($val_b_reg = $sql_b_reg->fetch_assoc()) {
+
+														$user_id = $val_b_reg['account_id'];
 														$reg_date = $val_b_reg['date'];
-														$reg_phone = $val_b_reg['phone'];
+														$reg_phone = $val_b_reg['phone_no'];
 														$reg_firstname = $val_b_reg['first_name'];
-														$reg_surname = $val_b_reg['last_name'];
+														$reg_surname = $val_b_reg['sur_name'];
 														$reg_email = $val_b_reg['email'];
 														$reg_new = $val_b_reg['old'];
 
-													?>
-													<?php if($myregacct){ ?>
+														if($user_id){ ?>
 															<tr>
 																<td><?php if($reg_new==""){?><span style="margin-right:10px;" class="badge" title="New Customer">New</span><?php } ?><?php echo $reg_date; ?></td>
 																<td><?php echo $reg_firstname; ?></td>
 																<td><?php echo $reg_surname; ?></td>
 																<td><?php echo $reg_phone; ?></td>
 																<td><?php echo $reg_email; ?></td>
-																<td><?php echo $myregacct; ?></td>
-																<td><a href="place_order?id=<?php echo $myregacct; ?>"><button class="btn btn-primary" title="Place Order">Place Order</button></a></td>
-																<td><a href="customers_info?account_id=<?php echo $myregacct; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
+																<td><?php echo $user_id; ?></td>
+																<td><a href="place_order?id=<?php echo $user_id; ?>" target="_blank"><button class="btn btn-primary" title="Place Order">Place Order</button></a></td>
+																<td><a href="customers_info?account_id=<?php echo $user_id; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
 															</tr>
-														<?php } ?>
-													<?php }while($val_newr_orders = mysql_fetch_array($sql_newr_orders)) ?>
+														<?php } 
+													}
+												} ?>
 											</tbody>
 										</table>
 									</div>

@@ -23,7 +23,6 @@
 		$row_newr_orders = mysqli_num_rows($sql_newr_orders);
 		$val_newr_orders = mysqli_fetch_assoc($sql_newr_orders);
 
-
 	}elseif(!$type){
 		$sql_newr_orders = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` != '' AND `account_id`!='' AND `status`='Enabled' ORDER BY ID DESC");
 		$row_newr_orders = mysqli_num_rows($sql_newr_orders);

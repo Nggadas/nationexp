@@ -1,10 +1,9 @@
+<!DOCTYPE html>
 <?php
 	include("check.php");
 	include("orders_check.php");
 ?>
-<!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +44,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -124,47 +123,60 @@
 												</tr>
 												</tfoot>
 												<tbody>
-													<?php do {?>
-														<?php
-															$myaccount_id = $val_tr_orders['account_id'];
+													<?php 
 
-															$sql_b_reg = mysqli_query("SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$myaccount_id' AND `status`='Enabled' ORDER BY id DESC");
-															$row_b_reg = mysqli_num_rows($sql_b_reg);
-															$val_b_reg = mysqli_fetch_assoc($sql_b_reg);
+														if($status){
+															$sql = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC");
+															$row_num = mysqli_num_rows($sql);
 
-															$sql_b_deli = mysqli_query("SELECT * FROM `delivery_details` WHERE `account_id`='$myaccount_id' ORDER BY id DESC");
-															$row_b_deli = mysqli_num_rows($sql_b_deli);
-															$val_b_deli = mysqli_fetch_assoc($sql_b_deli);
+														}elseif(!$status){
+															$sql = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`!='' AND `old`='' ORDER BY id DESC");
+															$row_num = mysqli_num_rows($sql);
 
-															$b_date = $val_tr_orders['date'];
-															$b_booking_no = $val_tr_orders['booking_no'];
-															$reg_firstname = $val_b_reg['first_name'];
-															$reg_surname = $val_b_reg['last_name'];
+														}
 
-															$deli_fullname = $val_b_deli['full_name'];
+														if($row_num > 0) {
 
-														?>
-														<?php if($myaccount_id){ ?>
-															<tr>
-																<td><?php echo $b_date; ?></td>
-																<td><?php echo $reg_firstname; ?> <?php echo $reg_surname; ?></td>
-																<td><?php echo $mystatus; ?></td>
-																<td><?php echo $b_booking_no; ?></td>
-																<td><?php echo $deli_fullname; ?></td>
-																<td><a href="update_order?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click here to update the order status">Update Status</button></a></td>
-																<td><a href="orders_info?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
-																<td>
-																<?php 
-																	if($mystatus == "Order Booked"){ ?>
-																		<a href="edit_order?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click here to edit the order">Edit Order</button></a>
-																	<?php }else{
-																		?> N/A <?php
-																	}
-																?>
-																</td>
-															</tr>
-														<?php } ?>
-													<?php }while($val_tr_orders = mysqli_fetch_array($sql_tr_orders)) ?>
+															while($row_data = $sql->fetch_assoc()) {
+																
+																$b_date = $row_data['tdate'];
+																$tstatus = $row_data['tstatus'];
+																$user_id = $row_data['account_id'];
+																$b_booking_no = $row_data['booking_no'];
+
+																$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$user_id' ORDER BY id DESC LIMIT 1");
+																$row_b_reg = mysqli_num_rows($sql_b_reg);
+																$val_b_reg = mysqli_fetch_assoc($sql_b_reg);
+
+																$sql_b_deli = mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `account_id`='$user_id' ORDER BY id DESC LIMIT 1");
+																$row_b_deli = mysqli_num_rows($sql_b_deli);
+																$val_b_deli = mysqli_fetch_assoc($sql_b_deli);
+
+																$reg_firstname = $val_b_reg['first_name'];
+																$reg_surname = $val_b_reg['last_name'];
+																$deli_fullname = $val_b_deli['full_name']; ?> 
+
+																<tr>
+																	<td><?php echo $b_date; ?></td>
+																	<td><?php echo $reg_firstname; ?> <?php echo $reg_surname; ?></td>
+																	<td><?php echo str_replace('_', ' ', ucfirst($tstatus)); ?></td>
+																	<td><?php echo $b_booking_no; ?></td>
+																	<td><?php echo $deli_fullname; ?></td>
+																	<td><a href="update_status?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click here to update the order status">Update Status</button></a></td>
+																	<td><a href="orders_info?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
+																	<td>
+																	<?php 
+																		if($status == "order_booked"){ ?>
+																			<a href="update_order?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click here to edit the order">Edit Order</button></a>
+																		<?php }else{
+																			?> N/A <?php
+																		}
+																	?>
+																	</td>
+																</tr>
+															<?php 
+															}
+														} ?>
 												</tbody>
 										</table>
 									</div>

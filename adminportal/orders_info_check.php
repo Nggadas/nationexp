@@ -1,24 +1,25 @@
 <?php
 
-	foreach($_GET as $key => $value) {
-		$data[$key] = filter($value); // post variables are filtered
-	}
-	$typereg = $data['booking_no'];
+foreach($_GET as $key => $value) {
+	$data[$key] = filter($connect,$value);
+}
+$typereg = $data['booking_no'];
+
 if($typereg){
 
-	$sql_tr_orders = mysqli_query("SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `booking_no`='$typereg' AND `status`!='' ORDER BY id DESC LIMIT 1");
+	$sql_tr_orders = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `booking_no`='$typereg' AND `tstatus`!='' ORDER BY id DESC LIMIT 1");
 	$row_tr_orders = mysqli_num_rows($sql_tr_orders);
 	$val_tr_orders = mysqli_fetch_assoc($sql_tr_orders);
 
 	$typeacct = $val_tr_orders['account_id'];
-	$t_status = $val_tr_orders['status'];
+	$t_status = $val_tr_orders['tstatus'];
 
 	switch ($t_status) {
-        case 'order_booked':
+		case 'order_booked':
 		$order_status = "Order Booked";
 
 		break;
-        case 'order_cancelled':
+		case 'order_cancelled':
 		$order_status = "Order Cancelled";
 
 		break;
@@ -41,7 +42,7 @@ if($typereg){
 	}
 
 	//Get the delivery details
-	$sql_d_orders = mysqli_query("SELECT * FROM `delivery_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
+	$sql_d_orders = mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
 	$row_d_orders = mysqli_num_rows($sql_d_orders);
 	$val_d_orders = mysqli_fetch_assoc($sql_d_orders);
 
@@ -66,7 +67,7 @@ if($typereg){
 	$d_full_address = "$d_address$d_bus, $d_city, $d_state, $d_country"; //Delivery Street Address
 
 	//Get the pickup details
-	$sql_p_orders = mysqli_query("SELECT * FROM `pickup_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
+	$sql_p_orders = mysqli_query($connect,"SELECT * FROM `pickup_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
 	$row_p_orders = mysqli_num_rows($sql_p_orders);
 	$val_p_orders = mysqli_fetch_assoc($sql_p_orders);
 
@@ -89,7 +90,7 @@ if($typereg){
 	$p_full_address = "$p_address$p_bus, $p_city, $p_state"; //Pickup Street Address
 
 	//Get the payment details
-	$sql_pay_orders = mysqli_query("SELECT * FROM `payment_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
+	$sql_pay_orders = mysqli_query($connect,"SELECT * FROM `payment_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
 	$row_pay_orders = mysqli_num_rows($sql_pay_orders);
 	$val_pay_orders = mysqli_fetch_assoc($sql_pay_orders);
 
@@ -102,7 +103,7 @@ if($typereg){
 	$payment_date = $val_pay_orders['payment_date'];
 
 	//Get the parcel details
-	$sql_parcel_orders = mysqli_query("SELECT * FROM `parcel_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
+	$sql_parcel_orders = mysqli_query($connect,"SELECT * FROM `parcel_details` WHERE `account_id`='$typeacct' AND `booking_no`='$typereg' ORDER BY id DESC LIMIT 1");
 	$row_parcel_orders = mysqli_num_rows($sql_parcel_orders);
 	$val_parcel_orders = mysqli_fetch_assoc($sql_parcel_orders);
 
@@ -112,7 +113,7 @@ if($typereg){
 	$value_of_contents = $val_parcel_orders['value_of_contents'];
 
 	//Get the user details
-	$sql_user_orders = mysqli_query("SELECT * FROM `register` WHERE `account_id`='$typeacct' ORDER BY id DESC LIMIT 1");
+	$sql_user_orders = mysqli_query($connect,"SELECT * FROM `register` WHERE `account_id`='$typeacct' ORDER BY id DESC LIMIT 1");
 	$row_user_orders = mysqli_num_rows($sql_user_orders);
 	$val_user_orders = mysqli_fetch_assoc($sql_user_orders);
 
@@ -120,7 +121,7 @@ if($typereg){
 	$u_last_name = $val_user_orders['last_name'];
 	$u_contact_person = "$u_first_name $u_last_name";
 	$u_email = $val_user_orders['email'];
-	$u_phone = $val_user_orders['phone'];
+	$u_phone = $val_user_orders['phone_no'];
 	$u_business_name = $val_user_orders['business_name'];
 	$u_alt_phone = $val_user_orders['alt_phone'];
 
@@ -130,8 +131,8 @@ if($typereg){
 
 }elseif(!$typereg){
 
-		header("location:orders");
+	header("location:orders");
 
-	}
+}
 
 ?>

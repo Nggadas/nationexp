@@ -3,6 +3,9 @@
 <?php
 	if (isset($_POST['submit'])) {
 		$error = "";
+		$old_email = $_POST['email'];
+		$old_full_name = $_POST['full_name'];
+		$old_status = $_POST['status'];
 
 		if (empty($_POST['email']) || empty($_POST['full_name']) || empty($_POST['status'])) {
 			$error = "All fields required";
@@ -78,7 +81,7 @@
 					<div class="row">
 						<div class="col-md-6 col-lg-4 col-sm-8 col-xs-10">
 							<div class="logo">
-								<a href="../index.html"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
+								<a href="../index.php"><img src="resources/img/logo_1.png" alt="logo"  height="90px" ></a>
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
@@ -123,15 +126,15 @@
 						<div class="calculate_form">
 							<form method="post">
 								<div class="single_calculate">
-									<input type="email" id="email" name="email">
+									<input type="email" id="email" name="email" value="<?php echo $old_email ?>" required>
 									<label>Email</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" id="full_name" name="full_name">
+									<input type="text" id="full_name" name="full_name" value="<?php echo $old_full_name ?>" required>
 									<label>Full Name</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" id="status" name="status">
+									<input type="text" id="status" name="status" value="<?php echo $old_status ?>" required>
 									<label>Status</label>
 								</div>
 								<div class="calculate-button">
