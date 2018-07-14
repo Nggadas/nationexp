@@ -118,9 +118,6 @@ include("check.php");
 								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><?php echo $invoices; ?></span></li></a>
 								<a href="register"><li><span style="margin-right:10px;"><i class="fa fa-user"></i></span> Register User </li></a>
 							</ul>
-							<div class="order-buton">
-								<a href="create_invoice" target="_blank">Create Invoice</a>
-							</div>
 						</div>
 					</div>
 					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">

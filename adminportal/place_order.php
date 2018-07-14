@@ -50,7 +50,7 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <? echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -75,28 +75,28 @@
 						<div class="calculate_title">
 							<h2>Place a new Order</h2>
 							<p>Here you can place a new order for customers.</p>
-							<? if($mycolor){ ?>
+							<?php if($mycolor){ ?>
 								<div class="invalid-login" id="invalid-login">
-									<h5><font color="<? echo $mycolor; ?>"><i class="fa fa-<? echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><? echo $statusmessage; ?></span></font></h5>
+									<h5><font color="<?php echo $mycolor; ?>"><i class="fa fa-<?php echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><?php echo $statusmessage; ?></span></font></h5>
 									
 								</div>
-							<? } ?>
+							<?php } ?>
 							<p><font color="#000"><b>Delivery Information</b></font></p>
 						</div>
 						<div class="calculate_form">
 							<form role="form" id="delivery-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
 								<div class="single_calculate">
 										<select name="customer_name" id="customer_name">
-											<option value="" selected="selected">Customer Name: <? echo $myid_firstname; ?> <? echo $myid_lastname; ?></option>
+											<option value="" selected="selected">Customer Name: <?php echo $myid_firstname; ?> <?php echo $myid_lastname; ?></option>
 										</select>	
 									</div>
 								<div class="single_calculate">
 										<select name="acct_id" id="acct_id" required="required">
-											<option value="<? echo $myid_exists; ?>" selected="selected">Customer ID: <? echo $myid_exists; ?></option>
+											<option value="<?php echo $myid_exists; ?>" selected="selected">Customer ID: <?php echo $myid_exists; ?></option>
 										</select>	
 									</div>
 								<div class="single_calculate">
-									<input type="text" name="last_name" id="last_name" required="required">
+									<input type="text" name="contact_name" id="last_name" required="required">
 									<label>Contact Person</label>
 								</div>
 								<div class="single_calculate">
@@ -171,7 +171,7 @@
 									<label>Country</label>
 								</div>
 								<div class="calculat-button">
-									<input type="submit" class="calulate" value="NEXT" id="submit_button" name="submit_button">
+									<input type="submit" class="calulate" value="Place Order" id="submit_button" name="submit_button">
 								</div>
 							</form>
 						</div>

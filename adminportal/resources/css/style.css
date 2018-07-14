@@ -18,6 +18,13 @@
 */
 
 
+/*Customer info page*/
+#customer-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 /*start header area css*/
 
 .header_area {

@@ -1,43 +1,42 @@
-<!DOCTYPE html>
 <?php
-	include("check.php");
-	include("orders_check.php");
+include("check.php");	
+include("customers_info_check.php");	
 ?>
+<!DOCTYPE html>
 <html lang="en">
+	
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="author" content="Alicktish Web Designs">
 		<meta name="description" content="NationExpress24 Delivery is a Made-in-Nigeria Courier company created to deliver the ecommerce industry from the challenges it faces regarding pickup and delivery of parcels in Lagos and other parts of Nigeria">
-		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
+		<meta name="keywords" content="N0ationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Orders - NationExpress24 Delivery</title>
-
+		<title>Customer Details for <?php echo $u_first_name; ?> - NationExpress24 Delivery</title>
+		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="resources/fonts/stylesheet.css" rel="stylesheet">
+		<link href="resources/css/reset.css" rel="stylesheet">
+		<link href="resources/css/slick.css" rel="stylesheet">
 		<link href="resources/css/jquery.mb.YTPlayer.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="resources/css/meanmenu.css">
 		<link href="resources/css/owl.carousel.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet">
-		<link href="resources/css/reset.css" rel="stylesheet">
 		<link href="resources/css/responsive.css" rel="stylesheet">
-		<link href="resources/css/custom.css" rel="stylesheet">
-		<!-- TABLE STYLES-->
-		<link href="resources/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-
+		
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+		
 	</head>
-
+	
 	<body class="js">
 		<div class="tel_header"><i class="fa fa-envelope" aria-hidden="true"></i> <font color="red">info@nationexpress24.com</font>  &nbsp;&nbsp;<i class="fa fa-phone" aria-hidden="true"></i> Call our hotline 0805-773-2873 or <i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp 0817-033-3258</div>
 		<div id="preloader"></div>
-
+		
 		<section class="about-us">
 			<div class="logo_menu" id="sticker1">
 				<div class="container">
@@ -51,7 +50,7 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-									<li class="current-menu-item"><a href="./" title="Go to Admin Portal" >Welcome, <?php echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="index">Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -66,7 +65,7 @@
 				</div>
 			</div>
 		</section>
-
+		
 		<!--    start pricing area-->
 		<!-- Pricing Area -->
 		<section class="pricing-area version-6" id="pricing">
@@ -76,115 +75,59 @@
 						<div class="pricing-desc section-padding-two">
 							<div class="pricing-desc-title">
 								<div class="title">
-									<h2>Orders</h2>
-<p>Here is where you will view all orders <?php if($status){ ?> with the status <font color="blue">"<?php echo ucwords(str_replace('_', ' ', $status)); ?>"</font><?php }?>
-									</p>
+									<h2>Customer Details</h2>
+									<div><strong>Account ID : </strong> <?php echo $u_account_id; ?></div>
+									<div><strong>Full Name : </strong> <?php echo $u_full_name; ?></div>
 								</div>
 							</div>
 						</div>
 					</div>
+					
 				</div>
-				<div class="row">
-					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
-						<div class="panel-body">
-							<ul class="nav nav-tabs">
-								<li class="active"><a href="#recent" data-toggle="tab"><?php if($status){ ?><?php echo ucwords(str_replace('_', ' ', $status)); ?><?php }?></a>
-								</li>
-
-							</ul>
-
-							<div class="tab-content">
-								<div class="tab-pane fade active in" id="recent">
-									<p id="statusnotice">&nbsp;</p>
-									<div class="table-responsive">
-										<table class=" display table table-striped table-bordered table-hover" id="recent_orders_table" >
-											<thead>
-												<tr>
-													<th>Date</th>
-													<th>Customer Name</th>
-													<th>Status</th>
-													<th>Tracking Number</th>
-													<th>Delivery Name</th>
-													<th>Update Status</th>
-													<th>More Info</th>
-													<th>Edit Order</th>
-												</tr>
-												</thead>
-												<tfoot>
-												<tr>
-													<th>Date</th>
-													<th>Customer Name</th>
-													<th>Status</th>
-													<th>Tracking Number</th>
-													<th>Delivery Name</th>
-													<th>Update Status</th>
-													<th>More Info</th>
-													<th>Edit Order</th>
-												</tr>
-												</tfoot>
-												<tbody>
-													<?php
-
-														if($row_num > 0) {
-
-															while($row_data = $sql->fetch_assoc()) {
-																$row_booking_no = $row_data['booking_no'];
-																
-																$tracking_details = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `booking_no`='$row_booking_no' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC LIMIT 1");
-																$row = mysqli_fetch_assoc($tracking_details);
-																
-																$b_date = $row['tdate'];
-																$tstatus = $row['tstatus'];
-																$user_id = $row['account_id'];
-																$b_booking_no = $row['booking_no'];
-
-																$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$user_id' ORDER BY id DESC LIMIT 1");
-																$row_b_reg = mysqli_num_rows($sql_b_reg);
-																$val_b_reg = mysqli_fetch_assoc($sql_b_reg);
-
-																$sql_b_deli = mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `account_id`='$user_id' ORDER BY id DESC LIMIT 1");
-																$row_b_deli = mysqli_num_rows($sql_b_deli);
-																$val_b_deli = mysqli_fetch_assoc($sql_b_deli);
-
-																$reg_firstname = $val_b_reg['first_name'];
-																$reg_surname = $val_b_reg['last_name'];
-																$deli_fullname = $val_b_deli['full_name']; ?> 
-
-																<tr>
-																	<td><?php echo $b_date; ?></td>
-																	<td><?php echo $reg_firstname; ?> <?php echo $reg_surname; ?></td>
-																	<td><?php echo ucwords(str_replace('_', ' ', $tstatus)); ?></td>
-																	<td><?php echo $b_booking_no; ?></td>
-																	<td><?php echo $deli_fullname; ?></td>
-																	<td><a href="update_status?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click here to update the order status">Update Status</button></a></td>
-																	<td><a href="orders_info?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
-																	<td>
-																	<?php 
-																		if($tstatus == "order_booked"){ ?>
-																			<a href="update_order?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click here to edit the order">Edit Order</button></a>
-																		<?php }else{
-																			?> N/A <?php
-																		}
-																	?>
-																	</td>
-																</tr>
-															<?php 
-															}
-														} ?>
-												</tbody>
-										</table>
-									</div>
-								</div>
+				<div class="row" id="customer-info">
+					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">
+						<div class="single-pricing-table">
+							<div class="pricing-title">
+								<h6>Profile</h6>
+								<h1><i class="fa fa-user-circle"></i></h1>
+								<h5>User Details</h5>
 							</div>
-
-
+							<ul class="price-list">
+								<li><span class="badge">TITLE</span> <?php echo $u_title; ?></li>
+								<li><span class="badge">FIRST NAME</span> <?php echo $u_first_name; ?></li>
+								<li><span class="badge">LAST NAME</span> <?php echo $u_last_name; ?></li>
+								<li><span class="badge">E-MAIL ADDRESS</span> <?php echo $u_email; ?></li>
+								<li><span class="badge">PHONE NUMBER</span> <?php echo $u_phone; ?></li>
+								<li><span class="badge">2nd PHONE NUMBER</span> <?php echo $u_alt_phone; ?></li>
+								<li><span class="badge">BUSINESS NAME</span> <?php echo $u_business_name; ?></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">
+						<div class="single-pricing-table">
+							<div class="pricing-title">
+								<h6>Address</h6>
+								<h1><i class="fa fa-address-book-o"></i></h1>
+								<h5>Address Details</h5>
+							</div>
+							<ul class="price-list">
+								<li><span class="badge">ADDRESS</span> <?php echo $u_address; ?></li>
+								<li><span class="badge">CITY</span> <?php echo $u_city; ?></li>
+								<li><span class="badge">STATE</span> <?php echo $u_state; ?></li>
+								<li><span class="badge">COUNTRY</span> <?php echo $u_country; ?></li>
+								<li><span class="badge">BUS STOP</span> <?php echo $u_bus_stop; ?></li>
+								<li><span class="badge">STATUS</span> <?php echo $u_status; ?></li>
+							</ul>
+							<div class="order-buton">
+								<a href="create_invoice?id=<?php echo $u_account_id; ?>" title="Tracking Number: <?php echo $typereg; ?>">Create Invoice</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		<!-- /.End Of Pricing Area -->
-
+		
 		<section class="footer-area" id="contact">
 			<div class="container">
 				<div class="row">
@@ -225,7 +168,7 @@
 			</div>
 		</section>
 		<!--end of footer area-->
-
+		
 		<!--   start copyright text area-->
 		<div class="copyright-area">
 			<div class="container">
@@ -236,19 +179,18 @@
 				</div>
 				<div class="col-xs-12  col-sm-6 col-md-6 text-right">
 					<div class="footer-text">
-						<a href="#" class="fa fa-facebook"></a>
-						<a href="#" class="fa fa-twitter"></a>
-						<a href="#" class="fa fa-instagram"></a>
-					</div>
+						<a href="" class="fa fa-facebook"></a>
+						<a href="" class="fa fa-twitter"></a>
+						<a href="" class="fa fa-instagram"></a>	
+					</div>	
 				</div>
 			</div>
 		</div>
 		<!--    end of copyright text area-->
-
-
-
+		
+		
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 		<script src="resources/js/jquery.counterup.min.js"></script>
@@ -259,19 +201,9 @@
 		<script src="resources/js/jquery.nav.js"></script>
 		<script src="resources/js/jquery.mb.YTPlayer.min.js"></script>
 		<script src="resources/js/main.js"></script>
-		<!-- DATA TABLE SCRIPTS -->
-		<script src="resources/js/dataTables/jquery.dataTables.js"></script>
-		<script src="resources/js/dataTables/dataTables.bootstrap.js"></script>
-		<script>
-			$(document).ready(function () {
-				$('#recent_orders_table').dataTable({
-					"autoWidth": true
-				});
-			});
-		</script>
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
 	</body>
-
+	
 </html>

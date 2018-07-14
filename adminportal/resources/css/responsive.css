@@ -203,6 +203,13 @@
 /* Mobile Layout: 320px. */
 
 @media only screen and (max-width: 767px) {
+    /*Customer info page*/
+    #customer-info{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
     .welcome_form {
         height: 45px;
         width: 290px;
@@ -631,6 +638,14 @@
 /* Wide Mobile Layout: 480px. */
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
+    
+    /*Customer info page*/
+    #customer-info{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
     .pricing-area .main-pos {
         left: 53px;
         transform: scale(1);

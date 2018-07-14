@@ -1,36 +1,7 @@
-<?php include("check.php"); ?>
 <!DOCTYPE html>
 <?php
-	if (isset($_POST['submit'])) {
-		$error = "";
-		$old_email = $_POST['email'];
-		$old_full_name = $_POST['full_name'];
-		$old_status = $_POST['status'];
-
-		if (empty($_POST['email']) || empty($_POST['full_name']) || empty($_POST['status'])) {
-			$error = "All fields required";
-		}else{
-
-			$email = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['email'])));
-			$full_name = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['full_name'])));
-			$invoice_no = rand(100000,999999);
-			$status = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['status'])));
-
-			$sql = "INSERT INTO invoices (email,full_name,invoice_no,invoice_status) VALUES ('$email','$full_name','$invoice_no','$status')";
-
-			if (mysqli_query($connect, $sql)) {
-				$_SESSION['success'] = "Invoice created successfully!"; ?>
-				<script>
-					window.location.href = 'invoices';
-				</script>
-			<?php } else {
-				// $error = mysqli_error($connect);
-				$error = "Error: Invoice was not created.";
-			}
-			
-			mysqli_close($connect);
-		}
-	}
+	include("check.php");
+	include("update_status_check.php");
 ?>
 <html lang="en">
 	<head>
@@ -41,7 +12,7 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Create Invoice - NationExpress24 Delivery</title>
+		<title>Update Order Status - NationExpress24 Delivery</title>
 		<!--  bootstrap css -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<!--  font Awesome Css  -->
@@ -115,30 +86,46 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2>Create Invoice</h2>
-							<p>You can create invoice here</p>
-							<?php 
+							<h2>Update Order Status</h2>
+							<p>You can update the order status for <?php echo $booking_no ?></p>
+							<?php
                                 if(!empty($error)){
 									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
-                                }
+								}
                             ?>
 						</div>
 						<div class="calculate_form">
 							<form method="post">
 								<div class="single_calculate">
-									<input type="email" id="email" name="email" value="<?php echo $old_email ?>" required>
-									<label>Email</label>
+									<input type="text" id="description" name="description" value="<?php echo $good_description ?>" readonly>
+									<label>Description</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" id="full_name" name="full_name" value="<?php echo $old_full_name ?>" required>
-									<label>Full Name</label>
+									<input type="text" id="value_of_contents" name="value_of_contents" value="<?php echo $value_of_contents ?>" readonly>
+									<label>Value (₦)</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" id="status" name="status" value="<?php echo $old_status ?>" required>
+									<input type="text" id="status" name="status" value="<?php echo ucwords(str_replace('_', ' ', $tstatus)); ?>" readonly>
 									<label>Status</label>
 								</div>
+								<div class="single_calculate">
+									<select id="select_status" name="new_status" required>
+    									<option value="" disabled selected>Change Status...</option>
+										<option value="order_booked">Order Booked</option>
+										<option value="in_transit">In Transit</option>
+										<option value="delivered">Delivered</option>
+										<option value="out_for_delivery">Out for Delivery</option>
+										<option value="undelivered">Undelivered</option>
+										<option value="order_cancelled">Order Cancelled</option>
+										<option value="toggle_custom">Custom Status</option>
+									</select>
+								</div>
+								<div id="custom_status" class="single_calculate">
+									<input type="text" name="custom_status">
+									<label>Custom Status</label>
+								</div>
 								<div class="calculate-button">
-									<input type="submit" class="calulate" id="submit" name="submit" value="SUBMIT">
+									<input type="submit" class="calulate" id="submit" name="submit" value="UPDATE">
 								</div>
 							</form>
 						</div>
@@ -235,6 +222,7 @@
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
+		<script src="resources/js/toggle_custom.js"></script>
 	</body>
 	
 </html>
