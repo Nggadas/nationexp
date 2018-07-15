@@ -107,6 +107,7 @@
 													<th>Email Address</th>
 													<th>Customer ID</th>
 													<th>Place Order</th>
+													<th>Create Invoice</th>
 													<th>More Info</th>
 												</tr>
 											</thead>
@@ -119,6 +120,7 @@
 													<th>Email Address</th>
 													<th>Customer ID</th>
 													<th>Place Order</th>
+													<th>Create Invoice</th>
 													<th>More Info</th>
 												</tr>
 											</tfoot>
@@ -154,6 +156,7 @@
 																<td><?php echo $reg_email; ?></td>
 																<td><?php echo $user_id; ?></td>
 																<td><a href="place_order?id=<?php echo $user_id; ?>" target="_blank"><button class="btn btn-primary" title="Place Order">Place Order</button></a></td>
+																<td><a href="create_invoice?id=<?php echo $user_id; ?>" target="_blank"><button class="btn btn-primary" title="Create Invoice for User">Create Invoice</button></a></td>
 																<td><a href="customers_info?account_id=<?php echo $user_id; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
 															</tr>
 														<?php } 

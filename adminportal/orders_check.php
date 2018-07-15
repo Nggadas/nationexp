@@ -7,13 +7,13 @@
 		$status = "";
 	}
 
+	// Select distinct to prevent multiple records
 	if($status){
-		// Select distinct to prevent multiple records
 		$sql = mysqli_query($connect,"SELECT DISTINCT `booking_no` FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC");
 		$row_num = mysqli_num_rows($sql);
 
 	}elseif(!$status){
-		$sql = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`!='' AND `old`='' ORDER BY id DESC");
+		$sql = mysqli_query($connect,"SELECT DISTINCT `booking_no` FROM `tracking_details` WHERE `account_id`!='' AND `tstatus`!='' AND `old`='' ORDER BY id DESC");
 		$row_num = mysqli_num_rows($sql);
 	}
 

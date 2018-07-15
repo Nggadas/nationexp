@@ -13,7 +13,7 @@ include("customers_info_check.php");
 		<meta name="keywords" content="N0ationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Customer Details for <?php echo $u_first_name; ?> - NationExpress24 Delivery</title>
+		<title>Customer Details for <?php echo $u_full_name; ?> - NationExpress24 Delivery</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -119,7 +119,7 @@ include("customers_info_check.php");
 								<li><span class="badge">STATUS</span> <?php echo $u_status; ?></li>
 							</ul>
 							<div class="order-buton">
-								<a href="create_invoice?id=<?php echo $u_account_id; ?>" title="Tracking Number: <?php echo $typereg; ?>">Create Invoice</a>
+								<a href="create_invoice?id=<?php echo $u_account_id; ?>">Create Invoice</a>
 							</div>
 						</div>
 					</div>

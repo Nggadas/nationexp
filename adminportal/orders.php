@@ -129,9 +129,16 @@
 
 															while($row_data = $sql->fetch_assoc()) {
 																$row_booking_no = $row_data['booking_no'];
+
 																
-																$tracking_details = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `booking_no`='$row_booking_no' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC LIMIT 1");
-																$row = mysqli_fetch_assoc($tracking_details);
+																if($status){
+																	$tracking_details = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `booking_no`='$row_booking_no' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC LIMIT 1");
+																	$row = mysqli_fetch_assoc($tracking_details);
+
+																}elseif(!$status){
+																	$tracking_details = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`!='' AND `booking_no`='$row_booking_no' AND `tstatus`!='$status' AND `old`='' ORDER BY id DESC LIMIT 1");
+																	$row = mysqli_fetch_assoc($tracking_details);
+																}
 																
 																$b_date = $row['tdate'];
 																$tstatus = $row['tstatus'];

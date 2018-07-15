@@ -16,7 +16,7 @@
 
 		$myid_exists = $val_register['account_id'];
 		$myid_firstname = $val_register['first_name'];
-		$myid_lastname = $val_register['last_name'];
+		$myid_lastname = $val_register['sur_name'];
 
 		if(!$myid_exists){
 			echo "<script language=\"Javascript\" type=\"text/javascript\">

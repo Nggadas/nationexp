@@ -74,54 +74,52 @@
 						<div class="calculate_title">
 							<h2>Register a new user</h2>
 							<p>Here is where will register a new customer before you can place an order.</p>
-							<?php if($mycolor){ ?>
-								<div class="invalid-login" id="invalid-login">
-									<h5><font color="<?php echo $mycolor; ?>"><i class="fa fa-<?php echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><?php echo $statusmessage; ?></span></font></h5>
-									
-								</div>
-							<?php } ?>
-						</div>
-						<?php if($mycolor =="green"){ ?>
-						<span><a href="./">Back to Admin Portal</a> | <a href="register">Register another customer</a></span>
-						<?php } ?>
-				<?php if($mycolor !="green"){ ?>		
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+									echo '<br>';
+									echo '<br>';
+									echo '<br>';
+								}
+								var_dump($user_agent);
+                            ?>	
 						<div class="calculate_form">
-							<form role="form" id="register-form" name="register-form" method="post" action="" class="register-form" autocomplete="OFF">
+							<form id="register-form" name="register-form" method="post" class="register-form" autocomplete="OFF">
 								<div class="single_calculate">
-									<input type="text" name="first_name" id="first_name" <?php print $first_name; ?>required="required">
+									<input type="text" name="first_name" id="first_name" value="<?php echo $form_first_name ?>" required="required">
 									<label>First Name</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="last_name" id="last_name" required="required">
+									<input type="text" name="last_name" id="last_name" value="<?php echo $last_name ?>" required="required">
 									<label>Surname</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="business_name" id="business_name">
+									<input type="text" name="business_name" value="<?php echo $business_name ?>" id="business_name">
 									<label>Business Name</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="phone_no" id="phone_no" required="required" maxlength="11">
+									<input type="text" name="phone_no" id="phone_no" value="<?php echo $phone_no ?>" required="required" maxlength="11">
 									<label>Phone Number</label>
 								</div>
 								
 								<div class="single_calculate">
-									<input type="text" name="alt_phone_no" id="alt_phone_no" maxlength="11">
+									<input type="text" name="alt_phone_no" id="alt_phone_no" value="<?php echo $alt_phone_no ?>" maxlength="11">
 									<label>2nd Phone Number</label>
 								</div>
 								<div class="single_calculate">
-									<input type="email" name="email" id="email" required="required">
+									<input type="email" name="email" id="email" value="<?php echo $form_email ?>" required="required">
 									<label>Email Address</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="address" id="address" required="required">
+									<input type="text" name="address" id="address" value="<?php echo $address ?>" required="required">
 									<label>Street Address</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="city" id="city" required="required">
+									<input type="text" name="city" id="city" value="<?php echo $city ?>" required="required">
 									<label>City</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="bus_stop" id="bus_stop">
+									<input type="text" name="bus_stop" value="<?php echo $bus_stop ?>" id="bus_stop">
 									<label>Bus Stop</label>
 								</div>
 								<div class="single_calculate">
@@ -171,7 +169,6 @@
 								</div>
 							</form>
 						</div>
-				<?php } ?>
 					</div>
 				</div>
 			</div>
