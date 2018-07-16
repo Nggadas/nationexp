@@ -1,13 +1,14 @@
 <?php
-if(isset($_POST['submit'])) 
-{ 
-  $str = json_decode($_POST['str'], true); 
-  var_dump($str);
 
-  foreach ($str as $key => $value) {
-      echo $key . " " . $value;
-  }
-} 
+if(isset($_POST['submit'])){
+
+	$bookingID = json_decode($_POST['invoiceID'], true); 
+	var_dump($bookingID);
+
+	foreach ($bookingID as $key => $value) {
+			echo $key . "=>" . $value . " ";
+	}
+}
 ?>
 
 <html>
@@ -19,10 +20,10 @@ if(isset($_POST['submit']))
 
 <body>
 	<h3>Pass JavaScript array into PHP.</h3>
-	<form method="post"> 
-		<input type="hidden" id="str" name="str" value="" /> 
-		<input type="submit" id="btn" name="submit" value="Submit" />
- 	</form>
+	<form method="post">
+		<input type="hidden" id="invoiceID" name="invoiceID" value=""/>
+		<input type="submit" class="btn btn-primary" id="submit" name="submit" value="Create Invoice"/>
+	</form>
  	
 	<script> 
 		var jsarray = new Array();
@@ -31,8 +32,8 @@ if(isset($_POST['submit']))
 		jsarray[2] = "BMW";		 
 		 
 		$(document).ready(function(){ 
-		  $('#btn').click(function(){ // prepare button inserts the JSON string in the hidden element 
-		    $('#str').val(JSON.stringify(jsarray)); 
+		  $('#submit').click(function(){ // prepare button inserts the JSON string in the hidden element 
+		    $('#invoiceID').val(JSON.stringify(jsarray)); 
 		  }); 
 		}); 
 	</script> 

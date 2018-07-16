@@ -108,9 +108,10 @@
 												<tr>
 													<th>Invoice Date</th>
 													<th>Customer Name</th>
+													<th>Email</th>
 													<th>Invoice Number</th>
+													<th>Tracking Number</th>
 													<th>Status</th>
-													<th>Email Address</th>
 													<th>More Info</th>
 												</tr>
 											</thead>
@@ -118,9 +119,10 @@
 												<tr>
 													<th>Invoice Date</th>
 													<th>Customer Name</th>
+													<th>Email</th>
 													<th>Invoice Number</th>
+													<th>Tracking Number</th>
 													<th>Status</th>
-													<th>Email Address</th>
 													<th>More Info</th>
 												</tr>
 											</tfoot>
@@ -136,16 +138,18 @@
 													$inv_full_name = $row['full_name'];
 													$inv_invoice_no = $row['invoice_no'];
 													$inv_status = $row['invoice_status'];
+													$inv_booking_no = $row['booking_no'];
 													$inv_email = $row['email'];
 
 													if($inv_invoice_no){ ?>
 														<tr>
 															<td><?php echo $inv_date; ?></td>
 															<td><?php echo $inv_full_name; ?></td>
-															<td><?php echo $inv_invoice_no; ?></td>
-															<td><?php echo $inv_status; ?></td>
 															<td><?php echo $inv_email; ?></td>
-															<td><a href="invoices_info?no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">More info</button></a></td>
+															<td><?php echo $inv_invoice_no; ?></td>
+															<td><?php echo $inv_booking_no; ?></td>
+															<td><?php echo $inv_status; ?></td>
+															<td><a href="update_invoice?no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">Update Status</button></a></td>
 														</tr>
 														<?php } ?>
 													<?php } ?>

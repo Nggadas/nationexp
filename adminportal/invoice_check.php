@@ -27,39 +27,55 @@
 
         $u_first_name = $user['first_name'];
         $u_last_name = $user['sur_name'];
+        $email = $user['email'];
+        $phone_no = $user['phone_no'];
         $full_name = $u_first_name . ' ' . $u_last_name;
-	}
+    }
     
-    
-    if (isset($_POST['submit'])) {
-        $error = "";
-        $old_email = $_POST['email'];
-        $old_full_name = $_POST['full_name'];
-        $old_status = $_POST['status'];
+    if(isset($_POST['submit'])) {
 
-        if (empty($_POST['email']) || empty($_POST['full_name']) || empty($_POST['status'])) {
-            $error = "All fields required";
-        }else{
+        if (!empty($_POST['booking_no'])) {
+            $invoice_amount;
+            $date = date('d-M-Y');
+            $random_no = rand(100000,999999);
+            $invoice_no = "INV" . rand(100000,999999);
+            $bookingID = json_decode($_POST['booking_no'], true);
 
-            $email = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['email'])));
-            $full_name = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['full_name'])));
-            $invoice_no = rand(100000,999999);
-            $status = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['status'])));
+            // Calculate total of invoice
+            foreach ($bookingID as $key => $value) { 
+                if (!empty($value)) {
+                    $sql = mysqli_query($connect,"SELECT * FROM `parcel_details` WHERE `booking_no`='$value' ORDER BY id DESC LIMIT 1");
+                    $row_data = mysqli_fetch_assoc($sql);
 
-            $sql = "INSERT INTO invoices (email,full_name,invoice_no,invoice_status) VALUES ('$email','$full_name','$invoice_no','$status')";
+                    $price = (int)$row_data['value_of_contents'];
+                    $invoice_amount += $price;
+                }
+            }
 
-            if (mysqli_query($connect, $sql)) {
-                $_SESSION['success'] = "Invoice created successfully!"; ?>
-                <script>
-                    window.location.href = 'invoices';
-                </script>
-            <?php } else {
-                // $error = mysqli_error($connect);
-                $error = "Error: Invoice was not created.";
+            // Add invoice to database
+            foreach ($bookingID as $key => $value) {
+                if (!empty($value)) {
+                    $sql_invoice = "INSERT INTO `invoices` (`user_id`,`email`,`full_name`,`invoice_no`,`invoice_amount`,`booking_no`,`date`) 
+                                    VALUES ('$account_id','$email','$full_name','$invoice_no','$invoice_amount','$value','$date')";
+                                    
+                    if (!mysqli_query($connect, $sql_invoice)) {
+                        // $error = mysqli_error($connect);
+                        $error = "Error: Invoice was not created for " . $value . ".";
+                    } 
+                }
             }
             
-            mysqli_close($connect);
+            if (empty($error)) { ?>
+                <script>
+                    var bookingID = <?php echo json_encode($bookingID); ?>;
+                    window.location.href = "print_invoice?booking_id="+bookingID+"&invoice_no=<?php echo $invoice_no ?>&account_id=<?php echo $account_id ?>";
+                </script>
+            <?php } 
+        
+        } else {
+            $error = "No orders where selected";
         }
+
     }
     
 ?>

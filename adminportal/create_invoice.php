@@ -86,12 +86,20 @@
 				<div class="row">
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+                                }
+                            ?>
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#recent" data-toggle="tab">Orders Placed by <?php echo $u_first_name ?></a>
+								<li class="active"><a href="#recent" data-toggle="tab">Orders Placed by <?php echo $u_first_name ?></a></li>
+								<li style="float: right;">
+									<form method="post">
+										<input type="hidden" id="booking_no" name="booking_no" value=""/>
+										<input type="submit" class="btn btn-primary" id="submit" name="submit" value="Create Invoice"/>
+									</form>
 								</li>
-
 							</ul>
-
 							<div class="tab-content">
 								<div class="tab-pane fade active in" id="recent">
 									<p id="statusnotice">&nbsp;</p>
@@ -103,8 +111,14 @@
 													<th>Price</th>
 													<th>Quantity</th>
 													<th>Weight</th>
-													<th>Booking Number</th>
-													<th>Select Order</th>
+													<th>Tracking Number</th>
+													<th style="text-align: center;">
+													<?php
+														if($row_parcel > 0) { ?>
+															<input type="checkbox" onclick="selectAll()" id="checkAll" name="checkAll" >
+														<?php }
+													?>
+													</th>
 												</tr>
 												</thead>
 												<tfoot>
@@ -113,36 +127,42 @@
 													<th>Price</th>
 													<th>Quantity</th>
 													<th>Weight</th>
-													<th>Booking Number</th>
-													<th>Select Order</th>
+													<th>Tracking Number</th>
+													<th style="text-align: center;">
+													<?php
+														if($row_parcel > 0) { ?>
+															<input type="checkbox" onclick="selectAll()" id="checkAll" name="checkAll" >
+														<?php }
+													?>
+													</th>
 												</tr>
 												</tfoot>
 												<tbody>
-													<?php
+												<?php
 
-														if($row_parcel > 0) {
+													if($row_parcel > 0) {
 
-															while($row_data = $sql->fetch_assoc()) {
-																
-																$product = $row_data['goods_description'];
-																$price = $row_data['value_of_contents'];
-																$quantity = $row_data['no_of_parcel'];
-																$weight = $row_data['weight_kg'];
-																$booking_no = $row_data['booking_no'];?> 
+														while($row_data = $sql->fetch_assoc()) {
+															
+															$product = $row_data['goods_description'];
+															$price = $row_data['value_of_contents'];
+															$quantity = $row_data['no_of_parcel'];
+															$weight = $row_data['weight_kg'];
+															$booking_no = $row_data['booking_no'];?> 
 
-																<tr>
-																	<td><?php echo $product; ?></td>
-																	<td><?php echo $price; ?></td>
-																	<td><?php echo $quantity; ?></td>
-																	<td><?php echo $weight; ?></td>
-																	<td><?php echo $booking_no; ?></td>
-																	<td>
-																		<input type="checkbox">
-																	</td>
-																</tr>
-															<?php 
-															}
-														} ?>
+															<tr>
+																<td><?php echo $product; ?></td>
+																<td><?php echo $price; ?></td>
+																<td><?php echo $quantity; ?></td>
+																<td><?php echo $weight; ?></td>
+																<td><?php echo $booking_no; ?></td>
+																<td>
+																	<input type="checkbox" id="<?php echo $booking_no; ?>" name="<?php echo $booking_no; ?>" onclick="addBookingID('<?php echo $booking_no ?>')" >
+																</td>
+															</tr>
+														<?php 
+														}
+												} ?>
 												</tbody>
 										</table>
 									</div>
@@ -244,6 +264,7 @@
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
+		<script src="resources/js/invoice.js"></script>
 	</body>
 
 </html>
