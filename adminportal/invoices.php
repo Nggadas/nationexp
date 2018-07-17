@@ -149,7 +149,7 @@
 															<td><?php echo $inv_invoice_no; ?></td>
 															<td><?php echo $inv_booking_no; ?></td>
 															<td><?php echo $inv_status; ?></td>
-															<td><a href="update_invoice?no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">Update Status</button></a></td>
+															<td><a href="#"><button class="btn btn-primary" title="Click for more details">Update Status</button></a></td>
 														</tr>
 														<?php } ?>
 													<?php } ?>
