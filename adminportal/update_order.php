@@ -75,18 +75,23 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2>Update Order Status</h2>
-							<p>Here you can update an order status for tracking number <?php echo $booking_no; ?>.</p>
-							<?php if($mycolor){ ?>
-								<div class="invalid-login" id="invalid-login">
-									<h5><font color="<?php echo $mycolor; ?>"><i class="fa fa-<?php echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><?php echo $statusmessage; ?></span></font></h5>
-									
-								</div>
-							<?php } ?>
+							<h2>Edit Order</h2>
+							<p>Here you can edit an order status for tracking number <?php echo $booking_no; ?>.</p>
 							<p><font color="#000"><b>Order Information</b></font></p>
 						</div>
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+									echo '<br>';
+									echo '<br>';
+								} elseif (!empty($_SESSION['success'])){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #329954;">' . $_SESSION['success'] . '</span>';
+									echo '<br>';
+									echo '<br>';
+								}
+                            ?>
 						<div class="calculate_form">
-							<form role="form" id="delivery-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
+							<form role="form" id="submit-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
 								
 								<!-- User Details -->
 								<div class="single_calculate">
@@ -130,15 +135,15 @@
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="city" id="city" required="required"  value="<?php echo $city ?>">
-										<label>City</label>
+										<label>City</label>									
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="bus_stop" id="bus_stop" value="<?php echo $bus_stop ?>">
 										<label>Bus Stop</label>
 									</div>
 									<div class="single_calculate">
-									<select name="state" id="state">
-										<option value="" selected="selected"><?php echo strtoupper($state) ?> : CHANGE STATE</option>
+										<select name="state" id="state">
+										<option value="<?php echo $state ?>" selected="selected"><?php echo strtoupper($state) ?> : CHANGE STATE</option>
 														<option value="Abuja FCT">Abuja FCT</option>
 														<option value="Abia">Abia</option>
 														<option value="Adamawa">Adamawa</option>
@@ -233,11 +238,11 @@
 										<label>City</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_phone_no" id="pickup_phone_no" required="required" value="<?php echo $pickup_phone_no ?>">
+										<input type="text" name="pickup_phone_no" id="pickup_phone_no" required="required" maxlength="11" value="<?php echo $pickup_phone_no ?>">
 										<label>Phone Number</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_alt_phone_no" id="pickup_alt_phone_no" required="required" value="<?php echo $pickup_alt_phone_no ?>">
+										<input type="text" name="pickup_alt_phone_no" id="pickup_alt_phone_no" required="required" maxlength="11" value="<?php echo $pickup_alt_phone_no ?>">
 										<label>2nd Phone Number</label>
 									</div>
 									<div class="single_calculate">
@@ -250,7 +255,7 @@
 									</div>
 									<div class="single_calculate">
 										<select name="pickup_state" id="pickup_state">
-										<option value="" selected="selected"><?php echo strtoupper($pickup_state) ?> : CHANGE STATE</option>
+										<option value="<?php echo $pickup_state ?>" selected="selected"><?php echo strtoupper($pickup_state) ?> : CHANGE STATE</option>
 														<option value="Abuja FCT">Abuja FCT</option>
 														<option value="Abia">Abia</option>
 														<option value="Adamawa">Adamawa</option>
@@ -306,10 +311,6 @@
 									<div class="single_calculate">
 										<input type="text" name="payment_status" id="payment_status" required="required" value="<?php echo $payment_status ?>">
 										<label>Payment Status</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" name="payment_date" id="payment_date" required="required" value="<?php echo $payment_date ?>">
-										<label>Payment Date</label>
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="delivery_cost" id="delivery_cost" required="required" value="<?php echo $delivery_cost ?>">

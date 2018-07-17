@@ -27,6 +27,7 @@
 			$contact_person = $delivery['full_name'];
 			$phone_no = $delivery['phone'];
 			$second_phone_no = $delivery['alt_phone'];
+			$email = $delivery['email'];
 			$delivery_address = $delivery['address'];
 			$city = $delivery['city'];
 			$bus_stop = $delivery['bus_stop'];
@@ -38,7 +39,6 @@
 			$quantity = $parcel['no_of_parcel'];
 			$price = $parcel['value_of_contents'];
 			$weight = $parcel['weight_kg'];
-			$email = $parcel['email'];
 			
 			// Get pickup_details details for $booking_no
 			$pickup_person = $pickup['full_name'];
@@ -51,10 +51,9 @@
 			$pickup_email = $pickup['email'];
 			$pickup_date = $pickup['scheduled_date'];
 			
-			// Get parcel_details details for $booking_no
+			// Get payment_details details for $booking_no
 			$payment_method = $payment['payment_method'];
 			$payment_status = $payment['payment_status'];
-			$payment_date = $payment['payment_date'];
 			$delivery_cost = $payment['delivery_cost'];
 			$insurance_fee = $payment['insurance_fee'];
 			$pickup_cost = $payment['pickup_cost'];

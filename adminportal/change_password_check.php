@@ -43,8 +43,8 @@ if (isset($_POST['submit'])) {
                                 window.location.href = 'index';
                             </script>
                         <?php } else {
-                            $error = mysqli_error($connect);
-                            // $error = "Error: Could not change password.";
+                            // $error = mysqli_error($connect);
+                            $error = "Error: Could not change password.";
                         }
                         
                         mysqli_close($connect);

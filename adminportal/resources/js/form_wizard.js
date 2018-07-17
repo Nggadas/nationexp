@@ -17,7 +17,7 @@ function showTab(n) {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
   // ... and run a function that displays the correct step indicator:
-  fixStepIndicator(n)
+  fixStepIndicator(n);
 }
 
 function nextPrev(n) {
@@ -32,7 +32,7 @@ function nextPrev(n) {
   // if you have reached the end of the form... :
   if (currentTab >= x.length) {
     //...the form gets submitted:
-    document.getElementById("regForm").submit();
+    document.getElementById("submit-form").submit();
     return false;
   }
   // Otherwise, display the correct tab:
@@ -48,10 +48,14 @@ function validateForm() {
   for (i = 0; i < y.length; i++) {
     // If a field is empty...
     if (y[i].value == "") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false:
-      valid = false;
+      // Exclude optional fields
+      if (y[i]['id'] != 'alt_phone_no' && y[i]['id'] != 'pickup_alt_phone_no' && y[i]['id'] != 'bus_stop' && y[i]['id'] != 'pickup_bus_stop') {
+        console.log(y[i]['id']);
+        // add an "invalid" class to the field:
+        y[i].className += " invalid";
+        // and set the current valid status to false:
+        valid = false;
+      }
     }
   }
   // If the valid status is true, mark the step as finished and valid:
