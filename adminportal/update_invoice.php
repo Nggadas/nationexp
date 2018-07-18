@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 	include("check.php");
-	include("update_status_check.php");
+	include("update_invoice_check.php");
 ?>
 <html lang="en">
 	<head>
@@ -12,7 +12,7 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Update Order Status - NationExpress24 Delivery</title>
+		<title>Update Invoice Status - NationExpress24 Delivery</title>
 		<!--  bootstrap css -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<!--  font Awesome Css  -->
@@ -86,8 +86,8 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2>Update Order Status</h2>
-							<p>You can update the order status for <?php echo $booking_no ?></p>
+							<h2>Update Invoice Status</h2>
+							<p>You can update the invoice status for <?php echo $invoice_no ?></p>
 							<?php
                                 if(!empty($error)){
 									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
@@ -97,26 +97,34 @@
 						<div class="calculate_form">
 							<form method="post">
 								<div class="single_calculate">
-									<input type="text" id="description" name="description" value="<?php echo $good_description ?>" readonly>
-									<label>Description</label>
+									<input type="text" id="user_name" name="user_name" value="<?php echo $full_name ?>" readonly>
+									<label>Customer Name</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" id="value_of_contents" name="value_of_contents" value="<?php echo $value_of_contents ?>" readonly>
-									<label>Value (₦)</label>
+									<input type="text" id="user_id" name="user_id" value="<?php echo $user_id ?>" readonly>
+									<label>Customer ID</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text" id="status" name="status" value="<?php echo ucwords(str_replace('_', ' ', $tstatus)); ?>" readonly>
+									<input type="text" id="email" name="email" value="<?php echo $email ?>" readonly>
+									<label>Email</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" id="invoice_amount" name="invoice_amount" value="<?php echo $invoice_amount ?>" readonly>
+									<label>Invoice Amount</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" id="row_invoice" name="row_invoice" value="<?php echo $row_invoice ?>" readonly>
+									<label>Number of Parcels</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" id="invoice_status" name="invoice_status" value="<?php echo ucwords(str_replace('_', ' ', $invoice_status)); ?>" readonly>
 									<label>Status</label>
 								</div>
 								<div class="single_calculate">
 									<select id="select_status" name="new_status" required>
-    									<option value="<?php echo $tstatus; ?>" disabled selected>Change Status...</option>
-										<option value="order_booked">Order Booked</option>
-										<option value="in_transit">In Transit</option>
-										<option value="delivered">Delivered</option>
-										<option value="out_for_delivery">Out for Delivery</option>
-										<option value="undelivered">Undelivered</option>
-										<option value="order_cancelled">Order Cancelled</option>
+    									<option value="" disabled selected>Change Status...</option>
+										<option value="due">Due</option>
+										<option value="paid">Paid</option>
 										<option value="toggle_custom">Custom Status</option>
 									</select>
 								</div>

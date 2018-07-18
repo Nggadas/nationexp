@@ -110,8 +110,9 @@
 													<th>Customer Name</th>
 													<th>Email</th>
 													<th>Invoice Number</th>
-													<th>Tracking Number</th>
+													<th>No of Parcels</th>
 													<th>Status</th>
+													<th>Update Status</th>
 													<th>More Info</th>
 												</tr>
 											</thead>
@@ -121,38 +122,48 @@
 													<th>Customer Name</th>
 													<th>Email</th>
 													<th>Invoice Number</th>
-													<th>Tracking Number</th>
+													<th>No of Parcels</th>
 													<th>Status</th>
+													<th>Update Status</th>
 													<th>More Info</th>
 												</tr>
 											</tfoot>
 											<tbody>
 												<?php 
-												$sql_b_inv = mysqli_query($connect,"SELECT * FROM `invoices` WHERE `email` != '' ORDER BY ID DESC");
-												
-												while($row = mysqli_fetch_assoc($sql_b_inv)) {
+												$sql_b_inv = mysqli_query($connect,"SELECT DISTINCT `invoice_no` FROM `invoices` WHERE `email` != '' ORDER BY ID DESC");
+												$row_num = mysqli_num_rows($sql_b_inv);
 
-													$timestamp = $row['date'];
-													$pieces = explode(' ', $timestamp);
-													$inv_date = $pieces[0];
-													$inv_full_name = $row['full_name'];
-													$inv_invoice_no = $row['invoice_no'];
-													$inv_status = $row['invoice_status'];
-													$inv_booking_no = $row['booking_no'];
-													$inv_email = $row['email'];
+												if($row_num > 0) {
 
-													if($inv_invoice_no){ ?>
-														<tr>
-															<td><?php echo $inv_date; ?></td>
-															<td><?php echo $inv_full_name; ?></td>
-															<td><?php echo $inv_email; ?></td>
-															<td><?php echo $inv_invoice_no; ?></td>
-															<td><?php echo $inv_booking_no; ?></td>
-															<td><?php echo $inv_status; ?></td>
-															<td><a href="#"><button class="btn btn-primary" title="Click for more details">Update Status</button></a></td>
-														</tr>
+													while($row = $sql_b_inv->fetch_assoc()) {
+														$inv_booking_no = $row['invoice_no'];
+
+														$sql_invoice = mysqli_query($connect,"SELECT * FROM `invoices` WHERE `invoice_no` = '$inv_booking_no' ORDER BY ID DESC");
+														$num_row = mysqli_num_rows($sql_invoice);
+														$row_data = mysqli_fetch_assoc($sql_invoice);
+
+														$timestamp = $row_data['date'];
+														$pieces = explode(' ', $timestamp);
+														$inv_date = $pieces[0];
+														$inv_full_name = $row_data['full_name'];
+														$inv_invoice_no = $row_data['invoice_no'];
+														$inv_status = $row_data['invoice_status'];
+														$inv_email = $row_data['email'];
+
+														if($inv_invoice_no){ ?>
+															<tr>
+																<td><?php echo $inv_date; ?></td>
+																<td><?php echo $inv_full_name; ?></td>
+																<td><?php echo $inv_email; ?></td>
+																<td><?php echo $inv_invoice_no; ?></td>
+																<td><?php echo $num_row; ?></td>
+																<td><?php echo ucwords(str_replace('_', ' ', $inv_status)); ?></td>
+																<td><a href="update_invoice?invoice_no=<?php echo $inv_invoice_no ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">Update Status</button></a></td>
+																<td><a href="invoice_info?invoice_no=<?php echo $inv_invoice_no ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More Info</button></a></td>
+															</tr>
 														<?php } ?>
-													<?php } ?>
+													<?php }
+													} ?>
 
 											</tbody>
 										</table>

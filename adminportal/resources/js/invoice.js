@@ -13,19 +13,53 @@ function addBookingID(id) {
         $('#booking_no').val(JSON.stringify(bookingID));
     }
 
-    // console.log(bookingID);
-    console.log($('#booking_no').val());
+    // console.log($('#booking_no').val());
 }
 
-// Add booking id value to booking_no all input
-function selectAll() {
-    if($('#checkAll').is(":checked")){
-        console.log("checked");
-        var status = this.checked;
-        $('.checkbox').each(function(){
-            this.checked = status;
+// Select all checkboxes
+$('#select-all').click(function(event) { 
+    if(this.checked) {
+        // Loop through each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;       
+            if (this.id != 'select-all' && this.id != 'select-all2') {
+                bookingID.push(this.id);
+                $('#booking_no').val(JSON.stringify(bookingID));
+            }            
         });
-    }else{
-        console.log("unchecked");
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;  
+            if (this.id != 'select-all' && this.id != 'select-all2') {
+                var index = bookingID.indexOf(this.id);
+                delete bookingID[index];
+                $('#booking_no').val(JSON.stringify(bookingID));
+            }                           
+        });
     }
-}
+    // console.log($('#booking_no').val());
+});
+
+// Select all checkboxes
+$('#select-all2').click(function(event) {  
+    if(this.checked) {
+        // Loop through each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;       
+            if (this.id != 'select-all' && this.id != 'select-all2') {
+                bookingID.push(this.id);
+                $('#booking_no').val(JSON.stringify(bookingID));
+            }            
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;  
+            if (this.id != 'select-all' && this.id != 'select-all2') {
+                var index = bookingID.indexOf(this.id);
+                delete bookingID[index];
+                $('#booking_no').val(JSON.stringify(bookingID));
+            }                           
+        });
+    }
+    // console.log($('#booking_no').val());
+});

@@ -115,7 +115,7 @@
 													<th style="text-align: center;">
 													<?php
 														if($row_parcel > 0) { ?>
-															<input type="checkbox" onclick="selectAll()" id="checkAll" name="checkAll" >
+															<input type="checkbox" id="select-all" name="checkAll" >
 														<?php }
 													?>
 													</th>
@@ -131,7 +131,7 @@
 													<th style="text-align: center;">
 													<?php
 														if($row_parcel > 0) { ?>
-															<input type="checkbox" onclick="selectAll()" id="checkAll" name="checkAll" >
+															<input type="checkbox" id="select-all2" name="checkAll" >
 														<?php }
 													?>
 													</th>

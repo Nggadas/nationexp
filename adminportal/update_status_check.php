@@ -4,8 +4,7 @@
             window.location.href = "orders";
         </script>
 	<?php }else{
-		$booking_no = trim($_GET['booking_no']);
-		$booking_no  = htmlentities($booking_no);
+		$booking_no = filter($connect,$_GET['booking_no']);
 	}
 
     // get data from database
@@ -47,7 +46,7 @@
 		$error = "";
 
 		if (!empty($_POST['custom_status'])) {
-			$custom_status = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['custom_status'])));
+			$custom_status = filter($connect,$_POST['custom_status']);
 			$custom_status = strtolower(str_replace(' ', '_', $custom_status));
 			$sql = "INSERT INTO tracking_details (description,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
                     VALUES ('$description','$current_city','$old','$custom_status','$activity','$tcomment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
@@ -68,7 +67,7 @@
 			mysqli_close($connect);
 
 		}elseif (!empty($_POST['new_status'])) {
-			$new_status = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['new_status'])));
+			$new_status = filter($connect,$_POST['new_status']);
 			$sql = "INSERT INTO tracking_details (description,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
                     VALUES ('$description','$current_city','$old','$new_status','$activity','$tcomment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
 

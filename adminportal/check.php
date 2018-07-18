@@ -71,7 +71,7 @@
 
 	//Count invoices
 	// $sqlinvoices=mysqli_query($connect,"SELECT COUNT(email) AS invoices FROM `invoices` WHERE `email` !='' AND `account_id`!=''");
-	$sqlinvoices=mysqli_query($connect,"SELECT COUNT(email) AS invoices FROM `invoices` WHERE `email` !=''");
+	$sqlinvoices=mysqli_query($connect,"SELECT COUNT(DISTINCT invoice_no) AS invoices FROM `invoices` WHERE `email` !=''");
 	while($rowinvoices=mysqli_fetch_object($sqlinvoices)){ $invoices=$rowinvoices->invoices; }
 
 

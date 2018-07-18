@@ -15,4 +15,4 @@ $u_first_name = $val_data['first_name'];
 $u_last_name = $val_data['sur_name'];
 $u_email = $val_data['email'];
 $u_phone_no = $val_data['phone_no'];
-$full_name = $first_name .' '. $full_name;
+$full_name = $u_first_name .' '. $u_last_name;
