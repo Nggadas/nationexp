@@ -81,7 +81,6 @@
 									echo '<br>';
 									echo '<br>';
 								}
-								var_dump($user_agent);
                             ?>	
 						<div class="calculate_form">
 							<form id="register-form" name="register-form" method="post" class="register-form" autocomplete="OFF">

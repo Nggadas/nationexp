@@ -49,8 +49,7 @@ function validateForm() {
     // If a field is empty...
     if (y[i].value == "") {
       // Exclude optional fields
-      if (y[i]['id'] != 'alt_phone_no' && y[i]['id'] != 'pickup_alt_phone_no' && y[i]['id'] != 'bus_stop' && y[i]['id'] != 'pickup_bus_stop') {
-        console.log(y[i]['id']);
+      if (y[i].className != 'optional') {
         // add an "invalid" class to the field:
         y[i].className += " invalid";
         // and set the current valid status to false:
@@ -73,4 +72,35 @@ function fixStepIndicator(n) {
   }
   //... and adds the "active" class to the current step:
   x[n].className += " active";
+}
+
+function optionalPickup(value) {
+  // This deals with pickup input field optionality
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    if (value == "yes") {
+      // add an "optional" class to the field:
+      y[i].className = "optional";
+
+    } else if (value == "no") {
+      if (y[i].name != "pickup_alt_phone_no" && y[i].name != "pickup_bus_stop") {
+        // add an "optional" class to the field:
+        y[i].className = "";
+      }
+
+    }
+  }
+}
+
+function togglePickup(value){
+  if (value == 'yes') {
+    $('#pickup_tab').show();
+    optionalPickup('no');
+  } else {
+    $('#pickup_tab').hide();
+    optionalPickup('yes');
+  }
 }

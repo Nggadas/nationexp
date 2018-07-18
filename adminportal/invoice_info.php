@@ -89,7 +89,7 @@
         <div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
         <div class="panel-body">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#recent" data-toggle="tab">Invoices</a>
+                <li class="active"><a href="#recent" data-toggle="tab">Product (s)</a>
                 </li>
             </ul>
             <div class="tab-content">
