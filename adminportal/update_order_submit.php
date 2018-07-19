@@ -37,6 +37,10 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	$pickup_cost = filter($connect,$_POST['pickup_cost']);
 	$total_cost = filter($connect,$_POST['total_cost']);
 
+	// Update_date
+	$date = date("j F Y");
+	$time = date("g:i A");
+
 	// Update delivery_details
 	function update_delivery($connect,$booking_no,$contact_person,$phone_no,$alt_phone_no,$email,$delivery_address,$city,$bus_stop,$state,$country){
 
@@ -53,11 +57,11 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	}
 
 	// Update parcel_details
-	function update_parcel($connect,$booking_no,$product,$quantity,$price,$weight){
+	function update_parcel($connect,$booking_no,$product,$quantity,$price,$weight,$date,$time){
 
 		// Update parcel_details
 		$update_parcel = "UPDATE parcel_details 
-		SET goods_description='$product', no_of_parcel='$quantity', value_of_contents='$price', weight_kg='$weight'
+		SET goods_description='$product', no_of_parcel='$quantity', value_of_contents='$price', weight_kg='$weight', update_date='$date', update_time='$time'
 		WHERE booking_no='$booking_no'";
 
 		if (mysqli_query($connect, $update_parcel)) {
@@ -84,11 +88,11 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	}
 
 	// Update payment_details
-	function update_payment($connect,$booking_no,$payment_method,$payment_status,$delivery_cost,$insurance_fee,$pickup_cost,$total_cost){
+	function update_payment($connect,$booking_no,$payment_method,$payment_status,$delivery_cost,$insurance_fee,$pickup_cost,$total_cost,$date,$time){
 
 		// Update parcel_details
 		$update_payment = "UPDATE payment_details 
-		SET payment_method='$payment_method', payment_status='$payment_status', delivery_cost='$delivery_cost', insurance_fee='$insurance_fee', pickup_cost='$pickup_cost', total_cost='$total_cost'
+		SET payment_method='$payment_method', payment_status='$payment_status', delivery_cost='$delivery_cost', insurance_fee='$insurance_fee', pickup_cost='$pickup_cost', total_cost='$total_cost', update_date='$date', update_time='$time'
 		WHERE booking_no='$booking_no'";
 
 		if (mysqli_query($connect, $update_payment)) {
@@ -99,9 +103,9 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	}
 
 	$update_delivery = update_delivery($connect,$booking_no,$contact_person,$phone_no,$alt_phone_no,$email,$delivery_address,$city,$bus_stop,$state,$country);
-	$update_parcel = update_parcel($connect,$booking_no,$product,$quantity,$price,$weight);
+	$update_parcel = update_parcel($connect,$booking_no,$product,$quantity,$price,$weight,$date,$time);
 	$update_pickup = update_pickup($connect,$booking_no,$pickup_person,$pickup_address,$pickup_bus_stop,$pickup_city,$pickup_state,$pickup_phone_no,$pickup_alt_phone_no,$pickup_email,$pickup_date);
-	$update_payment = update_payment($connect,$booking_no,$payment_method,$payment_status,$delivery_cost,$insurance_fee,$pickup_cost,$total_cost);
+	$update_payment = update_payment($connect,$booking_no,$payment_method,$payment_status,$delivery_cost,$insurance_fee,$pickup_cost,$total_cost,$date,$time);
 
 	if (!$update_delivery) {
 		$error = "Error: Could not update delivery details.";

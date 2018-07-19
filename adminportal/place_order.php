@@ -90,17 +90,23 @@
                             ?>
 						<div class="calculate_form">
 							<form role="form" id="submit-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
+
+								<input type="hidden" name="booking_no" value="<?php echo $booking_no ?>">
+								<input type="hidden" name="parcel_created" value="<?php echo $parcel_created ?>">
+								<input type="hidden" name="delivery_created" value="<?php echo $delivery_created ?>">
+								<input type="hidden" name="pickup_created" value="<?php echo $pickup_created ?>">
+								<input type="hidden" name="payment_created" value="<?php echo $payment_created ?>">
 								
 								<!-- User Details -->
 								<div class="single_calculate">
-										<select name="customer_name" id="customer_name">
-											<option value="" selected="selected">Customer Name: <?php echo $full_name ?></option>
-										</select>	
+									<select name="customer_name" id="customer_name">
+										<option value="" selected="selected">Customer Name: <?php echo $full_name ?></option>
+									</select>	
 								</div>
 								<div class="single_calculate">
-										<select name="acct_id" id="acct_id" required="required">
-											<option value="<?php echo $customer_id; ?>" selected="selected">Customer ID: <?php echo $customer_id; ?></option>
-										</select>	
+									<select name="acct_id" id="acct_id" required="required">
+										<option value="<?php echo $customer_id; ?>" selected="selected">Customer ID: <?php echo $customer_id; ?></option>
+									</select>	
 								</div>
 
 								<!-- Delivery Details -->
@@ -124,7 +130,7 @@
 										<label>2nd Phone Number</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="email" id="email" value="<?php echo $u_email ?>">
+										<input type="text" name="del_email" id="del_email" value="<?php echo $del_email ?>">
 										<label>Email Address</label>
 									</div>
 									<div class="single_calculate">
@@ -315,10 +321,6 @@
 										</select>	
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="payment_method" id="payment_method" required="required" value="<?php echo $payment_method ?>">
-										<label>Payment Method</label>
-									</div>
-									<div class="single_calculate">
 										<input type="text" name="payment_status" id="payment_status" required="required" value="<?php echo $payment_status ?>">
 										<label>Payment Status</label>
 									</div>
@@ -337,6 +339,14 @@
 									<div class="single_calculate">
 										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>">
 										<label>Total Cost</label>
+									</div>
+									<div class="single_calculate">
+										<select name="payment_method" id="payment_method" required>
+											<option value="<?php echo $payment_status ?>" selected="selected">Select Payment Method</option>
+											<option value="internet_banking">Internet Banking</option>
+											<option value="short_code">Short Code</option>
+											<option value="Payment_on_delivery">Payment On Delivery</option>
+										</select>	
 									</div>
 								</div>
 

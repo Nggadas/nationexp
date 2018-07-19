@@ -142,7 +142,7 @@
 										<label>Bus Stop</label>
 									</div>
 									<div class="single_calculate">
-										<select name="state" id="state">
+										<select name="state" id="state" required>
 										<option value="<?php echo $state ?>" selected="selected"><?php echo strtoupper($state) ?> : CHANGE STATE</option>
 														<option value="Abuja FCT">Abuja FCT</option>
 														<option value="Abia">Abia</option>
@@ -219,7 +219,7 @@
 									<div class="single_calculate">
 										<select name="acct_id" id="acct_id" required="required">
 											<option selected="selected">Pickup Details</option>
-										</select>	
+										</select>
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_person ?>">
@@ -254,7 +254,7 @@
 										<label>Date</label>
 									</div>
 									<div class="single_calculate">
-										<select name="pickup_state" id="pickup_state">
+										<select name="pickup_state" id="pickup_state" required>
 										<option value="<?php echo $pickup_state ?>" selected="selected"><?php echo strtoupper($pickup_state) ?> : CHANGE STATE</option>
 														<option value="Abuja FCT">Abuja FCT</option>
 														<option value="Abia">Abia</option>

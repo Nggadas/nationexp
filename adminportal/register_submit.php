@@ -4,16 +4,16 @@
 
 		// Get post data
 		$error = "";
-		$form_first_name = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['first_name'])));
-		$last_name = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['last_name'])));
-		$business_name = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['business_name'])));
-		$phone_no = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['phone_no'])));
-		$alt_phone_no = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['alt_phone_no'])));
-		$form_email = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['email'])));
-		$address = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['address'])));
-		$city = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['city'])));
-		$bus_stop = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['bus_stop'])));
-		$state = trim(strip_tags(mysqli_real_escape_string($connect,$_POST['state'])));
+		$form_first_name = filter($connect,$_POST['first_name']);
+		$last_name = filter($connect,$_POST['last_name']);
+		$business_name = filter($connect,$_POST['business_name']);
+		$phone_no = filter($connect,$_POST['phone_no']);
+		$alt_phone_no = filter($connect,$_POST['alt_phone_no']);
+		$form_email = filter($connect,$_POST['email']);
+		$address = filter($connect,$_POST['address']);
+		$city = filter($connect,$_POST['city']);
+		$bus_stop = filter($connect,$_POST['bus_stop']);
+		$state = filter($connect,$_POST['state']);
 
 		//check if user already exists
 		$sql_email = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` = '$form_email' ORDER BY ID DESC LIMIT 1");
