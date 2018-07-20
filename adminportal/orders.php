@@ -70,7 +70,7 @@
 		<!--    start pricing area-->
 		<!-- Pricing Area -->
 		<section class="pricing-area version-6" id="pricing">
-			<div class="container">
+			<div class="container">	
 				<div class="row page-title">
 					<div class="col-md-5 col-sm-6">
 						<div class="pricing-desc section-padding-two">

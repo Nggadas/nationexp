@@ -108,9 +108,9 @@
 											<thead>
 												<tr>
 													<th>Product</th>
-													<th>Price</th>
+													<th>Price (₦)</th>
 													<th>Quantity</th>
-													<th>Weight</th>
+													<th>Weight (kg)</th>
 													<th>Tracking Number</th>
 													<th style="text-align: center;">
 													<?php
@@ -124,9 +124,9 @@
 												<tfoot>
 												<tr>
 													<th>Product</th>
-													<th>Price</th>
+													<th>Price (₦)</th>
 													<th>Quantity</th>
-													<th>Weight</th>
+													<th>Weight (kg)</th>
 													<th>Tracking Number</th>
 													<th style="text-align: center;">
 													<?php

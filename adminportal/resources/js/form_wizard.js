@@ -51,9 +51,9 @@ function validateForm() {
       // Exclude optional fields
       if (y[i].className != 'optional') {
         // add an "invalid" class to the field:
-        // y[i].className += " invalid";
-        // // and set the current valid status to false:
-        // valid = false;
+        y[i].className += " invalid";
+        // and set the current valid status to false:
+        valid = false;
       }
     }
   }

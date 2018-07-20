@@ -26,7 +26,7 @@
 			$customer_id = $delivery['account_id'];
 			$contact_person = $delivery['full_name'];
 			$phone_no = $delivery['phone'];
-			$second_phone_no = $delivery['alt_phone'];
+			$alt_phone_no = $delivery['alt_phone'];
 			$email = $delivery['email'];
 			$delivery_address = $delivery['address'];
 			$city = $delivery['city'];

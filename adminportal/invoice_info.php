@@ -76,11 +76,11 @@
             <div class="col-md-5 col-sm-6">
                 <div class="title">
                     <h2>View Invoice Details</h2>
-                    <p><strong>Customer Number: </strong><?php echo $invoice_no ?></p>
+                    <p><strong>Invoice Number: </strong><?php echo $invoice_no ?></p>
                     <p><strong>Customer Name: </strong><?php echo $full_name ?></p>
                     <p><strong>Customer ID: </strong><?php echo $user_id ?></p>
                     <p><strong>Email: </strong><?php echo $email ?></p>
-                    <p><strong>Invoice Amount: </strong><?php echo $invoice_amount ?></p>
+                    <p><strong>Invoice Amount (₦): </strong><?php echo $invoice_amount ?></p>
                     <p><strong>Status: </strong><?php echo ucwords(str_replace('_', ' ', $invoice_status)); ?></p>
                 </div>
             </div>

@@ -90,15 +90,15 @@ include("orders_info_check.php");
 								<h6>Addresses</h6>
 								<h1><i class="fa fa-address-book-o"></i></h1>
 								<h5>pickup & delivery addresses</h5>
-							</div>
-							<ul class="price-list">
+							</div> price-info
+							<ul class="price-list price-info">
 								<li><u><font color="red">PICKUP ADDRESS </font></u></li>
 								<li><span class="badge">CONTACT PERSON</span> <?php echo $p_contact_person; ?></li>
 								<li><span class="badge">ADDRESS</span> <?php echo $p_full_address; ?></li>
 								<li><span class="badge">PHONE NUMBER</span> <?php echo $p_phone; ?><?php echo $p_altphone; ?></li>
 								<li><span class="badge">SCHEDULED PICKUP DATE</span> <?php echo $p_scheduled_date; ?></li>
 							</ul>
-							<ul class="price-list">
+							<ul class="price-list price-info">
 								<li><u><font color="red">DELIVERY ADDRESS </font></u></li>
 								<li><span class="badge">CONTACT PERSON</span> <?php echo $d_contact_person; ?></li>
 								<li><span class="badge">ADDRESS</span> <?php echo $d_full_address; ?></li>
@@ -115,7 +115,7 @@ include("orders_info_check.php");
 								<h1><i class="fa fa-money"></i></h1>
 								<h5>delivery cost, payment method & pickup cost</h5>
 							</div>
-							<ul class="price-list">
+							<ul class="price-list price-info">
 								<li><span class="badge">DELIVERY COST</span> ₦<?php echo number_format($delivery_cost); ?></li>
 								<li><span class="badge">PICKUP COST</span> ₦<?php echo number_format($pickup_cost); ?></li>
 								<li><span class="badge">PAYMENT METHOD</span> <?php echo $payment_method; ?></li>
@@ -124,7 +124,7 @@ include("orders_info_check.php");
 								<li><span class="badge">INSURANCE FEE</span> ₦<?php echo ($insurance_fee) ? number_format($insurance_fee) : 0 ;?></li>
 								<li><span class="badge">TOTAL AMOUNT</span> ₦<?php echo number_format($total_cost); ?></li>
 							</ul>
-							<ul class="price-list">
+							<ul class="price-list price-info">
 								<li><u><font color="red">USER DETAILS </font></u></li>
 								<li><span class="badge">FULL NAME</span> <?php echo $u_contact_person; ?></li>
 								<li><span class="badge">E-MAIL ADDRESS</span> <?php echo $u_email; ?></li>
@@ -140,7 +140,7 @@ include("orders_info_check.php");
 								<h1><i class="fa fa-codepen"></i></h1>
 								<h5>package information</h5>
 							</div>
-							<ul class="price-list">
+							<ul class="price-list price-info">
 								<li><span class="badge">NO OF PARCEL</span> <?php echo $no_of_parcel; ?></li>
 								<li><span class="badge">WEIGHT IN KG</span> <?php echo $weight_kg; ?></li>
 								<li><span class="badge">DESCRIPTION</span> <?php echo $goods_description; ?></li>

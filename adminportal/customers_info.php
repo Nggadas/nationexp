@@ -92,7 +92,7 @@ include("customers_info_check.php");
 								<h1><i class="fa fa-user-circle"></i></h1>
 								<h5>User Details</h5>
 							</div>
-							<ul class="price-list">
+							<ul class="price-list price-info">
 								<li><span class="badge">TITLE</span> <?php echo $u_title; ?></li>
 								<li><span class="badge">FIRST NAME</span> <?php echo $u_first_name; ?></li>
 								<li><span class="badge">LAST NAME</span> <?php echo $u_last_name; ?></li>
@@ -110,7 +110,7 @@ include("customers_info_check.php");
 								<h1><i class="fa fa-address-book-o"></i></h1>
 								<h5>Address Details</h5>
 							</div>
-							<ul class="price-list">
+							<ul class="price-list price-info">
 								<li><span class="badge">ADDRESS</span> <?php echo $u_address; ?></li>
 								<li><span class="badge">CITY</span> <?php echo $u_city; ?></li>
 								<li><span class="badge">STATE</span> <?php echo $u_state; ?></li>

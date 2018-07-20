@@ -82,10 +82,6 @@
 									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
 									echo '<br>';
 									echo '<br>';
-								} elseif (!empty($_SESSION['success'])){
-									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #329954;">' . $_SESSION['success'] . '</span>';
-									echo '<br>';
-									echo '<br>';
 								}
                             ?>
 						<div class="calculate_form">
@@ -126,7 +122,7 @@
 									</div>
 									
 									<div class="single_calculate">
-										<input type="text" name="alt_phone_no" class="optional" maxlength="11" value="<?php echo $second_phone_no ?>">
+										<input type="text" name="alt_phone_no" class="optional" maxlength="11" value="<?php echo $alt_phone_no ?>">
 										<label>2nd Phone Number</label>
 									</div>
 									<div class="single_calculate">
@@ -228,16 +224,16 @@
 									<div>
 										<button class="btn btn-default" style="color: #000;" disabled>Add Pickup Details?</button>
 										<label class="radio-inline">
-											<input type="radio" id"yes" name="toggle_pickup" onclick="togglePickup('yes')">Yes
+											<input type="radio" id"yes" name="toggle_pickup" value="yes" onclick="togglePickup('yes')">Yes
 										</label>
 										<label class="radio-inline">
-											<input type="radio" id"no" name="toggle_pickup" onclick="togglePickup('no')" checked>No
+											<input type="radio" id"no" name="toggle_pickup" value="no" onclick="togglePickup('no')" checked>No
 										</label>
 									</div><br>
 
 									<div id="pickup_tab" style="display:none;">
 										<div class="single_calculate">
-											<input type="text"  class="optional" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_person ?>">
+											<input type="text"  class="optional" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_contact ?>">
 											<label>Contact Person</label>
 										</div>
 										<div class="single_calculate">
@@ -265,8 +261,8 @@
 											<label>Email</label>
 										</div>
 										<div class="single_calculate">
-											<input type="text"  class="optional" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
-											<label>Date</label>
+											<input type="date"  class="optional" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
+											<label>Pickup Date</label>
 										</div>
 										<div class="single_calculate">
 											<select name="pickup_state" id="pickup_state">
@@ -321,28 +317,24 @@
 										</select>	
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="payment_status" id="payment_status" required="required" value="<?php echo $payment_status ?>">
-										<label>Payment Status</label>
-									</div>
-									<div class="single_calculate">
 										<input type="text" name="delivery_cost" id="delivery_cost" required="required" value="<?php echo $delivery_cost ?>">
-										<label>Delivery Cost</label>
+										<label>Delivery Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="insurance_fee" id="insurance_fee" required="required" value="<?php echo $insurance_fee ?>">
-										<label>Insurance Fee</label>
+										<label>Insurance Fee (₦)</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_cost" id="pickup_cost" required="required" value="<?php echo $pickup_cost ?>">
-										<label>Pickup Cost</label>
+										<input type="text" name="pickup_cost" class="optional" id="pickup_cost" required="required" value="<?php echo $pickup_cost ?>">
+										<label>Pickup Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>">
-										<label>Total Cost</label>
+										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>" readonly>
+										<label>Total Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
 										<select name="payment_method" id="payment_method" required>
-											<option value="<?php echo $payment_status ?>" selected="selected">Select Payment Method</option>
+											<option value="<?php echo $payment_method ?>" selected="selected">Select Payment Method</option>
 											<option value="internet_banking">Internet Banking</option>
 											<option value="short_code">Short Code</option>
 											<option value="Payment_on_delivery">Payment On Delivery</option>
@@ -451,6 +443,7 @@
 				<script src="resources/js/chat.js"></script>
 				<!--End of Live Chat Script-->
 				<script src="resources/js/form_wizard.js"></script>
+				<script src="resources/js/calculate_total.js"></script>
 			</body>
 			
 		</html>		

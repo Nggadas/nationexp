@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <?php
 	include("check.php");
 	include("orders_check.php");	
 ?>
-<!DOCTYPE html>
 <html lang="en">
 	
 	<head>

@@ -122,7 +122,7 @@
 									</div>
 									
 									<div class="single_calculate">
-										<input type="text" name="alt_phone_no" id="alt_phone_no" maxlength="11" value="<?php echo $second_phone_no ?>">
+										<input type="text" name="alt_phone_no" id="alt_phone_no" class="optional" maxlength="11" value="<?php echo $alt_phone_no ?>">
 										<label>2nd Phone Number</label>
 									</div>
 									<div class="single_calculate">
@@ -138,7 +138,7 @@
 										<label>City</label>									
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="bus_stop" id="bus_stop" value="<?php echo $bus_stop ?>">
+										<input type="text" name="bus_stop" id="bus_stop" class="optional" value="<?php echo $bus_stop ?>">
 										<label>Bus Stop</label>
 									</div>
 									<div class="single_calculate">
@@ -222,35 +222,35 @@
 										</select>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_person ?>">
+										<input type="text" class="optional" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_person ?>">
 										<label>Contact Person</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_address" id="pickup_address" required="required" value="<?php echo $pickup_address ?>">
+										<input type="text" class="optional" name="pickup_address" id="pickup_address" required="required" value="<?php echo $pickup_address ?>">
 										<label>Pickup address</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_bus_stop" id="pickup_bus_stop" required="required" value="<?php echo $pickup_bus_stop ?>">
+										<input type="text" class="optional" name="pickup_bus_stop" id="pickup_bus_stop" class="optional" required="required" value="<?php echo $pickup_bus_stop ?>">
 										<label>Bus Stop</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_city" id="pickup_city" required="required" value="<?php echo $pickup_city ?>">
+										<input type="text" class="optional" name="pickup_city" id="pickup_city" required="required" value="<?php echo $pickup_city ?>">
 										<label>City</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_phone_no" id="pickup_phone_no" required="required" maxlength="11" value="<?php echo $pickup_phone_no ?>">
+										<input type="text" class="optional" name="pickup_phone_no" id="pickup_phone_no" required="required" maxlength="11" value="<?php echo $pickup_phone_no ?>">
 										<label>Phone Number</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_alt_phone_no" id="pickup_alt_phone_no" required="required" maxlength="11" value="<?php echo $pickup_alt_phone_no ?>">
+										<input type="text" class="optional" name="pickup_alt_phone_no" id="pickup_alt_phone_no" class="optional" required="required" maxlength="11" value="<?php echo $pickup_alt_phone_no ?>">
 										<label>2nd Phone Number</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_email" id="pickup_email" required="required" value="<?php echo $pickup_email ?>">
+										<input type="text" class="optional" name="pickup_email" id="pickup_email" required="required" value="<?php echo $pickup_email ?>">
 										<label>Email</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
+										<input type="text" class="optional" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
 										<label>Date</label>
 									</div>
 									<div class="single_calculate">
@@ -305,28 +305,50 @@
 										</select>	
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="payment_method" id="payment_method" required="required" value="<?php echo $payment_method ?>">
-										<label>Payment Method</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" name="payment_status" id="payment_status" required="required" value="<?php echo $payment_status ?>">
-										<label>Payment Status</label>
-									</div>
-									<div class="single_calculate">
 										<input type="text" name="delivery_cost" id="delivery_cost" required="required" value="<?php echo $delivery_cost ?>">
-										<label>Delivery Cost</label>
+										<label>Delivery Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="insurance_fee" id="insurance_fee" required="required" value="<?php echo $insurance_fee ?>">
-										<label>Insurance Fee</label>
+										<label>Insurance Fee (₦)</label>
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="pickup_cost" id="pickup_cost" required="required" value="<?php echo $pickup_cost ?>">
-										<label>Pickup Cost</label>
+										<label>Pickup Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>">
-										<label>Total Cost</label>
+										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>" readonly>
+										<label>Total Cost (₦)</label>
+									</div>
+									<!-- Payment method -->
+									<div style="background: #f9bf3b; color: #fff;" class="single_calculate">
+										<input style="background: #f9bf3b; color: #fff;" type="text" value="<?php echo ucwords(str_replace('_', ' ', $payment_method)); ?>" readonly>
+										<label style="background: #f9bf3b; color: #fff;">Payment Method :</label>
+									</div>
+									<div class="single_calculate">
+										<select name="payment_method" id="payment_method" required>
+											<option value="<?php echo $payment_method ?>" selected="selected">Change Payment Method</option>
+											<option value="internet_banking">Internet Banking</option>
+											<option value="short_code">Short Code</option>
+											<option value="Payment_on_delivery">Payment On Delivery</option>
+										</select>	
+									</div>
+									<!-- Payment status -->
+									<div style="background: #f9bf3b; color: #fff;" class="single_calculate">
+										<input style="background: #f9bf3b; color: #fff;" type="text" value="<?php echo $payment_status ?>" readonly>
+										<label style="background: #f9bf3b; color: #fff;">Payment Status :</label>
+									</div>
+									<div class="single_calculate">
+										<select name="payment_status" id="payment_status" required>
+											<option value="<?php echo $payment_status ?>" selected="selected">Change Payment Status</option>
+											<option value="unpaid">Unpaid</option>
+											<option value="paid">Paid</option>
+											<option value="toggle_custom">Custom Status</option>
+										</select>	
+									</div>
+									<div id="custom_status" class="single_calculate">
+										<input type="text" class="optional" name="custom_status">
+										<label>Custom Status</label>
 									</div>
 								</div>
 
@@ -430,7 +452,9 @@
 				<!--Start of Live Chat Script-->
 				<script src="resources/js/chat.js"></script>
 				<!--End of Live Chat Script-->
+				<script src="resources/js/toggle_custom.js"></script>
 				<script src="resources/js/form_wizard.js"></script>
+				<script src="resources/js/calculate_total.js"></script>
 			</body>
 			
 		</html>		
