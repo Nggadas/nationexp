@@ -45,11 +45,6 @@
 	$_SESSION['timeout'] = time();
 
 	function protect(){
-		$connect = mysqli_connect("localhost","root","","nationex_smartzip");
-		if (!$connect) {
-			die("Connection failed: " . mysqli_connect_error());
-		}
-
 		if($_SESSION['id']==""){
 			unset($_SESSION);
 			unset($_COOKIE);
@@ -63,9 +58,9 @@
 			$session_title = $_SESSION['title'];
 			$session_account_id = $_SESSION['account_id'];
 
-			$query_session = mysqli_query($connect,"SELECT * FROM `register` WHERE `email`='$session_email' AND `account_id`='$session_account_id' order by id DESC LIMIT 1");
-			$row_session = mysqli_num_rows($query_session);
-			$val_session = mysqli_fetch_assoc($query_session);
+			$query_session = mysql_query("SELECT * FROM `register` WHERE `email`='$session_email' AND `account_id`='$session_account_id' order by id DESC LIMIT 1");
+			$row_session = mysql_num_rows($query_session);
+			$val_session = mysql_fetch_assoc($query_session);
 
 			$myacct = $val_session['account_id'];
 

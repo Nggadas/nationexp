@@ -406,7 +406,6 @@ function changeFormat($date){
 		}
 	}
 
-	// $pickup_date = implode(' ', $date_array);
 	$pickup_date = implode(' ', array_reverse($date_array));
 
 	return $pickup_date;

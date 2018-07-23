@@ -2,10 +2,15 @@
 /*************** reCAPTCHA KEYS****************/
 $publickey = "6LezFdsSAAAAALaU4K2hqNhWV1V_LBL8-4WanY5W";
 $privatekey = "6LezFdsSAAAAAHB52KRhnPlgcXo6kNZvrF6Cqucp";
+
+// recaptcha
+// 6LfZGl0UAAAAAGYRHX2MHLhGUQTl7Cvs_GWq9HGU
+// Secret key
+// 6LfZGl0UAAAAAGamUiX4UFtTn3IywsrWoMKZUbHG
 //include_once('config.php');
 function filter($connect,$data) {
 	$data = trim(htmlentities(strip_tags($data)));
-	
+
 	if (get_magic_quotes_gpc())
 		$data = stripslashes($data);
 	$data = mysqli_real_escape_string($connect,$data);

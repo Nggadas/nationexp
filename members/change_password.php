@@ -1,6 +1,9 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
-	
+
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +12,7 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Set Delivery Amount - NationExpress24 Delivery</title>
+		<title>Change Password - NationExpress24 Delivery</title>
 		<!--  bootstrap css -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<!--  font Awesome Css  -->
@@ -18,7 +21,7 @@
 		<link href="resources/fonts/stylesheet.css" rel="stylesheet">
 		<!-- Reset css-->
 		<link href="resources/css/reset.css" rel="stylesheet">
-		
+
 		<!--slick css-->
 		<link href="resources/css/slick.css" rel="stylesheet">
 		<!--  owl-carousel css -->
@@ -30,14 +33,14 @@
 		<link href="resources/css/style.css" rel="stylesheet">
 		<!--  Responsive Css  -->
 		<link href="resources/css/responsive.css" rel="stylesheet">
-		
+
 		<!--  browser campatibel css files-->
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
-	
+
 	<body class="js1">
 		<div class="tel_header"><i class="fa fa-envelope" aria-hidden="true"></i> <font color="red">info@nationexpress24.com</font>  &nbsp;&nbsp;<i class="fa fa-phone" aria-hidden="true"></i> Call our hotline 0805-773-2873 or <i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp 0817-033-3258</div>
 		<!--start header area-->
@@ -56,13 +59,18 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="index.php">home</a></li>
+																	<?php if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "true") {?>
+																			<li class="menu-item"><a href="adminportal/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
+																		<?php }else if(!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "false"){ ?>
+																			<li class="menu-item"><a href="index.php">Welcome, <?php echo $_SESSION['first']; ?></a></li>
+																		<?php }else if(empty($_SESSION['isAdmin'])){ ?>
+																			<li><a href="index.php">home</a></li>
+																	<?php } ?>
                                     <li><a href="../service.php">services</a></li>
-									<li><a href="../track.php">track your parcel</a></li>
+									                  <li><a href="../track.php">track your parcel</a></li>
                                     <li><a href="../pricing.php">pricing</a></li>
                                     <li><a href="../contact.php">contact</a></li>
-									<li class="signup1"><a href="../login.html">login</a></li>
-									<li class="signup2"><a href="../signup.html">sign up</a></li>
+									<li class="signup1"><a href="logout.php">logout</a></li>
 								</ul>
 								<!-- /.navbar-collapse -->
 							</nav>
@@ -71,41 +79,42 @@
 				</div>
 			</div>
 			<!--   end of logo menu markup     -->
-			
+
 		<!--end of header area-->
 		</section>
 		<!--    end of about top area-->
-	
+
 		<!--start calculate area-->
 		<section class="calculate_area pricing-area version-6" id="tracking">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2>Set Delivery Amount</h2>
-							<p>Set the delivery amount for customers here</p>
+							<h2>Change Password</h2>
+							<p>You can change your password here</p>
 						</div>
+						<div id="errormsg" style="display:none; background-color: red; text-align: center; padding: 10px;">
+							<h4 style="color: white"><span id="result"></span></h4>
+						</div>
+						<div id="successmsg" style="display:none; background-color: green; text-align: center; padding: 10px;">
+							<h4 style="color: white"><span id="response"></span></h4>
+						</div><br>
 						<div class="calculate_form">
-							<form action="post">
+							<form>
 								<div class="single_calculate">
-									<input type="text">
-									<label>Delivery Type</label>
+									<input type="password" id="old">
+									<label>Current Password</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text">
-									<label>Zone</label>
+									<input type="password" id="newpass">
+									<label>New Password</label>
 								</div>
 								<div class="single_calculate">
-									<input type="text">
-									<label>Unit Price (₦)</label>
+									<input type="password" id="confirm">
+									<label>Confirm Password</label>
 								</div>
 								<div class="calculat-button">
-									<input type="submit" class="calulate" value="SUBMIT">
-								</div>
-								<div class="totla-cost" style="display:none">
-									<h5>Estimated Cost: <span>$ 30</span></h5>
-									<h5>Duration: <span>1-3 days</span></h5>
-									<h5><input type="button" class="calulatea" value="ORDER NOW"></h5>
+									<input type="submit" class="calulate" value="SUBMIT" id="submit">
 								</div>
 							</form>
 						</div>
@@ -117,7 +126,7 @@
 			</div>
 		</section>
 		<!--    end of calculate area-->
-		
+
 		<section class="footer-area" id="contact">
 			<div class="container">
 				<div class="row">
@@ -132,7 +141,7 @@
 						<div class="single-footer">
 							<h2>More links</h2>
 							<ul class="list">
-								<li><a href="../schedule-a-pickup.html">Schedule a Pickup</a></li>
+								<li><a href="../schedule-a-pickup.php">Schedule a Pickup</a></li>
 								<li><a href="../faq.html">FAQ</a></li>
 								<li><a href="../terms.html">Terms and Conditions</a></li>
 								<li><a href="../privacy-policy.html">Privacy Policy</a></li>
@@ -158,7 +167,7 @@
 			</div>
 		</section>
 		<!--end of footer area-->
-		
+
 		<!--   start copyright text area-->
 		<div class="copyright-area">
 			<div class="container">
@@ -171,13 +180,13 @@
 					<div class="footer-text">
 						<a href="" class="fa fa-facebook"></a>
 						<a href="" class="fa fa-twitter"></a>
-						<a href="" class="fa fa-instagram"></a>	
-					</div>	
+						<a href="" class="fa fa-instagram"></a>
+					</div>
 				</div>
 			</div>
 		</div>
 		<!--    end of copyright text area-->
-		
+
 		<!--  jquery.min.js  -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<!--    bootstrap.min.js-->
@@ -199,9 +208,11 @@
 		<script src="resources/js/jquery.counterup.min.js"></script>
 		<!--    main.js-->
 		<script src="resources/js/main.js"></script>
+		<!-- change password js -->
+		<script src="resources/js/changepass.js"></script>
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
 	</body>
-	
+
 </html>

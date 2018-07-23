@@ -52,7 +52,7 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal" >Welcome, <? echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal" >Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -123,8 +123,8 @@
 												</tr>
 											</tfoot>
 											<tbody>
-												<? do {?>
-													<?
+												<?php do {?>
+													<?php
 														$type_name = $val_b_type['delivery_type'];
 														$type_desc = $val_b_type['description'];
 														$type_coll_st = $val_b_type['collection_st'];
@@ -137,17 +137,17 @@
 													
 													<?php if($type_id){ ?>
 														<tr>	
-															<td><? echo $type_name; ?></td>
-															<td><? echo $type_desc; ?></td>
-															<td><? echo $type_coll_st; ?></td>
-															<td><? echo $type_del_st; ?></td>
-															<td><? echo $type_coll_et; ?></td>
-															<td><? echo $type_del_et; ?></td>
-															<td><? echo $type_status; ?></td>
-															<td><a href="edit_del_type?id=<? echo $type_id; ?>" target="_blank"><button class="btn btn-primary" title="Click to edit this delivery type">Edit</button></a></td>
+															<td><?php echo $type_name; ?></td>
+															<td><?php echo $type_desc; ?></td>
+															<td><?php echo $type_coll_st; ?></td>
+															<td><?php echo $type_del_st; ?></td>
+															<td><?php echo $type_coll_et; ?></td>
+															<td><?php echo $type_del_et; ?></td>
+															<td><?php echo $type_status; ?></td>
+															<td><a href="edit_del_type?id=<?php echo $type_id; ?>" target="_blank"><button class="btn btn-primary" title="Click to edit this delivery type">Edit</button></a></td>
 														</tr>
-													<? } ?>
-												<? }while($val_b_type = mysql_fetch_array($sql_b_type)) ?>
+													<?php } ?>
+												<?php }while($val_b_type = mysql_fetch_array($sql_b_type)) ?>
 												
 											</tbody>
 										</table>
@@ -177,7 +177,7 @@
 																<div class="single-footer">
 																	<h2>More links</h2>
 																	<ul class="list">
-																		<li><a href="../schedule-a-pickup.html">Schedule a Pickup</a></li>
+																		<li><a href="../schedule-a-pickup.php">Schedule a Pickup</a></li>
 																		<li><a href="../faq.html">FAQ</a></li>
 																		<li><a href="../terms.html">Terms and Conditions</a></li>
 																		<li><a href="../privacy-policy.html">Privacy Policy</a></li>

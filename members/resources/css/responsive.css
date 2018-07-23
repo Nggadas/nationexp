@@ -5,6 +5,30 @@
     .signup li a {
         padding: 15px 25px 15px 0;
     }
+    #ship {
+        margin-right: -122px;
+        margin-left: 18px;
+        width: 345px;
+    }
+    #pricing {
+        margin-left: 84px;
+        width: 745px;
+    }
+    .weight {
+        margin-left:23px;
+    }
+    .track {
+        margin-left:35px;
+    }
+    .service {
+        margin-left:73px;
+    }
+    .prices {
+      margin-left: 10px;
+    }
+    .shipment {
+     margin-left: -56px;
+    }
     .carousel-caption {
         left: 15%;
     }
@@ -209,6 +233,22 @@
     }
     .dropdown li a:hover {
         color: #fff !important;
+
+    }
+    .shipment {
+      margin-left:0px;
+    }
+    .weight {
+        margin-left:60px;
+    }
+    .track {
+        margin-left:68px;
+    }
+    .service {
+        margin-left:105px;
+    }
+    .prices {
+      margin-left: 100px;
     }
     .dropdownMenu {
         opacity: 1;
@@ -263,8 +303,8 @@
         width: 90%;
     }
     .welcome_form .form-control {
-        font-size: 12px;
-        height: 47px;
+        font-size: 10px;
+        height: 43px;
         padding-left: 15px;
         width: 100%;
     }
@@ -285,7 +325,7 @@
         font-size: 12px;
         height: 80%;
         top: 11%;
-        width: 150px;
+        width: 125px;
     }
     .welcome_text > h1 {
         font-size: 20px;
@@ -343,7 +383,7 @@
     }
     .single_calculate label {
         font-size: 12px;
-        width: 90px;
+        width: 150px;
     }
     .calculate_option.padding-riht {
         margin-right: 15px;
@@ -351,15 +391,23 @@
     .calculate_option.selectpadding::after {
         left: 0;
     }
+    .calulate {
+        width: 183px;
+    }
     .calculate_area {
         padding: 30px 0;
+        margin-left: 33px;
+        margin-right: 33px;
     }
     .calculate_title > h2 {
         font-size: 23px;
         margin-bottom: 15px;
+        margin-top: 52px;
     }
     .calculate_title {
-        margin-bottom: 25px;
+    margin-bottom: 48px;
+    margin-top: 5px;
+    margin-left: -5px;
     }
     .client-area {
         padding: 30px 0 0;
@@ -559,7 +607,8 @@
         line-height: 22px;
     }
     .title > h2 {
-        margin-bottom: 10px;
+        margin-top: 39px
+        margin-bottom: 17px;
     }
     .title {
         line-height: 20px;
@@ -638,5 +687,17 @@
     }
     .single_calculate > input {
         width: 258px;
+    }
+    .weight {
+        margin-left:60px;
+    }
+    .track {
+        margin-left:68px;
+    }
+    .service {
+        margin-left:105px;
+    }
+    .prices {
+      margin-left: 100px;
     }
 }

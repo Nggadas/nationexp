@@ -25,8 +25,11 @@ a.meanmenu-reveal {
 }
 
 .mean-container a.meanmenu-reveal {
-	width: 22px;
-	height: 22px;
+
+  margin-right: 24px;
+  margin-top: -22px;
+  width: 37px;
+	height: 27px;
 	padding: 13px 13px 11px 13px;
 	position: absolute;
 	top: 0;
@@ -54,7 +57,7 @@ a.meanmenu-reveal {
 	float: left;
 	width: 100%;
 	background: #0c1923;
-	margin-top: 44px;
+	margin-top: 95px;
 }
 
 .mean-container .mean-nav ul {

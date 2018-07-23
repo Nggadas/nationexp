@@ -194,7 +194,7 @@
 							<div class="single-footer">
 								<h2>More links</h2>
 								<ul class="list">
-									<li><a href="../schedule-a-pickup.html">Schedule a Pickup</a></li>
+									<li><a href="../schedule-a-pickup.php">Schedule a Pickup</a></li>
 									<li><a href="../faq.html">FAQ</a></li>
 									<li><a href="../terms.html">Terms and Conditions</a></li>
 									<li><a href="../privacy-policy.html">Privacy Policy</a></li>

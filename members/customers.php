@@ -52,7 +52,7 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to My Portal" >Welcome, <? echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="./" title="Go to My Portal" >Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -78,7 +78,7 @@
 							<div class="pricing-desc-title">
 								<div class="title">
 									<h2>Registered Users</h2>
-									<p>Here is where you will view the list of <font color="blue"><? echo ucwords(strtoupper($typereg)); ?></font> customers </p>
+									<p>Here is where you will view the list of <font color="blue"><?php echo ucwords(strtoupper($typereg)); ?></font> customers </p>
 								</div>
 							</div>
 						</div>
@@ -88,7 +88,7 @@
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#recent" data-toggle="tab"><? echo ucwords($typereg); ?> Customers</a>
+								<li class="active"><a href="#recent" data-toggle="tab"><?php echo ucwords($typereg); ?> Customers</a>
 								</li>
 								
 							</ul>
@@ -123,8 +123,8 @@
 												</tr>
 											</tfoot>
 											<tbody>
-												<? do {?>
-													<?							
+												<?php do {?>
+													<?php							
 														$sql_b_reg = mysql_query("SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$myregacct' AND `status`='Enabled' ORDER BY ID DESC");
 														$row_b_reg = mysql_num_rows($sql_b_reg);
 														$val_b_reg = mysql_fetch_assoc($sql_b_reg);	
@@ -139,17 +139,17 @@
 													?>
 													<?php if($myregacct){ ?>
 															<tr>
-																<td><? if($reg_new==""){?><span style="margin-right:10px;" class="badge" title="New Customer">New</span><? } ?><? echo $reg_date; ?></td>
-																<td><? echo $reg_firstname; ?></td>
-																<td><? echo $reg_surname; ?></td>
-																<td><? echo $reg_phone; ?></td>
-																<td><? echo $reg_email; ?></td>
-																<td><? echo $myregacct; ?></td>
-																<td><a href="place_order?id=<? echo $myregacct; ?>"><button class="btn btn-primary" title="Place Order">Place Order</button></a></td>
-																<td><a href="customers_info?account_id=<? echo $myregacct; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
+																<td><?php if($reg_new==""){?><span style="margin-right:10px;" class="badge" title="New Customer">New</span><?php } ?><?php echo $reg_date; ?></td>
+																<td><?php echo $reg_firstname; ?></td>
+																<td><?php echo $reg_surname; ?></td>
+																<td><?php echo $reg_phone; ?></td>
+																<td><?php echo $reg_email; ?></td>
+																<td><?php echo $myregacct; ?></td>
+																<td><a href="place_order?id=<?php echo $myregacct; ?>"><button class="btn btn-primary" title="Place Order">Place Order</button></a></td>
+																<td><a href="customers_info?account_id=<?php echo $myregacct; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
 															</tr>
-														<? } ?>
-													<? }while($val_b_reg = mysql_fetch_array($sql_b_reg)) ?>
+														<?php } ?>
+													<?php }while($val_b_reg = mysql_fetch_array($sql_b_reg)) ?>
 											</tbody>
 										</table>
 									</div>
@@ -178,7 +178,7 @@
 						<div class="single-footer">
 							<h2>More links</h2>
 							<ul class="list">
-								<li><a href="../schedule-a-pickup.html">Schedule a Pickup</a></li>
+								<li><a href="../schedule-a-pickup.php">Schedule a Pickup</a></li>
 								<li><a href="../faq.html">FAQ</a></li>
 								<li><a href="../terms.html">Terms and Conditions</a></li>
 								<li><a href="../privacy-policy.html">Privacy Policy</a></li>

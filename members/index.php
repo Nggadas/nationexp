@@ -1,9 +1,9 @@
 <?php
-include("check.php");	
+include("check.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
-	
+
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,7 +13,7 @@ include("check.php");
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
 		<title>My Portal - NationExpress24 Delivery</title>
-		
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="resources/fonts/stylesheet.css" rel="stylesheet">
@@ -24,18 +24,19 @@ include("check.php");
 		<link href="resources/css/owl.carousel.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet">
 		<link href="resources/css/responsive.css" rel="stylesheet">
-		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		
+
 	</head>
-	
+
 	<body class="js">
 		<div class="tel_header"><i class="fa fa-envelope" aria-hidden="true"></i> <font color="red">info@nationexpress24.com</font>  &nbsp;&nbsp;<i class="fa fa-phone" aria-hidden="true"></i> Call our hotline 0805-773-2873 or <i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp 0817-033-3258</div>
 		<div id="preloader"></div>
-		
+
 		<section class="about-us">
 			<div class="logo_menu" id="sticker1">
 				<div class="container">
@@ -49,8 +50,8 @@ include("check.php");
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="">Welcome, <? echo $first_name; ?></a>
-									</li>
+                                    <li class="current-menu-item"><a href="">Welcome, <?php echo $first_name; ?></a></li>
+									<li><a href="../track.php">track your parcel</a></li>
                                     <li><a href="../service.php">services</a></li>
                                     <li><a href="../pricing.php">pricing</a></li>
                                     <li><a href="../contact.php">contact</a></li>
@@ -63,7 +64,7 @@ include("check.php");
 				</div>
 			</div>
 		</section>
-		
+
 		<!--    start pricing area-->
 		<!-- Pricing Area -->
 		<section class="pricing-area version-6" id="pricing">
@@ -74,7 +75,7 @@ include("check.php");
 							<div class="pricing-desc-title">
 								<div class="title">
 									<h2>My Portal</h2>
-									<p>Now, you can manage orders, users and set price.</p>
+									<p></p>
 								</div>
 							</div>
 						</div>
@@ -88,10 +89,13 @@ include("check.php");
 										<b><p>NationExpress24 is committed to provide cost effective shipping solutions to individuals and businesses in Nigeria.</p>
 										<p><i>When you want the best courier service in Nigeria, call NationExpress24.</i></p>
 									</div></b>
+									<div id="invalid-login" style="display:none"><strong>
+									  <p><font color="red"><i class="fa fa-exclamation-triangle"></i> &nbsp; <span id="error_signup"></span></font></p></strong>
+								    </div>
 									<div class="welcome_form">
-										<form action="#">
-											<input class="form-control" type="text" placeholder="Enter your tracking number">
-											<input class="submit" type="submit" value="Track your parcel">
+										<form>
+											<input class="form-control" type="text" placeholder="Enter your tracking number" id="trackNo">
+											<input class="submit" type="submit" value="Track your parcel" id="submit">
 										</form>
 									</div>
 								</div>
@@ -99,7 +103,7 @@ include("check.php");
 					</div>
 				</div>
 			</div>
-			
+
 				</div>
 				<div class="row">
 					<div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 text-center">
@@ -110,10 +114,10 @@ include("check.php");
 								<h5>individual & merchant orders</h5>
 							</div>
 							<ul class=price-list>
-								<a href="orders?status=order_booked"><li>Order Booked <span style="margin-left:10px;" class="badge"><? echo $orderbooked; ?></span></li></a>
-								<a href="orders?status=in_transit"><li>In-Transit <span style="margin-left:10px;" class="badge"><? echo $intransit; ?></span></li></a>
-								<a href="orders?status=delivered"><li>Delivered <span style="margin-left:10px;" class="badge"><? echo $delivered; ?></span></li></a>
-								<a href="orders?status=order_cancelled"><li>Order Cancelled <span style="margin-left:10px;" class="badge"><? echo $ordercancelled; ?></span></li></a>
+								<a href="orders?status=order_booked"><li>Order Booked <span style="margin-left:10px;" class="badge"><?php echo $orderbooked; ?></span></li></a>
+								<a href="orders?status=in_transit"><li>In-Transit <span style="margin-left:10px;" class="badge"><?php echo $intransit; ?></span></li></a>
+								<a href="orders?status=delivered"><li>Delivered <span style="margin-left:10px;" class="badge"><?php echo $delivered; ?></span></li></a>
+								<a href="orders?status=order_cancelled"><li>Order Cancelled <span style="margin-left:10px;" class="badge"><?php echo $ordercancelled; ?></span></li></a>
 							</ul>
 						</div>
 					</div>
@@ -121,16 +125,16 @@ include("check.php");
 						<div class="single-pricing-table">
 							<div class="pricing-title">
 								<h6>Pricing Management</h6>
-								<h1><i class="fa fa-users"></i></h1>
+								<h1><i class="fas fa-file-invoice-dollar"></i></h1>
 								<h5>Pricing information</h5>
 							</div>
 							<ul class=price-list>
-								<a href="#"><li>Coming soon <span style="margin-left:10px;" class="badge"><? echo $newcustomers; ?></span></li></a>
-								<a href="#"><li>Coming soon <span style="margin-left:10px;" class="badge"><? echo $returningcustomers; ?></span></li></a>
-								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><? echo $invoices; ?></span></li></a>
+								<a href="#"><li>Coming soon <span style="margin-left:10px;" class="badge"><?php echo $newcustomers; ?></span></li></a>
+								<a href="#"><li>Coming soon <span style="margin-left:10px;" class="badge"><?php echo $returningcustomers; ?></span></li></a>
+								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><?php echo $invoices; ?></span></li></a>
 							 </ul>
 							<div class="order-buton">
-								<a href="create_invoice">Create Invoice</a>
+								<a href="../pricing.php">Place Order</a>
 							</div>
 						</div>
 					</div>
@@ -142,8 +146,8 @@ include("check.php");
 								<h5>individual or merchant setup</h5>
 							</div>
 							<ul class=price-list>
-								<a href="set_delivery_amount"><li>Set Delivery Location</li></a>
-								<a href="delivery_types"><li>Manage Delivery Time</li></a>
+								<!-- <a href="set_pickup_location.php"><li>Set pickup Location</li></a> -->
+								<a href="manage_location.php"><li>Manage Pickup Location</li></a>
 								<a href="zones"><li>Manage Profile</li></a>
 							</ul>
 							<div class="order-buton">
@@ -155,7 +159,7 @@ include("check.php");
 			</div>
 		</section>
 		<!-- /.End Of Pricing Area -->
-		
+
 		<section class="footer-area" id="contact">
 			<div class="container">
 				<div class="row">
@@ -170,7 +174,7 @@ include("check.php");
 						<div class="single-footer">
 							<h2>More links</h2>
 							<ul class="list">
-								<li><a href="../schedule-a-pickup.html">Schedule a Pickup</a></li>
+								<li><a href="../schedule-a-pickup.php">Schedule a Pickup</a></li>
 								<li><a href="../faq.html">FAQ</a></li>
 								<li><a href="../terms.html">Terms and Conditions</a></li>
 								<li><a href="../privacy-policy.html">Privacy Policy</a></li>
@@ -196,7 +200,7 @@ include("check.php");
 			</div>
 		</section>
 		<!--end of footer area-->
-		
+
 		<!--   start copyright text area-->
 		<div class="copyright-area">
 			<div class="container">
@@ -209,17 +213,17 @@ include("check.php");
 					<div class="footer-text">
 						<a href="" class="fa fa-facebook"></a>
 						<a href="" class="fa fa-twitter"></a>
-						<a href="" class="fa fa-instagram"></a>	
-					</div>	
+						<a href="" class="fa fa-instagram"></a>
+					</div>
 				</div>
 			</div>
 		</div>
 		<!--    end of copyright text area-->
-		
-		
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 		<script src="resources/js/jquery.counterup.min.js"></script>
 		<script src="resources/js/jquery.sticky.js"></script>
@@ -231,7 +235,8 @@ include("check.php");
 		<script src="resources/js/main.js"></script>
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
+		<script src="../js/tracken.js"></script>
 		<!--End of Live Chat Script-->
 	</body>
-	
+
 </html>
