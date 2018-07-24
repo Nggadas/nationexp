@@ -144,7 +144,7 @@
 															<td><?php echo $unit_price; ?></td>
 															<td><?php echo $add_kg_cost; ?></td>
 															<td><?php echo $pickup_price; ?></td>
-															<td><a href="edit_zones?id=<?php echo $record_id; ?>" target="_blank"><button class="btn btn-primary" title="Click to edit this zone">Edit</button></a></td>
+															<td><a href="edit_zone?id=<?php echo $record_id; ?>" target="_blank"><button class="btn btn-primary" title="Click to edit this zone">Edit</button></a></td>
 														</tr>
 													<?php } ?>
 												<?php }while($val_b_type = mysqli_fetch_array($sql_b_type)) ?>
