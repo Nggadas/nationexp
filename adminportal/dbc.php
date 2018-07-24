@@ -365,40 +365,40 @@ function changeFormat($date){
 		if ($key == 1) {
 			// Convert months to words
 			if ($value == '01') {
-				$date_array[] = 'January';
+				$date_array[] = 'Jan';
 	
 			} elseif ($value == '02') {
-				$date_array[] = 'Febuary';
+				$date_array[] = 'Feb';
 				
 			} elseif ($value == '03') {
-				$date_array[] = 'March';
+				$date_array[] = 'Mar';
 				
 			} elseif ($value == '04') {
-				$date_array[] = 'April';
+				$date_array[] = 'Apr';
 				
 			} elseif ($value == '05') {
 				$date_array[] = 'May';
 				
 			} elseif ($value == '06') {
-				$date_array[] = 'June';
+				$date_array[] = 'Jun';
 				
 			} elseif ($value == '07') {
-				$date_array[] = 'July';
+				$date_array[] = 'Jul';
 				
 			} elseif ($value == '08') {
-				$date_array[] = 'August';
+				$date_array[] = 'Aug';
 				
 			} elseif ($value == '09') {
-				$date_array[] = 'September';
+				$date_array[] = 'Sep';
 				
 			} elseif ($value == '10') {
-				$date_array[] = 'October';
+				$date_array[] = 'Oct';
 				
 			} elseif ($value == '11') {
-				$date_array[] = 'November';
+				$date_array[] = 'Nov';
 				
 			} elseif ($value == '12') {
-				$date_array[] = 'December';
+				$date_array[] = 'Dec';
 				
 			}
 		} else {

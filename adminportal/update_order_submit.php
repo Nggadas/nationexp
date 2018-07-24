@@ -1,5 +1,8 @@
 <?php
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+	// get current date and time
+	$date = date("j M Y");
+	$time = date("g:i A");
 
 	// Get delivery_details for $booking_no
 	$contact_person = filter($connect,$_POST['contact_person']);
@@ -9,8 +12,46 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	$delivery_address = filter($connect,$_POST['address']);
 	$city = filter($connect,$_POST['city']);
 	$bus_stop = filter($connect,$_POST['bus_stop']);
-	$state = filter($connect,$_POST['state']);
 	$country = filter($connect,$_POST['country']);
+	$state = filter($connect,$_POST['state']);
+	$service = filter($connect,$_POST['service']);
+	$category = filter($connect,$_POST['category']);
+	$delivery_type = filter($connect,$_POST['delivery_type']);
+
+	if ($delivery_type == 'Early Morning') {
+		// Get current date
+		$current_date=date_create();
+		// Add working days to current date
+		date_add($current_date,date_interval_create_from_date_string("1 weekdays"));
+		// Save the new date in format of choice
+		$est_delivery_date = date_format($current_date,"d M Y");
+
+		$est_delivery_time = '11:00 AM';
+	} elseif ($delivery_type == 'Same Day') {
+		// Get current date
+		$current_date=date_create();
+		$est_delivery_date = date_format($current_date,"d M Y");
+
+		$est_delivery_time = '6:00 PM';
+	} elseif ($delivery_type == 'Next Day') {
+		// Get current date
+		$current_date=date_create();
+		// Add working days to current date
+		date_add($current_date,date_interval_create_from_date_string("1 weekdays"));
+		// Save the new date in format of choice
+		$est_delivery_date = date_format($current_date,"d M Y");
+
+		$est_delivery_time = '6:00 PM';
+	} elseif ($delivery_type == 'Outside Lagos') {
+		// Get current date
+		$current_date=date_create();
+		// Add working days to current date
+		date_add($current_date,date_interval_create_from_date_string("3 weekdays"));
+		// Save the new date in format of choice
+		$est_delivery_date = date_format($current_date,"d M Y");
+
+		$est_delivery_time = '6:00 PM';
+	}
 
 	// Get parcel_details details for $booking_no
 	$product = filter($connect,$_POST['product']);
@@ -19,6 +60,7 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	$weight = filter($connect,$_POST['weight']);
 
 	// Get pickup_details details for $booking_no
+	$pickup_toggle = filter($connect,$_POST['toggle_pickup']);
 	$pickup_person = filter($connect,$_POST['pickup_person']);
 	$pickup_address = filter($connect,$_POST['pickup_address']);
 	$pickup_bus_stop = filter($connect,$_POST['pickup_bus_stop']);
@@ -38,16 +80,12 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	$pickup_cost = filter($connect,$_POST['pickup_cost']);
 	$total_cost = filter($connect,$_POST['total_cost']);
 
-	// Update_date
-	$date = date("j F Y");
-	$time = date("g:i A");
-
 	// Update delivery_details
-	function update_delivery($connect,$booking_no,$contact_person,$phone_no,$alt_phone_no,$email,$delivery_address,$city,$bus_stop,$state,$country){
+	function update_delivery($connect,$booking_no,$contact_person,$phone_no,$alt_phone_no,$email,$delivery_address,$city,$bus_stop,$state,$country,$service,$category,$delivery_type,$est_delivery_date,$est_delivery_time){
 
 		// Update delivery_details
 		$update_delivery = "UPDATE delivery_details 
-			SET full_name='$contact_person', `address`='$delivery_address', bus_stop='$bus_stop', city='$city', `state`='$state', country='$country', phone='$phone_no', alt_phone='$alt_phone_no', email='$email'
+			SET full_name='$contact_person', `address`='$delivery_address', bus_stop='$bus_stop', city='$city', `state`='$state', country='$country', phone='$phone_no', alt_phone='$alt_phone_no', email='$email' ,`service`='$service' ,category='$category' ,delivery_type='$delivery_type' ,est_delivery_date='$est_delivery_date' ,est_delivery_time='$est_delivery_time'
 			WHERE booking_no='$booking_no'";
 
 		if (mysqli_query($connect, $update_delivery)) { 
@@ -74,17 +112,23 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 	}
 
 	// Update pickup_details
-	function update_pickup($connect,$booking_no,$pickup_person,$pickup_address,$pickup_bus_stop,$pickup_city,$pickup_state,$pickup_phone_no,$pickup_alt_phone_no,$pickup_email,$pickup_date){
+	function update_pickup($connect,$booking_no,$pickup_person,$pickup_address,$pickup_bus_stop,$pickup_city,$pickup_state,$pickup_phone_no,$pickup_alt_phone_no,$pickup_email,$pickup_date,$pickup_toggle,$pickup_toggle){
 
-		// Update parcel_details
-		$update_pickup = "UPDATE pickup_details 
-		SET full_name='$pickup_person', `address`='$pickup_address', bus_stop='$pickup_bus_stop', city='$pickup_city', `state`='$pickup_state', phone='$pickup_phone_no', alt_phone='$pickup_alt_phone_no', email='$pickup_email', scheduled_date='$pickup_date'
-		WHERE booking_no='$booking_no'";
 
-		if (mysqli_query($connect, $update_pickup)) { 
+		// Decide if create_pickup should run
+		if ($pickup_toggle == 'no') {
 			return true;
 		} else {
-			return false;
+			// Update parcel_details
+			$update_pickup = "UPDATE pickup_details 
+			SET full_name='$pickup_person', `address`='$pickup_address', bus_stop='$pickup_bus_stop', city='$pickup_city', `state`='$pickup_state', phone='$pickup_phone_no', alt_phone='$pickup_alt_phone_no', email='$pickup_email', scheduled_date='$pickup_date'
+			WHERE booking_no='$booking_no'";
+	
+			if (mysqli_query($connect, $update_pickup)) { 
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -110,9 +154,9 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 		}
 	}
 
-	$update_delivery = update_delivery($connect,$booking_no,$contact_person,$phone_no,$alt_phone_no,$email,$delivery_address,$city,$bus_stop,$state,$country);
+	$update_delivery = update_delivery($connect,$booking_no,$contact_person,$phone_no,$alt_phone_no,$email,$delivery_address,$city,$bus_stop,$state,$country,$service,$category,$delivery_type,$est_delivery_date,$est_delivery_time);
 	$update_parcel = update_parcel($connect,$booking_no,$product,$quantity,$price,$weight,$date,$time);
-	$update_pickup = update_pickup($connect,$booking_no,$pickup_person,$pickup_address,$pickup_bus_stop,$pickup_city,$pickup_state,$pickup_phone_no,$pickup_alt_phone_no,$pickup_email,$pickup_date);
+	$update_pickup = update_pickup($connect,$booking_no,$pickup_person,$pickup_address,$pickup_bus_stop,$pickup_city,$pickup_state,$pickup_phone_no,$pickup_alt_phone_no,$pickup_email,$pickup_date,$pickup_toggle);
 	$update_payment = update_payment($connect,$booking_no,$payment_method,$custom_status,$payment_status,$delivery_cost,$insurance_fee,$pickup_cost,$total_cost,$date,$time);
 
 	if (!$update_delivery) {

@@ -142,8 +142,17 @@
 										<label>Bus Stop</label>
 									</div>
 									<div class="single_calculate">
+										<input type="text" name="country" id="country" value="<?php echo $country ?>">
+										<label>Country</label>
+									</div>
+									<!-- Delivery State -->
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords($state); ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Current State :</label>
+									</div>
+									<div class="single_calculate">
 										<select name="state" id="state" required>
-										<option value="<?php echo $state ?>" selected="selected"><?php echo strtoupper($state) ?> : CHANGE STATE</option>
+										<option value="<?php echo $state ?>" selected="selected">CHANGE STATE</option>
 														<option value="Abuja FCT">Abuja FCT</option>
 														<option value="Abia">Abia</option>
 														<option value="Adamawa">Adamawa</option>
@@ -183,9 +192,45 @@
 														<option value="Zamfara">Zamfara</option>
 													</select>
 									</div>
+									<!-- Delivery Type -->
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords($delivery_type); ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Delivery Type :</label>
+									</div>
 									<div class="single_calculate">
-										<input type="text" name="country" id="country" value="<?php echo $country ?>">
-										<label>Country</label>
+										<select name="delivery_type" id="delivery_type" required>
+											<option value="<?php echo $delivery_type ?>" selected="selected">CHANGE DELIVERY TYPE</option>
+											<option value="Early Morning">Early Morning</option>
+											<option value="Same Day">Same Day</option>
+											<option value="Next Day">Next Day</option>
+											<option value="Outside Lagos">Outside Lagos</option>
+										</select>
+									</div>
+									<!-- Delivery Category -->
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords($category); ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Category :</label>
+									</div>
+									<div class="single_calculate">
+										<select name="category" id="category" required>
+											<option value="<?php echo $category ?>" selected="selected">CHANGE CATEGORY</option>
+											<option value="Parcel">Parcel</option>
+											<option value="Document">Document</option>
+											<option value="Fragile">Fragile</option>
+											<option value="Heavyload">Heavyload</option>
+										</select>
+									</div>
+									<!-- Delivery Service Type -->
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords($service); ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Service Type :</label>
+									</div>
+									<div class="single_calculate">
+										<select name="service" id="service" required>
+											<option value="<?php echo $service ?>" selected="selected">CHANGE SERVICE TYPE</option>
+											<option value="E-Commerce">E-Commerce</option>
+											<option value="Standard">Standard</option>
+										</select>
 									</div>
 								</div>
 								
@@ -221,79 +266,91 @@
 											<option selected="selected">Pickup Details</option>
 										</select>
 									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_person ?>">
-										<label>Contact Person</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_address" id="pickup_address" required="required" value="<?php echo $pickup_address ?>">
-										<label>Pickup address</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_bus_stop" id="pickup_bus_stop" class="optional" required="required" value="<?php echo $pickup_bus_stop ?>">
-										<label>Bus Stop</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_city" id="pickup_city" required="required" value="<?php echo $pickup_city ?>">
-										<label>City</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_phone_no" id="pickup_phone_no" required="required" maxlength="11" value="<?php echo $pickup_phone_no ?>">
-										<label>Phone Number</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_alt_phone_no" id="pickup_alt_phone_no" class="optional" required="required" maxlength="11" value="<?php echo $pickup_alt_phone_no ?>">
-										<label>2nd Phone Number</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_email" id="pickup_email" required="required" value="<?php echo $pickup_email ?>">
-										<label>Email</label>
-									</div>
-									<div class="single_calculate">
-										<input type="text" class="optional" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
-										<label>Date</label>
-									</div>
-									<div class="single_calculate">
-										<select name="pickup_state" id="pickup_state" required>
-										<option value="<?php echo $pickup_state ?>" selected="selected"><?php echo strtoupper($pickup_state) ?> : CHANGE STATE</option>
-														<option value="Abuja FCT">Abuja FCT</option>
-														<option value="Abia">Abia</option>
-														<option value="Adamawa">Adamawa</option>
-														<option value="Akwa Ibom">Akwa Ibom</option>
-														<option value="Anambra">Anambra</option>
-														<option value="Bauchi">Bauchi</option>
-														<option value="Bayelsa">Bayelsa</option>
-														<option value="Benue">Benue</option>
-														<option value="Borno">Borno</option>
-														<option value="Cross River">Cross River</option>
-														<option value="Delta">Delta</option>
-														<option value="Ebonyi">Ebonyi</option>
-														<option value="Edo">Edo</option>
-														<option value="Ekiti">Ekiti</option>
-														<option value="Enugu">Enugu</option>
-														<option value="Gombe">Gombe</option>
-														<option value="Imo">Imo</option>
-														<option value="Jigawa">Jigawa</option>
-														<option value="Kaduna">Kaduna</option>
-														<option value="Kano">Kano</option>
-														<option value="Katsina">Katsina</option>
-														<option value="Kebbi">Kebbi</option>
-														<option value="Kogi">Kogi</option>
-														<option value="Kwara">Kwara</option>
-														<option value="Lagos">Lagos</option>
-														<option value="Nassarawa">Nassarawa</option>
-														<option value="Niger">Niger</option>
-														<option value="Ogun">Ogun</option>
-														<option value="Ondo">Ondo</option>
-														<option value="Osun">Osun</option>
-														<option value="Oyo">Oyo</option>
-														<option value="Plateau">Plateau</option>
-														<option value="Rivers">Rivers</option>
-														<option value="Sokoto">Sokoto</option>
-														<option value="Taraba">Taraba</option>
-														<option value="Yobe">Yobe</option>
-														<option value="Zamfara">Zamfara</option>
-													</select>
+									<div>
+										<button class="btn btn-default" style="color: #000;" disabled>Update Pickup Details?</button>
+										<label class="radio-inline">
+											<input type="radio" id"yes" name="toggle_pickup" value="yes" onclick="togglePickup('yes')">Yes
+										</label>
+										<label class="radio-inline">
+											<input type="radio" id"no" name="toggle_pickup" value="no" onclick="togglePickup('no')" checked>No
+										</label>
+									</div><br>
+
+									<div id="pickup_tab" style="display:none;">
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_person ?>">
+											<label>Contact Person</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_address" id="pickup_address" required="required" value="<?php echo $pickup_address ?>">
+											<label>Pickup address</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_bus_stop" id="pickup_bus_stop" class="optional" required="required" value="<?php echo $pickup_bus_stop ?>">
+											<label>Bus Stop</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_city" id="pickup_city" required="required" value="<?php echo $pickup_city ?>">
+											<label>City</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_phone_no" id="pickup_phone_no" required="required" maxlength="11" value="<?php echo $pickup_phone_no ?>">
+											<label>Phone Number</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_alt_phone_no" id="pickup_alt_phone_no" class="optional" required="required" maxlength="11" value="<?php echo $pickup_alt_phone_no ?>">
+											<label>2nd Phone Number</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_email" id="pickup_email" required="required" value="<?php echo $pickup_email ?>">
+											<label>Email</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text" class="optional" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
+											<label>Date</label>
+										</div>
+										<div class="single_calculate">
+											<select name="pickup_state" id="pickup_state" required>
+											<option value="<?php echo $pickup_state ?>" selected="selected"><?php echo strtoupper($pickup_state) ?> : CHANGE STATE</option>
+															<option value="Abuja FCT">Abuja FCT</option>
+															<option value="Abia">Abia</option>
+															<option value="Adamawa">Adamawa</option>
+															<option value="Akwa Ibom">Akwa Ibom</option>
+															<option value="Anambra">Anambra</option>
+															<option value="Bauchi">Bauchi</option>
+															<option value="Bayelsa">Bayelsa</option>
+															<option value="Benue">Benue</option>
+															<option value="Borno">Borno</option>
+															<option value="Cross River">Cross River</option>
+															<option value="Delta">Delta</option>
+															<option value="Ebonyi">Ebonyi</option>
+															<option value="Edo">Edo</option>
+															<option value="Ekiti">Ekiti</option>
+															<option value="Enugu">Enugu</option>
+															<option value="Gombe">Gombe</option>
+															<option value="Imo">Imo</option>
+															<option value="Jigawa">Jigawa</option>
+															<option value="Kaduna">Kaduna</option>
+															<option value="Kano">Kano</option>
+															<option value="Katsina">Katsina</option>
+															<option value="Kebbi">Kebbi</option>
+															<option value="Kogi">Kogi</option>
+															<option value="Kwara">Kwara</option>
+															<option value="Lagos">Lagos</option>
+															<option value="Nassarawa">Nassarawa</option>
+															<option value="Niger">Niger</option>
+															<option value="Ogun">Ogun</option>
+															<option value="Ondo">Ondo</option>
+															<option value="Osun">Osun</option>
+															<option value="Oyo">Oyo</option>
+															<option value="Plateau">Plateau</option>
+															<option value="Rivers">Rivers</option>
+															<option value="Sokoto">Sokoto</option>
+															<option value="Taraba">Taraba</option>
+															<option value="Yobe">Yobe</option>
+															<option value="Zamfara">Zamfara</option>
+														</select>
+										</div>
 									</div>
 								</div>
 								
@@ -321,9 +378,9 @@
 										<label>Total Cost (₦)</label>
 									</div>
 									<!-- Payment method -->
-									<div style="background: #f9bf3b; color: #fff;" class="single_calculate">
-										<input style="background: #f9bf3b; color: #fff;" type="text" value="<?php echo ucwords(str_replace('_', ' ', $payment_method)); ?>" readonly>
-										<label style="background: #f9bf3b; color: #fff;">Payment Method :</label>
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords(str_replace('_', ' ', $payment_method)); ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Payment Method :</label>
 									</div>
 									<div class="single_calculate">
 										<select name="payment_method" id="payment_method" required>
@@ -334,9 +391,9 @@
 										</select>	
 									</div>
 									<!-- Payment status -->
-									<div style="background: #f9bf3b; color: #fff;" class="single_calculate">
-										<input style="background: #f9bf3b; color: #fff;" type="text" value="<?php echo $payment_status ?>" readonly>
-										<label style="background: #f9bf3b; color: #fff;">Payment Status :</label>
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords($payment_status) ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Payment Status :</label>
 									</div>
 									<div class="single_calculate">
 										<select name="payment_status" id="payment_status" required>

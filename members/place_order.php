@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 <?php
 	include("check.php");
 	include("order_submit.php");	
 ?>
-<!DOCTYPE html>
 <html lang="en">
 	
 	<head>
@@ -25,6 +25,8 @@
 		<link href="resources/css/owl.carousel.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet">
 		<link href="resources/css/responsive.css" rel="stylesheet">
+		<!-- CSS file for multistep step form -->
+		<link href="resources/css/form_wizard.css" rel="stylesheet">
 		
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -50,7 +52,7 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <? echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -73,105 +75,287 @@
 				<div class="row">
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
-							<h2>Place a new Order</h2>
-							<p>Here you can place a new order for customers.</p>
-							<? if($mycolor){ ?>
-								<div class="invalid-login" id="invalid-login">
-									<h5><font color="<? echo $mycolor; ?>"><i class="fa fa-<? echo $mylogo; ?>" aria-hidden="true"></i> &nbsp; <span id="error_login"><? echo $statusmessage; ?></span></font></h5>
-									
-								</div>
-							<? } ?>
-							<p><font color="#000"><b>Delivery Information</b></font></p>
+							<h2>Place Order</h2>
+							<p>Here you can place an order for users.</p>
 						</div>
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+									echo '<br>';
+									echo '<br>';
+								}
+                            ?>
 						<div class="calculate_form">
-							<form role="form" id="delivery-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
+							<form role="form" id="submit-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
+
+								<input type="hidden" name="booking_no" value="<?php echo $booking_no ?>">
+								<input type="hidden" name="parcel_created" value="<?php echo $parcel_created ?>">
+								<input type="hidden" name="delivery_created" value="<?php echo $delivery_created ?>">
+								<input type="hidden" name="pickup_created" value="<?php echo $pickup_created ?>">
+								<input type="hidden" name="payment_created" value="<?php echo $payment_created ?>">
+								
+								<!-- User Details -->
 								<div class="single_calculate">
-										<select name="customer_name" id="customer_name">
-											<option value="" selected="selected">Customer Name: <? echo $myid_firstname; ?> <? echo $myid_lastname; ?></option>
-										</select>	
-									</div>
-								<div class="single_calculate">
-										<select name="acct_id" id="acct_id" required="required">
-											<option value="<? echo $myid_exists; ?>" selected="selected">Customer ID: <? echo $myid_exists; ?></option>
-										</select>	
-									</div>
-								<div class="single_calculate">
-									<input type="text" name="last_name" id="last_name" required="required">
-									<label>Contact Person</label>
+									<select name="customer_name" id="customer_name">
+										<option value="" selected="selected">Customer Name: <?php echo $full_name ?></option>
+									</select>	
 								</div>
 								<div class="single_calculate">
-									<input type="text" name="phone_no" id="phone_no" required="required" maxlength="11">
-									<label>Phone Number</label>
+									<select name="acct_id" id="acct_id" required="required">
+										<option value="<?php echo $customer_id; ?>" selected="selected">Customer ID: <?php echo $customer_id; ?></option>
+									</select>	
+								</div>
+
+								<!-- Delivery Details -->
+								<div class="tab">
+									<div class="single_calculate">
+										<select name="acct_id" id="acct_id" required="required">
+											<option selected="selected">Delivery Details</option>
+										</select>	
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="contact_person" id="last_name" required="required" value="<?php echo $contact_person ?>">
+										<label>Contact Person</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="phone_no" id="phone_no" required="required" value="<?php echo $phone_no ?>" maxlength="11">
+										<label>Phone Number</label>
+									</div>
+									
+									<div class="single_calculate">
+										<input type="text" name="alt_phone_no" class="optional" maxlength="11" value="<?php echo $alt_phone_no ?>">
+										<label>2nd Phone Number</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="del_email" id="del_email" value="<?php echo $del_email ?>">
+										<label>Email Address</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="address" id="address" required="required" value="<?php echo $delivery_address ?>">
+										<label>Street Address</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="city" id="city" required="required"  value="<?php echo $city ?>">
+										<label>City</label>									
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="bus_stop" class="optional" value="<?php echo $bus_stop ?>">
+										<label>Bus Stop</label>
+									</div>
+									<div class="single_calculate">
+										<select name="state" id="state" required>
+										<option value="<?php echo $state ?>" selected="selected">CHOOSE DELIVERY STATE</option>
+														<option value="Abuja FCT">Abuja FCT</option>
+														<option value="Abia">Abia</option>
+														<option value="Adamawa">Adamawa</option>
+														<option value="Akwa Ibom">Akwa Ibom</option>
+														<option value="Anambra">Anambra</option>
+														<option value="Bauchi">Bauchi</option>
+														<option value="Bayelsa">Bayelsa</option>
+														<option value="Benue">Benue</option>
+														<option value="Borno">Borno</option>
+														<option value="Cross River">Cross River</option>
+														<option value="Delta">Delta</option>
+														<option value="Ebonyi">Ebonyi</option>
+														<option value="Edo">Edo</option>
+														<option value="Ekiti">Ekiti</option>
+														<option value="Enugu">Enugu</option>
+														<option value="Gombe">Gombe</option>
+														<option value="Imo">Imo</option>
+														<option value="Jigawa">Jigawa</option>
+														<option value="Kaduna">Kaduna</option>
+														<option value="Kano">Kano</option>
+														<option value="Katsina">Katsina</option>
+														<option value="Kebbi">Kebbi</option>
+														<option value="Kogi">Kogi</option>
+														<option value="Kwara">Kwara</option>
+														<option value="Lagos">Lagos</option>
+														<option value="Nassarawa">Nassarawa</option>
+														<option value="Niger">Niger</option>
+														<option value="Ogun">Ogun</option>
+														<option value="Ondo">Ondo</option>
+														<option value="Osun">Osun</option>
+														<option value="Oyo">Oyo</option>
+														<option value="Plateau">Plateau</option>
+														<option value="Rivers">Rivers</option>
+														<option value="Sokoto">Sokoto</option>
+														<option value="Taraba">Taraba</option>
+														<option value="Yobe">Yobe</option>
+														<option value="Zamfara">Zamfara</option>
+													</select>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="country" id="country" value="<?php echo $country ?>">
+										<label>Country</label>
+									</div>
 								</div>
 								
-								<div class="single_calculate">
-									<input type="text" name="alt_phone_no" id="alt_phone_no" maxlength="11">
-									<label>2nd Phone Number</label>
+								<!-- Parcel Details -->
+								<div class="tab">
+									<div class="single_calculate">
+										<select name="acct_id" id="acct_id" required="required">
+											<option selected="selected">Parcel Details</option>
+										</select>	
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="product" id="product" required="required" value="<?php echo $product ?>">
+										<label>Product</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="quantity" id="quantity" required="required" value="<?php echo $quantity ?>">
+										<label>Quantity</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="price" id="price" required="required" value="<?php echo $price ?>">
+										<label>Price (₦)</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="weight" id="weight" required="required" value="<?php echo $weight ?>">
+										<label>Weight (kg)</label>
+									</div>
 								</div>
-								<div class="single_calculate">
-									<input type="text" name="email" id="email">
-									<label>Email Address</label>
+								
+								<!-- Pickup Details -->
+								<div class="tab">
+									<div class="single_calculate">
+										<select name="acct_id" id="acct_id" required="required">
+											<option selected="selected">Pickup Details</option>
+										</select>	
+									</div>
+									<div>
+										<button class="btn btn-default" style="color: #000;" disabled>Add Pickup Details?</button>
+										<label class="radio-inline">
+											<input type="radio" id"yes" name="toggle_pickup" value="yes" onclick="togglePickup('yes')">Yes
+										</label>
+										<label class="radio-inline">
+											<input type="radio" id"no" name="toggle_pickup" value="no" onclick="togglePickup('no')" checked>No
+										</label>
+									</div><br>
+
+									<div id="pickup_tab" style="display:none;">
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_person" id="pickup_person" required="required" value="<?php echo $pickup_contact ?>">
+											<label>Contact Person</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_address" id="pickup_address" required="required" value="<?php echo $pickup_address ?>">
+											<label>Pickup address</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_bus_stop" class="optional" value="<?php echo $pickup_bus_stop ?>">
+											<label>Bus Stop</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_city" id="pickup_city" required="required" value="<?php echo $pickup_city ?>">
+											<label>City</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_phone_no" id="pickup_phone_no" required="required" maxlength="11" value="<?php echo $pickup_phone_no ?>">
+											<label>Phone Number</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_alt_phone_no" class="optional" maxlength="11" value="<?php echo $pickup_alt_phone_no ?>">
+											<label>2nd Phone Number</label>
+										</div>
+										<div class="single_calculate">
+											<input type="text"  class="optional" name="pickup_email" id="pickup_email" required="required" value="<?php echo $pickup_email ?>">
+											<label>Email</label>
+										</div>
+										<div class="single_calculate">
+											<input type="date"  class="optional" name="pickup_date" id="pickup_date" required="required" value="<?php echo $pickup_date ?>">
+											<label>Pickup Date</label>
+										</div>
+										<div class="single_calculate">
+											<select name="pickup_state" id="pickup_state">
+											<option value="<?php echo $pickup_state ?>" selected="selected">CHOOSE PICKUP STATE</option>
+															<option value="Abuja FCT">Abuja FCT</option>
+															<option value="Abia">Abia</option>
+															<option value="Adamawa">Adamawa</option>
+															<option value="Akwa Ibom">Akwa Ibom</option>
+															<option value="Anambra">Anambra</option>
+															<option value="Bauchi">Bauchi</option>
+															<option value="Bayelsa">Bayelsa</option>
+															<option value="Benue">Benue</option>
+															<option value="Borno">Borno</option>
+															<option value="Cross River">Cross River</option>
+															<option value="Delta">Delta</option>
+															<option value="Ebonyi">Ebonyi</option>
+															<option value="Edo">Edo</option>
+															<option value="Ekiti">Ekiti</option>
+															<option value="Enugu">Enugu</option>
+															<option value="Gombe">Gombe</option>
+															<option value="Imo">Imo</option>
+															<option value="Jigawa">Jigawa</option>
+															<option value="Kaduna">Kaduna</option>
+															<option value="Kano">Kano</option>
+															<option value="Katsina">Katsina</option>
+															<option value="Kebbi">Kebbi</option>
+															<option value="Kogi">Kogi</option>
+															<option value="Kwara">Kwara</option>
+															<option value="Lagos">Lagos</option>
+															<option value="Nassarawa">Nassarawa</option>
+															<option value="Niger">Niger</option>
+															<option value="Ogun">Ogun</option>
+															<option value="Ondo">Ondo</option>
+															<option value="Osun">Osun</option>
+															<option value="Oyo">Oyo</option>
+															<option value="Plateau">Plateau</option>
+															<option value="Rivers">Rivers</option>
+															<option value="Sokoto">Sokoto</option>
+															<option value="Taraba">Taraba</option>
+															<option value="Yobe">Yobe</option>
+															<option value="Zamfara">Zamfara</option>
+														</select>
+										</div>
+									</div>
 								</div>
-								<div class="single_calculate">
-									<input type="text" name="address" id="address" required="required">
-									<label>Street Address</label>
+								
+								<!-- Payment Details -->
+								<div class="tab">
+									<div class="single_calculate">
+										<select name="acct_id" id="acct_id" required="required">
+											<option selected="selected">Payment Details</option>
+										</select>	
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="delivery_cost" id="delivery_cost" required="required" value="<?php echo $delivery_cost ?>">
+										<label>Delivery Cost (₦)</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="insurance_fee" id="insurance_fee" required="required" value="<?php echo $insurance_fee ?>">
+										<label>Insurance Fee (₦)</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="pickup_cost" class="optional" id="pickup_cost" required="required" value="<?php echo $pickup_cost ?>">
+										<label>Pickup Cost (₦)</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>" readonly>
+										<label>Total Cost (₦)</label>
+									</div>
+									<div class="single_calculate">
+										<select name="payment_method" id="payment_method" required>
+											<option value="<?php echo $payment_method ?>" selected="selected">Select Payment Method</option>
+											<option value="internet_banking">Internet Banking</option>
+											<option value="short_code">Short Code</option>
+											<option value="Payment_on_delivery">Payment On Delivery</option>
+										</select>	
+									</div>
 								</div>
-								<div class="single_calculate">
-									<input type="text" name="city" id="city" required="required">
-									<label>City</label>
+
+								<div style="overflow:auto;">
+									<div style="float:right;">
+										<button type="button" class="btn btn-default" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+										<button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+									</div>
 								</div>
-								<div class="single_calculate">
-									<input type="text" name="bus_stop" id="bus_stop">
-									<label>Bus Stop</label>
-								</div>
-								<div class="single_calculate">
-								<select name="state" id="state">
-									<option value="" selected="selected">SELECT STATE</option>
-													<option value="Abuja FCT">Abuja FCT</option>
-													<option value="Abia">Abia</option>
-													<option value="Adamawa">Adamawa</option>
-													<option value="Akwa Ibom">Akwa Ibom</option>
-													<option value="Anambra">Anambra</option>
-													<option value="Bauchi">Bauchi</option>
-													<option value="Bayelsa">Bayelsa</option>
-													<option value="Benue">Benue</option>
-													<option value="Borno">Borno</option>
-													<option value="Cross River">Cross River</option>
-													<option value="Delta">Delta</option>
-													<option value="Ebonyi">Ebonyi</option>
-													<option value="Edo">Edo</option>
-													<option value="Ekiti">Ekiti</option>
-													<option value="Enugu">Enugu</option>
-													<option value="Gombe">Gombe</option>
-													<option value="Imo">Imo</option>
-													<option value="Jigawa">Jigawa</option>
-													<option value="Kaduna">Kaduna</option>
-													<option value="Kano">Kano</option>
-													<option value="Katsina">Katsina</option>
-													<option value="Kebbi">Kebbi</option>
-													<option value="Kogi">Kogi</option>
-													<option value="Kwara">Kwara</option>
-													<option value="Lagos">Lagos</option>
-													<option value="Nassarawa">Nassarawa</option>
-													<option value="Niger">Niger</option>
-													<option value="Ogun">Ogun</option>
-													<option value="Ondo">Ondo</option>
-													<option value="Osun">Osun</option>
-													<option value="Oyo">Oyo</option>
-													<option value="Plateau">Plateau</option>
-													<option value="Rivers">Rivers</option>
-													<option value="Sokoto">Sokoto</option>
-													<option value="Taraba">Taraba</option>
-													<option value="Yobe">Yobe</option>
-													<option value="Zamfara">Zamfara</option>
-												</select>
-								</div>
-								<div class="single_calculate">
-									<input type="text" name="country" id="country">
-									<label>Country</label>
-								</div>
-								<div class="calculat-button">
-									<input type="submit" class="calulate" value="NEXT" id="submit_button" name="submit_button">
+
+								<!-- Circles which indicates the steps of the form: -->
+								<div style="text-align:center;margin-top:40px;">
+									<span class="step"></span>
+									<span class="step"></span>
+									<span class="step"></span>
+									<span class="step"></span>
 								</div>
 							</form>
 						</div>
@@ -256,9 +440,12 @@
 				<script src="resources/js/jquery.nav.js"></script>
 				<script src="resources/js/jquery.mb.YTPlayer.min.js"></script>
 				<script src="resources/js/main.js"></script>
-				<!--Start of Live Chat Script-->
+				<!--Live Chat Script-->
 				<script src="resources/js/chat.js"></script>
-				<!--End of Live Chat Script-->
+				<!-- JavaScript file for multistep step form -->	
+				<script src="resources/js/form_wizard.js"></script>
+				<!-- JavaScript file calculating payment total -->
+				<script src="resources/js/calculate_total.js"></script>
 			</body>
 			
 		</html>		

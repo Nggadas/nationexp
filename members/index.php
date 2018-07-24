@@ -134,7 +134,8 @@ include("check.php");
 								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><?php echo $invoices; ?></span></li></a>
 							 </ul>
 							<div class="order-buton">
-								<a href="../pricing.php">Place Order</a>
+								<a href="../members/place_order?id=<?php echo $_SESSION['account_id'] ?>">Place Order</a>
+								<!-- <a href="../pricing.php">Place Order</a> -->
 							</div>
 						</div>
 					</div>

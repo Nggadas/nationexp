@@ -33,8 +33,10 @@
 	if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
 		// get current date and time
-		$date = date("j F Y");
+		$date = date("j M Y");
 		$time = date("g:i A");
+		$newdate = date("Y-m-j");
+		$dayofweek = date("l");
 
 		// Get parcel_details details for $booking_no
 		$product = filter($connect,$_POST['product']);
@@ -52,11 +54,44 @@
 		$phone_no = filter($connect,$_POST['phone_no']);
 		$alt_phone_no = filter($connect,$_POST['alt_phone_no']);
 		$del_email = filter($connect,$_POST['del_email']);
-		$service = 'E commerce';
-		$category = 'Parcel';
-		$delivery_type = 'Next Day';
-		$est_delivery_date = $date;
-		$est_delivery_time = $time;
+		$service = filter($connect,$_POST['service']);
+		$category = filter($connect,$_POST['category']);
+		$delivery_type = filter($connect,$_POST['delivery_type']);
+
+		if ($delivery_type == 'Early Morning') {
+			// Get current date
+			$current_date=date_create();
+			// Add working days to current date
+			date_add($current_date,date_interval_create_from_date_string("1 weekdays"));
+			// Save the new date in format of choice
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '11:00 AM';
+		} elseif ($delivery_type == 'Same Day') {
+			// Get current date
+			$current_date=date_create();
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '6:00 PM';
+		} elseif ($delivery_type == 'Next Day') {
+			// Get current date
+			$current_date=date_create();
+			// Add working days to current date
+			date_add($current_date,date_interval_create_from_date_string("1 weekdays"));
+			// Save the new date in format of choice
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '6:00 PM';
+		} elseif ($delivery_type == 'Outside Lagos') {
+			// Get current date
+			$current_date=date_create();
+			// Add working days to current date
+			date_add($current_date,date_interval_create_from_date_string("3 weekdays"));
+			// Save the new date in format of choice
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '6:00 PM';
+		}
 
 		// Get pickup_details details for $booking_no
 		$pickup_toggle = filter($connect,$_POST['toggle_pickup']);
@@ -69,8 +104,7 @@
 		$pickup_alt_phone_no = filter($connect,$_POST['pickup_alt_phone_no']);
 		$pickup_email = filter($connect,$_POST['pickup_email']);
 		$pickup_date = filter($connect,$_POST['pickup_date']);
-		
-		// Change date format from html input to something like '12 May 2018'
+		// Change date format from the default html date input '2018-05-12' to something like '12 May 2018'
 		$pickup_date = changeFormat($pickup_date);
 
 		// Get payment_details details for $booking_no
@@ -80,6 +114,10 @@
 		$insurance_fee = filter($connect,$_POST['insurance_fee']);
 		$pickup_cost = filter($connect,$_POST['pickup_cost']);
 		$total_cost = filter($connect,$_POST['total_cost']);
+
+		// Get payment_details details for $booking_no
+		$current_city = $city .', '. $state;
+		$activity = "Pricing details collected.";
 
 		// Get booking_no
 		$booking_no = filter($connect,$_POST['booking_no']);
@@ -115,6 +153,10 @@
 		// Create payment_details
 		$create_payment =  "INSERT INTO `payment_details` (`payment_method`,`payment_status`,`delivery_cost`,`insurance_fee`,`pickup_cost`,`booking_no`,`email`,`account_id`,`total_cost`,`date`,`time`) 
 							VALUES ('".$payment_method."','".$payment_status."','".$delivery_cost."','".$insurance_fee."','".$pickup_cost."','".$booking_no."','".$u_email."','".$customer_id."','".$total_cost."','".$date."','".$time."')";
+		
+		// Create payment_details
+		$create_tracking =  "INSERT INTO `tracking_details` (`current_city`,`old`,`tstatus`,`activity`,`tcomment`,`booking_no`,`email`,`account_id`,`ship_date`,`newdate`,`tdate`,`ttime`,`daysOfWeek`) 
+							VALUES ('".$current_city."','','order_booked','".$activity."','Processing','".$booking_no."','".$u_email."','".$customer_id."','".$date."','".$newdate."','".$date."','".$time."','".$dayofweek."')";
 
 
 		// Set conditions for sql statements to run
@@ -129,15 +171,15 @@
 		}
 		
 		if (!$delivery_created && $parcel_created) {
-			if (!empty($state)) {
-				if (mysqli_query($connect, $create_delivery)) { 
+			if (!empty($state) || !empty($delivery_type) || !empty($category) || !empty($service)) {
+				if (mysqli_query($connect, $create_delivery)) {
 					$delivery_created = true;
 				} else {
 					$error = "Error: Could not create delivery details.";
 					// $error = mysqli_error($connect);
 				}
 			} else {
-				$error = "Delivery Details: State required";
+				$error = "Delivery Details: All fields required";
 			}
 
 		}
@@ -159,19 +201,28 @@
 		if (!$payment_created && $pickup_created) {
 			if (!empty($payment_method)) {
 				if (mysqli_query($connect, $create_payment)) {
-					// Update user status to old if still new
-					if ($old != 'yes') {
-						$update_user = mysqli_query($connect,"UPDATE register SET old='yes' WHERE account_id='$customer_id'");
-					} ?>
-					<script>
-						window.location.href = 'customers';
-					</script> <?php
+					$payment_created = true;
 				} else {
 					$error = "Error: Could not create payment details.";
 					// $error = mysqli_error($connect);
 				}
 			} else {
 				$error = "Payment Details: Payment details required";
+			}
+		}
+
+		if ($payment_created) {
+			if (mysqli_query($connect, $create_tracking)) {
+				// Update user status to old if still new
+				if ($old != 'yes') {
+					$update_user = mysqli_query($connect,"UPDATE register SET old='yes' WHERE account_id='$customer_id'");
+				} ?>
+				<script>
+					window.location.href = 'orders?status=order_booked';
+				</script> <?php
+			} else {
+				$error = "Error: Could not create tracking details.";
+				// $error = mysqli_error($connect);
 			}
 		}
 		

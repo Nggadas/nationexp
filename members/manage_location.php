@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 session_start();
 include ("../config.php");
@@ -14,7 +15,6 @@ $near = $val_pickup['nearest_bustop'];
 $time = $val_pickup['time'];
 
 ?>
-<!DOCTYPE html>
 <html lang="en">
 
 	<head>

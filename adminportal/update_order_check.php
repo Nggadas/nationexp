@@ -33,6 +33,9 @@
 			$bus_stop = $delivery['bus_stop'];
 			$state = $delivery['state'];
 			$country = $delivery['country'];
+			$service = $delivery['service'];
+			$category = $delivery['category'];
+			$delivery_type = $delivery['delivery_type'];
 			
 			// Get parcel_details details for $booking_no
 			$product = $parcel['goods_description'];

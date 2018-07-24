@@ -84,7 +84,7 @@
 						</div>
 					</div>					
 				</div>
-				<div class="row">
+				<div class="row">	
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
@@ -125,9 +125,9 @@
 											<tbody>
 												<?php do {?>
 													<?php							
-														$sql_b_reg = mysql_query("SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$myregacct' AND `status`='Enabled' ORDER BY ID DESC");
-														$row_b_reg = mysql_num_rows($sql_b_reg);
-														$val_b_reg = mysql_fetch_assoc($sql_b_reg);	
+														$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` != '' AND `account_id`='$myregacct' AND `status`='Enabled' ORDER BY ID DESC");
+														$row_b_reg = mysqli_num_rows($sql_b_reg);
+														$val_b_reg = mysqli_fetch_assoc($sql_b_reg);	
 														
 														$reg_date = $val_b_reg['date'];
 														$reg_phone = $val_b_reg['phone'];

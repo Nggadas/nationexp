@@ -25,6 +25,7 @@
 		<link href="resources/css/owl.carousel.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet">
 		<link href="resources/css/responsive.css" rel="stylesheet">
+		<!-- CSS file for multistep step form -->
 		<link href="resources/css/form_wizard.css" rel="stylesheet">
 		
 		<!--[if lt IE 9]>
@@ -95,12 +96,12 @@
 								
 								<!-- User Details -->
 								<div class="single_calculate">
-									<select name="customer_name" id="customer_name">
+									<select name="customer_name" class='optional' id="customer_name">
 										<option value="" selected="selected">Customer Name: <?php echo $full_name ?></option>
 									</select>	
 								</div>
 								<div class="single_calculate">
-									<select name="acct_id" id="acct_id" required="required">
+									<select name="acct_id" class='optional' id="acct_id" required="required">
 										<option value="<?php echo $customer_id; ?>" selected="selected">Customer ID: <?php echo $customer_id; ?></option>
 									</select>	
 								</div>
@@ -108,7 +109,7 @@
 								<!-- Delivery Details -->
 								<div class="tab">
 									<div class="single_calculate">
-										<select name="acct_id" id="acct_id" required="required">
+										<select class='optional' required="required">
 											<option selected="selected">Delivery Details</option>
 										</select>	
 									</div>
@@ -140,6 +141,10 @@
 									<div class="single_calculate">
 										<input type="text" name="bus_stop" class="optional" value="<?php echo $bus_stop ?>">
 										<label>Bus Stop</label>
+									</div>
+									<div class="single_calculate">
+										<input type="text" name="country" id="country" value="<?php echo $country ?>">
+										<label>Country</label>
 									</div>
 									<div class="single_calculate">
 										<select name="state" id="state" required>
@@ -184,15 +189,36 @@
 													</select>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="country" id="country" value="<?php echo $country ?>">
-										<label>Country</label>
+										<select name="delivery_type" id="delivery_type" required>
+											<option value="<?php echo $delivery_type ?>" selected="selected">SELECT DELIVERY TYPE</option>
+											<option value="Early Morning">Early Morning</option>
+											<option value="Same Day">Same Day</option>
+											<option value="Next Day">Next Day</option>
+											<option value="Outside Lagos">Outside Lagos</option>
+										</select>
+									</div>
+									<div class="single_calculate">
+										<select name="category" id="category" required>
+											<option value="<?php echo $category ?>" selected="selected">SELECT CATEGORY</option>
+											<option value="Parcel">Parcel</option>
+											<option value="Document">Document</option>
+											<option value="Fragile">Fragile</option>
+											<option value="Heavyload">Heavyload</option>
+										</select>
+									</div>
+									<div class="single_calculate">
+										<select name="service" id="service" required>
+											<option value="<?php echo $service ?>" selected="selected">SELECT SERVICE TYPE</option>
+											<option value="E-Commerce">E-Commerce</option>
+											<option value="Standard">Standard</option>
+										</select>
 									</div>
 								</div>
 								
 								<!-- Parcel Details -->
 								<div class="tab">
 									<div class="single_calculate">
-										<select name="acct_id" id="acct_id" required="required">
+										<select class='optional' required="required">
 											<option selected="selected">Parcel Details</option>
 										</select>	
 									</div>
@@ -217,7 +243,7 @@
 								<!-- Pickup Details -->
 								<div class="tab">
 									<div class="single_calculate">
-										<select name="acct_id" id="acct_id" required="required">
+										<select class='optional' required="required">
 											<option selected="selected">Pickup Details</option>
 										</select>	
 									</div>
@@ -312,7 +338,7 @@
 								<!-- Payment Details -->
 								<div class="tab">
 									<div class="single_calculate">
-										<select name="acct_id" id="acct_id" required="required">
+										<select class='optional' required="required">
 											<option selected="selected">Payment Details</option>
 										</select>	
 									</div>
@@ -439,10 +465,11 @@
 				<script src="resources/js/jquery.nav.js"></script>
 				<script src="resources/js/jquery.mb.YTPlayer.min.js"></script>
 				<script src="resources/js/main.js"></script>
-				<!--Start of Live Chat Script-->
+				<!--Live Chat Script-->
 				<script src="resources/js/chat.js"></script>
-				<!--End of Live Chat Script-->
+				<!-- JavaScript file for multistep step form -->	
 				<script src="resources/js/form_wizard.js"></script>
+				<!-- JavaScript file calculating payment total -->
 				<script src="resources/js/calculate_total.js"></script>
 			</body>
 			

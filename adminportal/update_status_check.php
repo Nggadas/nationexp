@@ -24,12 +24,17 @@
     <?php }
 
     // tracking_details
-    $description = $tracking['description'];
     $current_city = $tracking['current_city'];
+
+    $split = explode(', ', $current_city);
+
+    $city = $split[0];
+    $state = $split[1];
+    $description = $tracking['description'];
     $old = $tracking['old'];
     $tstatus = $tracking['tstatus'];
     $activity = $tracking['activity'];
-    $tcomment = $tracking['tcomment'];
+    $comment = $tracking['tcomment'];
     $email = $tracking['email'];
     $account_id = $tracking['account_id'];
     $ship_date = $tracking['ship_date'];
@@ -41,15 +46,23 @@
     //parcel_details
     $good_description = $parcel['goods_description'];
     $value_of_contents = $parcel['value_of_contents'];
+    $quantity = $parcel['no_of_parcel'];
 
 	if (isset($_POST['submit'])) {
-		$error = "";
+        $error = "";
+        $new_activity = $_POST['activity'];
+        $new_comment = $_POST['comment'];
+        $new_description = $_POST['description'];
+        $new_city = $_POST['city'];
+        $new_state = $_POST['state'];
 
-		if (!empty($_POST['custom_status'])) {
+        $current_city = $new_city .', '. $new_state;
+
+		if (!empty($_POST['custom_status']) && !empty($new_activity) && !empty($new_comment)) {
 			$custom_status = filter($connect,$_POST['custom_status']);
 			$custom_status = strtolower(str_replace(' ', '_', $custom_status));
-			$sql = "INSERT INTO tracking_details (description,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
-                    VALUES ('$description','$current_city','$old','$custom_status','$activity','$tcomment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
+			$sql = "INSERT INTO tracking_details (`description`,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
+                    VALUES ('$new_description','$current_city','$old','$custom_status','$new_activity','$new_comment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
 
 			if (mysqli_query($connect, $sql)) {
                 $tstatus = $custom_status;?>
@@ -66,10 +79,10 @@
             
 			mysqli_close($connect);
 
-		}elseif (!empty($_POST['new_status'])) {
+		}elseif (!empty($_POST['new_status']) && !empty($new_activity) && !empty($new_comment)) {
 			$new_status = filter($connect,$_POST['new_status']);
-			$sql = "INSERT INTO tracking_details (description,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
-                    VALUES ('$description','$current_city','$old','$new_status','$activity','$tcomment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
+			$sql = "INSERT INTO tracking_details (`description`,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
+                    VALUES ('$new_description','$current_city','$old','$new_status','$new_activity','$new_comment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
 
 			if (mysqli_query($connect, $sql)) {
                 $tstatus = $new_status;?>
@@ -87,7 +100,7 @@
 			mysqli_close($connect);
             
 		}else {
-			$error = "Status field required";
+			$error = "All fields required";
         }
 	}
 
