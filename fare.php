@@ -1,17 +1,17 @@
 <?php
 header('Content-Type: application/json');
 	include("config.php");
-	include 'dbc.php';
+	include("dbc.php");
 	require_once('swift/lib/swift_required.php');
 	
 	
-	if($_POST['delivery_address1']!='')	{
+	if($_POST != '')	{
 		
 		foreach($_POST as $key => $value) {
-			$data[$key] = filter($value); // post variables are filtered
+			$data[$key] = filter($connect,$value); // post variables are filtered
 		}
 		
-		$access = $data['access'];
+		// $access = $data['access'];
 		
 	$pickup_address = $data['pickup_address1'];
 	$pickup_fulladdress = $data['pickup_full_address1'];
@@ -31,7 +31,7 @@ header('Content-Type: application/json');
 	$delivery_country = $data['delivery_country1'];
 	
 	$weight_kg = $data['weight_kg'];
-	$unit = $data['unit'];	
+	// $unit = $data['unit'];	
 			
 		//If delivery state is lagos, use the lga to get the zone, then use the zone to get the price
 		//So the steps to get the price are as follows;
@@ -43,18 +43,18 @@ header('Content-Type: application/json');
 		
 		if($delivery_state=="Lagos"){
 			
-		$query_lga = mysql_query("SELECT * FROM `settings_lagos_lga` WHERE `lg_name` = '$delivery_lga' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
-		$row_lga = mysql_num_rows($query_lga);
-		$val_lga = mysql_fetch_assoc($query_lga);
+		$query_lga = mysqli_query($connect,"SELECT * FROM `settings_lagos_lga` WHERE `lg_name` = '$delivery_lga' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
+		$row_lga = mysqli_num_rows($query_lga);
+		$val_lga = mysqli_fetch_assoc($query_lga);
 		
 		$myzonename = $val_lga['zone_name'];
 		$myzoneid = $val_lga['zone_id'];
 		
 		//Get unit price
 		
-		$query_zone = mysql_query("SELECT * FROM `settings_zone` WHERE `zone_name` = '$myzonename' AND `zone_id` = '$myzoneid' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
-		$row_zone = mysql_num_rows($query_zone);
-		$val_zone = mysql_fetch_assoc($query_zone);
+		$query_zone = mysqli_query($connect,"SELECT * FROM `settings_zone` WHERE `zone_name` = '$myzonename' AND `zone_id` = '$myzoneid' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
+		$row_zone = mysqli_num_rows($query_zone);
+		$val_zone = mysqli_fetch_assoc($query_zone);
 		
 		$my_unitprice = $val_zone['unit_price'];
 		$my_add_kg_cost = $val_zone['add_kg_cost'];
@@ -70,18 +70,18 @@ header('Content-Type: application/json');
 		
 		}elseif($delivery_state!="Lagos"){
 			
-		$query_state = mysql_query("SELECT * FROM `settings_states` WHERE `short_state_name` = '$delivery_state_short' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
-		$row_state = mysql_num_rows($query_state);
-		$val_state = mysql_fetch_assoc($query_state);
+		$query_state = mysqli_query($connect,"SELECT * FROM `settings_states` WHERE `short_state_name` = '$delivery_state_short' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
+		$row_state = mysqli_num_rows($query_state);
+		$val_state = mysqli_fetch_assoc($query_state);
 		
 		$myzonename = $val_state['zone_name'];
 		$myzoneid = $val_state['zone_id'];
 		
 		//Get unit price
 		
-		$query_zone = mysql_query("SELECT * FROM `settings_zone` WHERE `zone_name` = '$myzonename' AND `zone_id` = '$myzoneid' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
-		$row_zone = mysql_num_rows($query_zone);
-		$val_zone = mysql_fetch_assoc($query_zone);
+		$query_zone = mysqli_query($connect,"SELECT * FROM `settings_zone` WHERE `zone_name` = '$myzonename' AND `zone_id` = '$myzoneid' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
+		$row_zone = mysqli_num_rows($query_zone);
+		$val_zone = mysqli_fetch_assoc($query_zone);
 		
 		$my_unitprice = $val_zone['unit_price'];
 		$my_add_kg_cost = $val_zone['add_kg_cost'];
@@ -100,25 +100,27 @@ header('Content-Type: application/json');
 		
 		if($pickup_state=="Lagos"){
 			
-		$query_plga = mysql_query("SELECT * FROM `settings_lagos_lga` WHERE `lg_name` = '$pickup_lga' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
-		$row_plga = mysql_num_rows($query_plga);
-		$val_plga = mysql_fetch_assoc($query_plga);
+		$query_plga = mysqli_query($connect,"SELECT * FROM `settings_lagos_lga` WHERE `lg_name` = '$pickup_lga' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
+		$row_plga = mysqli_num_rows($query_plga);
+		$val_plga = mysqli_fetch_assoc($query_plga);
 		
 		$myzonename_p = $val_plga['zone_name'];
 		$myzoneid_p = $val_plga['zone_id'];
 		
 		//Get price using the zone name and id
 		
-		$query_zonep = mysql_query("SELECT * FROM `settings_zone` WHERE `zone_name` = '$myzonename_p' AND `zone_id` = '$myzoneid_p' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
-		$row_zonep = mysql_num_rows($query_zonep);
-		$val_zonep = mysql_fetch_assoc($query_zonep);
+		$query_zonep = mysqli_query($connect,"SELECT * FROM `settings_zone` WHERE `zone_name` = '$myzonename_p' AND `zone_id` = '$myzoneid_p' AND `status`='Enabled' ORDER BY id DESC LIMIT 1");
+		$row_zonep = mysqli_num_rows($query_zonep);
+		$val_zonep = mysqli_fetch_assoc($query_zonep);
 		
 		$my_pickupcost= $val_zonep['pickup_price']; //This is the pickup price to display on the website
 		
 		}
 		
-		$deli = "&#8358;".$myfinalcost;
-		$pkp = "&#8358;".$my_pickupcost;
+		// $deli = "&#8358;".$myfinalcost;
+		// $pkp = "&#8358;".$my_pickupcost;
+		$deli = $myfinalcost;
+		$pkp = $my_pickupcost;
 		$duration = "3 days";
 		$state = "open";
 
@@ -127,15 +129,15 @@ header('Content-Type: application/json');
 				 'duration'=>''.$duration.'',
 				 'state'=>''.$state.'');
 
-echo json_encode($output,JSON_FORCE_OBJECT);
+		echo json_encode($output,JSON_FORCE_OBJECT);
 	}
-	if($_POST['delivery_address1']=='')	{
-	$error = "Delivery address not found :(";
+	if($_POST == '')	{
+		$error = "Delivery address not found :(";
 		$state = "closed";
 
 		$output =  array('error'=>''.$error.'',
 				 'state'=>''.$state.'');
 
-echo json_encode($output,JSON_FORCE_OBJECT);
+		echo json_encode($output,JSON_FORCE_OBJECT);
 	}
 ?>

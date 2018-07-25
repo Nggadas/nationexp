@@ -1,6 +1,6 @@
 //$('#pricing-form').on('submit', function() {
 	$('#pricing_button').click(function(e){
-        e.preventDefault()
+        e.preventDefault();
 		
 	var pickup_address = $('#pickup_address1').val();
 	var pickup_fulladdress = $('#pickup_full_address1').val();
@@ -18,30 +18,30 @@
 	var delivery_state = $('#delivery_state1').val();
 	var delivery_state_short = $('#delivery_state1_short').val();
 	var delivery_country = $('#delivery_country1').val();
+	var delivery_data = $("#pricing-form").serialize();
 	
 	var weight_kg = $('#weight_kg').val();
 	var unit = $('#unit').val();
 	
 	$('#pricing_button').hide();
 	$('#loading').show();
-	$('#pickup_price').html('');	
-	$('#delivery_price').html('');
-	
+	$('#pickup_price').val('');	
+	$('#delivery_price').val('');
 	if (delivery_address)
 	{
 		$.ajax({
 			type: "POST",
-			url: "../fare",
-			data: $("#pricing-form").serialize(),
+			url: "fare",
+			data: delivery_data,
 			dataType: 'json',
-			success: function(response){                         
+			success: function(response){            
 				if(response.state=='open'){
-					if(response.pickup_price=='&#8358;'){
-					$('#pickup_price').html("N/A");		
+					if(response.pickup_price==''){
+						$('#pickup_price').val("0");		
 					}else{
-					$('#pickup_price').html(response.pickup_price);
+						$('#pickup_price').val(response.pickup_price);
 					}					
-					$('#delivery_price').html(response.delivery_price);
+					$('#delivery_price').val(response.delivery_price);
 					$('#duration').html(response.duration);
 					$('#error_slate').hide();	
 					$('#price_slate').show();

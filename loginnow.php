@@ -68,6 +68,7 @@
 				$_SESSION['status']=$val['status'];
 				$_SESSION['email']=$val['email'];
 				$_SESSION['account_id']=$val['account_id'];
+				$_SESSION['old']=$val['old'];
 				$_SESSION['user_ip']=$ip;
 				$_SESSION['isAdmin'] = "false";
 				$query_login = mysqli_query($connect, "SELECT * FROM `login_details` WHERE `account_id`='{$val['account_id']}' AND `email`='{$val['email']}' order by id DESC LIMIT 1");

@@ -291,7 +291,7 @@
 											<label>Pickup Date</label>
 										</div>
 										<div class="single_calculate">
-											<select name="pickup_state" id="pickup_state">
+											<select name="pickup_state" class="optional" id="pickup_state">
 											<option value="<?php echo $pickup_state ?>" selected="selected">CHOOSE PICKUP STATE</option>
 															<option value="Abuja FCT">Abuja FCT</option>
 															<option value="Abia">Abia</option>
