@@ -1,9 +1,5 @@
-
-
-
-
 <!-- edit -->
-<div class="modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="<?php echo $b_booking_no ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

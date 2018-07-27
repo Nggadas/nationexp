@@ -143,7 +143,7 @@
 									<h5>Delivery Cost: <input style="border:none;" name="delivery_cost" id="delivery_price" required readonly></h5><br>
 									<div class="single_calculate">
 										<select name="payment_method" id="payment_method" required>
-											<option value="" selected="selected" disabled>Select Payment Method</option>
+											<option value="" selected="selected">Select Payment Method</option>
 											<option value="internet_banking">Internet Banking</option>
 											<option value="short_code">Short Code</option>
 											<option value="Payment_on_delivery">Payment On Delivery</option>
@@ -223,7 +223,8 @@
 		<!--    end of copyright text area-->
 
 		<!--  jquery.min.js  -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
+		<script src="js/jquery-3.3.1.min.js"></script>
 		<!--    bootstrap.min.js-->
 		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

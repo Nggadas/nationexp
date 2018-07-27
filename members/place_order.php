@@ -88,7 +88,6 @@
 						<div class="calculate_form">
 							<form role="form" id="submit-form" name="delivery-form" method="post" action="" class="delivery-form" autocomplete="OFF">
 
-								<input type="hidden" name="booking_no" value="<?php echo $booking_no ?>">
 								<input type="hidden" name="parcel_created" value="<?php echo $parcel_created ?>">
 								<input type="hidden" name="delivery_created" value="<?php echo $delivery_created ?>">
 								<input type="hidden" name="pickup_created" value="<?php echo $pickup_created ?>">
@@ -143,6 +142,10 @@
 										<label>Bus Stop</label>
 									</div>
 									<div class="single_calculate">
+										<input type="text" name="country" id="country" value="<?php echo $country ?>">
+										<label>Country</label>
+									</div>
+									<div class="single_calculate">
 										<select name="state" id="state" required>
 										<option value="<?php echo $state ?>" selected="selected">CHOOSE DELIVERY STATE</option>
 														<option value="Abuja FCT">Abuja FCT</option>
@@ -185,8 +188,29 @@
 													</select>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="country" id="country" value="<?php echo $country ?>">
-										<label>Country</label>
+										<select name="delivery_type" id="delivery_type" required>
+											<option value="<?php echo $delivery_type ?>" selected="selected">SELECT DELIVERY TYPE</option>
+											<option value="Early Morning">Early Morning</option>
+											<option value="Same Day">Same Day</option>
+											<option value="Next Day">Next Day</option>
+											<option value="Outside Lagos">Outside Lagos</option>
+										</select>
+									</div>
+									<div class="single_calculate">
+										<select name="category" id="category" required>
+											<option value="<?php echo $category ?>" selected="selected">SELECT CATEGORY</option>
+											<option value="Parcel">Parcel</option>
+											<option value="Document">Document</option>
+											<option value="Fragile">Fragile</option>
+											<option value="Heavyload">Heavyload</option>
+										</select>
+									</div>
+									<div class="single_calculate">
+										<select name="service" id="service" required>
+											<option value="<?php echo $service ?>" selected="selected">SELECT SERVICE TYPE</option>
+											<option value="E-Commerce">E-Commerce</option>
+											<option value="Standard">Standard</option>
+										</select>
 									</div>
 								</div>
 								
@@ -266,7 +290,7 @@
 											<label>Pickup Date</label>
 										</div>
 										<div class="single_calculate">
-											<select name="pickup_state" id="pickup_state">
+											<select name="pickup_state" class="optional" id="pickup_state">
 											<option value="<?php echo $pickup_state ?>" selected="selected">CHOOSE PICKUP STATE</option>
 															<option value="Abuja FCT">Abuja FCT</option>
 															<option value="Abia">Abia</option>
@@ -318,24 +342,29 @@
 										</select>	
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="delivery_cost" id="delivery_cost" required="required" value="<?php echo $delivery_cost ?>">
+										<input type="text" name="delivery_cost" id="delivery_cost" required="required" value="<?php echo $delivery_cost ?>" readonly>
 										<label>Delivery Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="insurance_fee" id="insurance_fee" required="required" value="<?php echo $insurance_fee ?>">
+										<input type="text" name="insurance_fee" id="insurance_fee" required="required" value="<?php echo $insurance_fee ?>" readonly>
 										<label>Insurance Fee (₦)</label>
 									</div>
 									<div class="single_calculate">
-										<input type="text" name="pickup_cost" class="optional" id="pickup_cost" required="required" value="<?php echo $pickup_cost ?>">
+										<input type="text" name="pickup_cost" class="optional" id="pickup_cost" required="required" value="<?php echo $pickup_cost ?>" readonly>
 										<label>Pickup Cost (₦)</label>
 									</div>
 									<div class="single_calculate">
 										<input type="text" name="total_cost" id="total_cost" required="required" value="<?php echo $total_cost ?>" readonly>
 										<label>Total Cost (₦)</label>
 									</div>
+									<!-- Payment method -->
+									<div style="background: #22313f; color: #fff;" class="single_calculate">
+										<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucwords(str_replace('_', ' ', $payment_method)); ?>" readonly>
+										<label style="background: #22313f; color: #fff;">Payment Method :</label>
+									</div>
 									<div class="single_calculate">
 										<select name="payment_method" id="payment_method" required>
-											<option value="<?php echo $payment_method ?>" selected="selected">Select Payment Method</option>
+											<option value="<?php echo $payment_method ?>" selected="selected">Change Payment Method</option>
 											<option value="internet_banking">Internet Banking</option>
 											<option value="short_code">Short Code</option>
 											<option value="Payment_on_delivery">Payment On Delivery</option>

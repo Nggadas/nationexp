@@ -20,7 +20,7 @@
 		$row_email = mysqli_num_rows($sql_email);
 
 		//check if phone number exists
-		$query_phone = mysqli_query($connect,"SELECT * FROM `register` WHERE `phone` = '$phone_no' ORDER BY ID DESC LIMIT 1");
+		$query_phone = mysqli_query($connect,"SELECT * FROM `register` WHERE `phone_no` = '$phone_no' ORDER BY ID DESC LIMIT 1");
 		$row_phone = mysqli_num_rows($query_phone);
 
 		//Check if required form fields isn't empty

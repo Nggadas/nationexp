@@ -48,11 +48,11 @@
 
 	function protect(){
 		
-		if($_SESSION['id']==""){
-			unset($_SESSION);
-			unset($_COOKIE);
-			@session_destroy();
-			header("Location: ../");
+        if(empty($_SESSION['id'])){
+			session_start();
+			session_unset();
+			session_destroy();
+            header("Location: ../");
 		}
 
 		// elseif($_SESSION['id']!=""){

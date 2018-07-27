@@ -1,7 +1,8 @@
 <?php
+	$booking_no = filter($connect,$_GET['booking_no']);
 	$customer_id = $_SESSION['account_id'];
 
-	//Check if account id is valid
+	// Get user details
 	$sql_register= mysqli_query($connect,"SELECT * FROM `register` WHERE `account_id`='$customer_id' ORDER BY id DESC LIMIT 1");
 	$row_register = mysqli_num_rows($sql_register);
 	$reg_data = mysqli_fetch_assoc($sql_register);
@@ -12,11 +13,26 @@
 	$old = $reg_data['old'];
 	$u_email = $reg_data['email'];
 
+	// Get payment details attached to $_GET['booking_no']
+	$sql_payment= mysqli_query($connect,"SELECT * FROM `payment_details` WHERE `account_id`='$customer_id' AND `booking_no`='$booking_no' ORDER BY id DESC LIMIT 1");
+	$row_payment = mysqli_num_rows($sql_payment);
+	$payment = mysqli_fetch_assoc($sql_payment);
+
+	// Get payment_details details for $booking_no
+	$payment_method = $payment['payment_method'];
+	$payment_status = $payment['payment_status'];
+	$delivery_cost = $payment['delivery_cost'];
+	$insurance_fee = $payment['insurance_fee'];
+	$pickup_cost = $payment['pickup_cost'];
+	$total_cost = $payment['total_cost'];
+
 	if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
-		// get current date and time
+		// get date and time
 		$date = date("j F Y");
 		$time = date("g:i A");
+		$newdate = date("Y-m-j");
+		$dayofweek = date("l");
 
 		// Get parcel_details details for $booking_no
 		$product = filter($connect,$_POST['product']);
@@ -34,11 +50,44 @@
 		$phone_no = filter($connect,$_POST['phone_no']);
 		$alt_phone_no = filter($connect,$_POST['alt_phone_no']);
 		$del_email = filter($connect,$_POST['del_email']);
-		$service = 'E commerce';
-		$category = 'Parcel';
-		$delivery_type = 'Next Day';
-		$est_delivery_date = $date;
-		$est_delivery_time = $time;
+		$service = filter($connect,$_POST['service']);
+		$category = filter($connect,$_POST['category']);
+		$delivery_type = filter($connect,$_POST['delivery_type']);
+
+		if ($delivery_type == 'Early Morning') {
+			// Get current date
+			$current_date=date_create();
+			// Add working days to current date
+			date_add($current_date,date_interval_create_from_date_string("1 weekdays"));
+			// Save the new date in format of choice
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '11:00 AM';
+		} elseif ($delivery_type == 'Same Day') {
+			// Get current date
+			$current_date=date_create();
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '6:00 PM';
+		} elseif ($delivery_type == 'Next Day') {
+			// Get current date
+			$current_date=date_create();
+			// Add working days to current date
+			date_add($current_date,date_interval_create_from_date_string("1 weekdays"));
+			// Save the new date in format of choice
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '6:00 PM';
+		} elseif ($delivery_type == 'Outside Lagos') {
+			// Get current date
+			$current_date=date_create();
+			// Add working days to current date
+			date_add($current_date,date_interval_create_from_date_string("3 weekdays"));
+			// Save the new date in format of choice
+			$est_delivery_date = date_format($current_date,"d M Y");
+
+			$est_delivery_time = '6:00 PM';
+		}
 
 		// Get pickup_details details for $booking_no
 		$pickup_toggle = filter($connect,$_POST['toggle_pickup']);
@@ -52,28 +101,21 @@
 		$pickup_email = filter($connect,$_POST['pickup_email']);
 		$pickup_date = filter($connect,$_POST['pickup_date']);
 		
-		// Change date format from html input to something like '12 May 2018'
+		// Change date format from html input '2018-05-12' to something like '12 May 2018'
 		$pickup_date = changeFormat($pickup_date);
 
 		// Get payment_details details for $booking_no
 		$payment_method = filter($connect,$_POST['payment_method']);
-		$payment_status = 'unpaid';
-		$delivery_cost = filter($connect,$_POST['delivery_cost']);
-		$insurance_fee = filter($connect,$_POST['insurance_fee']);
-		$pickup_cost = filter($connect,$_POST['pickup_cost']);
-		$total_cost = filter($connect,$_POST['total_cost']);
-
-		// Get booking_no
-		$booking_no = filter($connect,$_POST['booking_no']);
-		if (empty($booking_no)){
-			$booking_no = GenBookingNo($connect);
-		}
 
 		// Booleans to check if order has been created
 		$parcel_created = filter($connect,$_POST['parcel_created']);
 		$delivery_created = filter($connect,$_POST['delivery_created']);
 		$pickup_created = filter($connect,$_POST['pickup_created']);
 		$payment_created = filter($connect,$_POST['payment_created']);
+
+		// Get payment_details details for $booking_no
+		$current_city = $city .', '. $state;
+		$activity = "Pricing details collected.";
 
 		// Decide if create_pickup should run
 		if ($pickup_toggle == 'no') {
@@ -94,9 +136,13 @@
 		$create_pickup =  "INSERT INTO `pickup_details` (`full_name`,`address`,`bus_stop`,`city`,`state`,`phone`,`alt_phone`,`email`,`account_id`,`booking_no`,`scheduled_date`,`date`,`time`) 
 							VALUES ('".$pickup_contact."','".$pickup_address."','".$pickup_bus_stop."','".$pickup_city."','".$pickup_state."','".$pickup_phone_no."','".$pickup_alt_phone_no."','".$pickup_email."','".$customer_id."','".$booking_no."','".$pickup_date."','".$date."','".$time."')";
 
-		// Create payment_details
-		$create_payment =  "INSERT INTO `payment_details` (`payment_method`,`payment_status`,`delivery_cost`,`insurance_fee`,`pickup_cost`,`booking_no`,`email`,`account_id`,`total_cost`,`date`,`time`) 
-							VALUES ('".$payment_method."','".$payment_status."','".$delivery_cost."','".$insurance_fee."','".$pickup_cost."','".$booking_no."','".$u_email."','".$customer_id."','".$total_cost."','".$date."','".$time."')";
+		// Update payment_details
+		$update_payment =  "UPDATE `payment_details` SET payment_method='$payment_method', update_date='$date' ,update_time='$time'
+		 					WHERE account_id='$customer_id' AND booking_no='$booking_no'";
+		
+		// Create tracking_details
+		$create_tracking =  "INSERT INTO `tracking_details` (`current_city`,`old`,`tstatus`,`activity`,`tcomment`,`booking_no`,`email`,`account_id`,`ship_date`,`newdate`,`tdate`,`ttime`,`daysOfWeek`) 
+							VALUES ('".$current_city."','','order_booked','".$activity."','Processing','".$booking_no."','".$u_email."','".$customer_id."','".$date."','".$newdate."','".$date."','".$time."','".$dayofweek."')";
 
 
 		// Set conditions for sql statements to run
@@ -107,7 +153,6 @@
 				$error = "Error: Could not create parcel details.";
 				// $error = mysqli_error($connect);
 			}
-
 		}
 		
 		if (!$delivery_created && $parcel_created) {
@@ -140,20 +185,29 @@
 		
 		if (!$payment_created && $pickup_created) {
 			if (!empty($payment_method)) {
-				if (mysqli_query($connect, $create_payment)) {
-					// Update user status to old if still new
-					if ($old != 'yes') {
-						$update_user = mysqli_query($connect,"UPDATE register SET old='yes' WHERE account_id='$customer_id'");
-					} ?>
-					<script>
-						window.location.href = 'customers';
-					</script> <?php
+				if (mysqli_query($connect, $update_payment)) {
+					$payment_created = true;
 				} else {
-					$error = "Error: Could not create payment details.";
+					$error = "Error: Could not update payment details.";
 					// $error = mysqli_error($connect);
 				}
 			} else {
-				$error = "Payment Details: Payment details required";
+				$error = "Payment Details: Payment method required";
+			}
+		}
+
+		if ($payment_created) {
+			if (mysqli_query($connect, $create_tracking)) {
+				// Update user status to old if still new
+				if ($old != 'yes') {
+					$update_user = mysqli_query($connect,"UPDATE register SET old='yes' WHERE account_id='$customer_id'");
+				} ?>
+				<script>
+					window.location.href = 'members/index';
+				</script> <?php
+			} else {
+				$error = "Error: Could not create tracking details.";
+				// $error = mysqli_error($connect);
 			}
 		}
 		

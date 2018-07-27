@@ -129,8 +129,7 @@ include("check.php");
 								<h5>Pricing information</h5>
 							</div>
 							<ul class=price-list>
-								<a href="#"><li>Coming soon <span style="margin-left:10px;" class="badge"><?php echo $newcustomers; ?></span></li></a>
-								<a href="#"><li>Coming soon <span style="margin-left:10px;" class="badge"><?php echo $returningcustomers; ?></span></li></a>
+								<a href="#"><li>Cash Collected <span style="margin-left:10px;" class="badge"><?php echo '0'; ?></span></li></a>
 								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><?php echo $invoices; ?></span></li></a>
 							 </ul>
 							<div class="order-buton">
@@ -147,8 +146,8 @@ include("check.php");
 							</div>
 							<ul class=price-list>
 								<!-- <a href="set_pickup_location.php"><li>Set pickup Location</li></a> -->
-								<a href="manage_location.php"><li>Manage Pickup Location</li></a>
-								<a href="zones"><li>Manage Profile</li></a>
+								<a href="manage_location"><li>Manage Pickup Location</li></a>
+								<a href="edit_profile"><li>Edit Profile</li></a>
 							</ul>
 							<div class="order-buton">
 								<a href="change_password">Change Password</a>

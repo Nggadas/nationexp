@@ -357,4 +357,62 @@ function GenPhotoID($connect) {
 		}
 	return $photo_id;
 	}
+
+	// Change date format from html input to something like '12 May 2018'
+	function changeFormat($date){
+		$date_array = [];
+	
+		// strip '-' from date 
+		$split_date = explode('-', $date);
+	
+		foreach ($split_date as $key => $value) {
+	
+			if ($key == 1) {
+				// Convert months to words
+				if ($value == '01') {
+					$date_array[] = 'Jan';
+		
+				} elseif ($value == '02') {
+					$date_array[] = 'Feb';
+					
+				} elseif ($value == '03') {
+					$date_array[] = 'Mar';
+					
+				} elseif ($value == '04') {
+					$date_array[] = 'Apr';
+					
+				} elseif ($value == '05') {
+					$date_array[] = 'May';
+					
+				} elseif ($value == '06') {
+					$date_array[] = 'Jun';
+					
+				} elseif ($value == '07') {
+					$date_array[] = 'Jul';
+					
+				} elseif ($value == '08') {
+					$date_array[] = 'Aug';
+					
+				} elseif ($value == '09') {
+					$date_array[] = 'Sep';
+					
+				} elseif ($value == '10') {
+					$date_array[] = 'Oct';
+					
+				} elseif ($value == '11') {
+					$date_array[] = 'Nov';
+					
+				} elseif ($value == '12') {
+					$date_array[] = 'Dec';
+					
+				}
+			} else {
+				$date_array[] = $value;
+			}
+		}
+	
+		$pickup_date = implode(' ', array_reverse($date_array));
+	
+		return $pickup_date;
+	}
 ?>

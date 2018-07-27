@@ -32,7 +32,7 @@
 
 	if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
 
-		// get current date and time
+		// get date and time
 		$date = date("j M Y");
 		$time = date("g:i A");
 		$newdate = date("Y-m-j");
@@ -154,7 +154,7 @@
 		$create_payment =  "INSERT INTO `payment_details` (`payment_method`,`payment_status`,`delivery_cost`,`insurance_fee`,`pickup_cost`,`booking_no`,`email`,`account_id`,`total_cost`,`date`,`time`) 
 							VALUES ('".$payment_method."','".$payment_status."','".$delivery_cost."','".$insurance_fee."','".$pickup_cost."','".$booking_no."','".$u_email."','".$customer_id."','".$total_cost."','".$date."','".$time."')";
 		
-		// Create payment_details
+		// Create tracking_details
 		$create_tracking =  "INSERT INTO `tracking_details` (`current_city`,`old`,`tstatus`,`activity`,`tcomment`,`booking_no`,`email`,`account_id`,`ship_date`,`newdate`,`tdate`,`ttime`,`daysOfWeek`) 
 							VALUES ('".$current_city."','','order_booked','".$activity."','Processing','".$booking_no."','".$u_email."','".$customer_id."','".$date."','".$newdate."','".$date."','".$time."','".$dayofweek."')";
 

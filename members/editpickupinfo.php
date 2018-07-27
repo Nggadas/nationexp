@@ -1,5 +1,6 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
 <?php
-session_start();
 include ("../config.php");
 
 $id = $_SESSION["account_id"];
@@ -14,8 +15,6 @@ $near = $val_pickup['nearest_bustop'];
 $time = $val_pickup['time'];
 
 ?>
-
-<!DOCTYPE html>
 <html lang="en">
 
 	<head>

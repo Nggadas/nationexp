@@ -65,6 +65,7 @@
 				$_SESSION['first']=$val['first_name'];
 				$_SESSION['last']=$val['sur_name'];
 				$_SESSION['phone']=$val['phone_no'];
+				$_SESSION['alt_phone']=$val['alt_phone'];
 				$_SESSION['status']=$val['status'];
 				$_SESSION['email']=$val['email'];
 				$_SESSION['account_id']=$val['account_id'];

@@ -437,5 +437,5 @@ function GenPhotoID() {
 			$photo_id = $photo_id_exists + 1;
 		}
 	return $photo_id;	
-	}	
+	}
 ?>

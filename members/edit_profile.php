@@ -1,9 +1,9 @@
+<!DOCTYPE html>
 <?php
 	include("check.php");
+	include("profile_submit.php");
 ?>
-<!DOCTYPE html>
 <html lang="en">
-
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,32 +12,30 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Invoices - NationExpress24 Delivery</title>
-
+		<title>Edit Profile - NationExpress24 Delivery</title>
+		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="resources/fonts/stylesheet.css" rel="stylesheet">
+		<link href="resources/css/reset.css" rel="stylesheet">
+		<link href="resources/css/slick.css" rel="stylesheet">
 		<link href="resources/css/jquery.mb.YTPlayer.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="resources/css/meanmenu.css">
 		<link href="resources/css/owl.carousel.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet">
-		<link href="resources/css/reset.css" rel="stylesheet">
 		<link href="resources/css/responsive.css" rel="stylesheet">
-		<link href="resources/css/custom.css" rel="stylesheet">
-		<!-- TABLE STYLES-->
-		<link href="resources/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
-
+		
 		<!--[if lt IE 9]>
 			<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+		
 	</head>
-
+	
 	<body class="js">
 		<div class="tel_header"><i class="fa fa-envelope" aria-hidden="true"></i> <font color="red">info@nationexpress24.com</font>  &nbsp;&nbsp;<i class="fa fa-phone" aria-hidden="true"></i> Call our hotline 0805-773-2873 or <i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp 0817-033-3258</div>
 		<div id="preloader"></div>
-
+		
 		<section class="about-us">
 			<div class="logo_menu" id="sticker1">
 				<div class="container">
@@ -51,7 +49,7 @@
 							<nav class="navbar">
 								<!-- Collect the nav links, forms, and other content for toggling -->
                                 <ul class="nav navbar-nav navbar-right menu">
-                                    <li class="current-menu-item"><a href="./" title="Go to My Portal" >Welcome, <?php echo $first_name; ?></a>
+                                    <li class="current-menu-item"><a href="./" title="Go to Admin Portal">Welcome, <?php echo $first_name; ?></a>
 									</li>
                                     <li><a href="../service.php">services</a></li>
 									<li><a href="../track.php">track your parcel</a></li>
@@ -66,97 +64,121 @@
 				</div>
 			</div>
 		</section>
-
+		
 		<!--    start pricing area-->
 		<!-- Pricing Area -->
-		<section class="pricing-area version-6" id="pricing">
+		<section class="calculate_area pricing-area version-16" id="tracking">
 			<div class="container">
-				<div class="row page-title">
-					<div class="col-md-5 col-sm-6">
-						<div class="pricing-desc section-padding-two">
-							<div class="pricing-desc-title">
-								<div class="title">
-									<h2>Invoices</h2>
-									<p>Here is where you will view the list of invoices created</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="row">
-					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
-						<div class="panel-body">
-							<ul class="nav nav-tabs">
-								<li class="active"><a href="#recent" data-toggle="tab">Invoices</a>
-								</li>
-
-							</ul>
-
-							<div class="tab-content">
-								<div class="tab-pane fade active in" id="recent">
-									<p id="statusnotice">&nbsp;</p>
-									<div class="table-responsive">
-										<table class=" display table table-striped table-bordered table-hover" id="recent_orders_table" >
-											<thead>
-												<tr>
-													<th>Invoice Date</th>
-													<th>Customer Name</th>
-													<th>Invoice Number</th>
-													<th>Status</th>
-													<th>Email Address</th>
-													<th>More Info</th>
-												</tr>
-											</thead>
-											<!-- <tfoot>
-												<tr>
-													<th>Invoice Date</th>
-													<th>Customer Name</th>
-													<th>Invoice Number</th>
-													<th>Status</th>
-													<th>Email Address</th>
-													<th>More Info</th>
-												</tr>
-											</tfoot> -->
-											<tbody>
-												<?php do {?>
-													<?php
-														$sql_b_inv = mysqli_query($connect, "SELECT * FROM `invoices` WHERE `email` != '' AND `user_id`='$account_id' ORDER BY ID DESC");
-														$row_b_inv = mysqli_num_rows($sql_b_inv);
-														$val_b_inv = mysqli_fetch_assoc($sql_b_inv);
-
-														$inv_date = $val_b_inv['date'];
-														$inv_full_name = $val_b_inv['full_name'];
-														$inv_invoice_no = $val_b_inv['invoice_no'];
-														$inv_status = $val_b_inv['invoice_status'];
-														$inv_email = $val_b_inv['email'];
-
-													?>
-													<?php if($inv_invoice_no){ ?>
-															<tr>
-																<td><?php echo str_replace('-',' ',$inv_date); ?></td>
-																<td><?php echo $inv_full_name; ?></td>
-																<td><?php echo $inv_invoice_no; ?></td>
-																<td><?php echo $inv_status; ?></td>
-																<td><?php echo $inv_email; ?></td>
-																<td><a href="invoice_info?invoice_no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">More info</button></a></td>
-															</tr>
-														<?php } ?>
-													<?php }while($val_b_inv = mysqli_fetch_array($sql_b_inv)) ?>
-
-											</tbody>
-										</table>
-									</div>
+					<div class="col-md-5 col-sm-6">
+						<div class="calculate_title">
+							<h2>Edit your profile</h2>
+							<?php 
+                                if(!empty($error)){
+									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+									echo '<br>';
+									echo '<br>';
+									echo '<br>';
+								}
+                            ?>	
+						<div class="calculate_form">
+							<form id="register-form" name="register-form" method="post" class="register-form" autocomplete="OFF">
+								<div style="background: #f2f2f2;" class="single_calculate">
+									<input style="background: #f2f2f2;" type="text" name="account_id" id="account_id" value="<?php echo $account_id ?>" readonly>
+									<label>Your ID</label>
 								</div>
-							</div>
-
-
+								<div class="single_calculate">
+									<input type="email" name="email" id="email" value="<?php echo $u_email ?>" required="required">
+									<label>Email Address</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="first_name" id="first_name" value="<?php echo $u_first_name ?>" required="required">
+									<label>First Name</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="last_name" id="last_name" value="<?php echo $u_last_name ?>" required="required">
+									<label>Surname</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="business_name" value="<?php echo $business_name ?>" id="business_name">
+									<label>Business Name</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="phone_no" id="phone_no" value="<?php echo $phone_no ?>" required="required" maxlength="11">
+									<label>Phone Number</label>
+								</div>
+								
+								<div class="single_calculate">
+									<input type="text" name="alt_phone_no" id="alt_phone_no" value="<?php echo $alt_phone_no ?>" maxlength="11">
+									<label>2nd Phone Number</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="address" id="address" value="<?php echo $address ?>" required="required">
+									<label>Street Address</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="city" id="city" value="<?php echo $city ?>" required="required">
+									<label>City</label>
+								</div>
+								<div class="single_calculate">
+									<input type="text" name="bus_stop" value="<?php echo $bus_stop ?>" id="bus_stop">
+									<label>Bus Stop</label>
+								</div>
+								<div class="single_calculate">
+									<select name="state" id="state" required="required">
+										<option value="<?php echo $state ?>" selected="selected"><?php echo $state ?> : Change State</option>
+										<option value="Abuja FCT">Abuja FCT</option>
+										<option value="Abia">Abia</option>
+										<option value="Adamawa">Adamawa</option>
+										<option value="Akwa Ibom">Akwa Ibom</option>
+										<option value="Anambra">Anambra</option>
+										<option value="Bauchi">Bauchi</option>
+										<option value="Bayelsa">Bayelsa</option>
+										<option value="Benue">Benue</option>
+										<option value="Borno">Borno</option>
+										<option value="Cross River">Cross River</option>
+										<option value="Delta">Delta</option>
+										<option value="Ebonyi">Ebonyi</option>
+										<option value="Edo">Edo</option>
+										<option value="Ekiti">Ekiti</option>
+										<option value="Enugu">Enugu</option>
+										<option value="Gombe">Gombe</option>
+										<option value="Imo">Imo</option>
+										<option value="Jigawa">Jigawa</option>
+										<option value="Kaduna">Kaduna</option>
+										<option value="Kano">Kano</option>
+										<option value="Katsina">Katsina</option>
+										<option value="Kebbi">Kebbi</option>
+										<option value="Kogi">Kogi</option>
+										<option value="Kwara">Kwara</option>
+										<option value="Lagos">Lagos</option>
+										<option value="Nassarawa">Nassarawa</option>
+										<option value="Niger">Niger</option>
+										<option value="Ogun">Ogun</option>
+										<option value="Ondo">Ondo</option>
+										<option value="Osun">Osun</option>
+										<option value="Oyo">Oyo</option>
+										<option value="Plateau">Plateau</option>
+										<option value="Rivers">Rivers</option>
+										<option value="Sokoto">Sokoto</option>
+										<option value="Taraba">Taraba</option>
+										<option value="Yobe">Yobe</option>
+										<option value="Zamfara">Zamfara</option>
+									</select>
+								</div>
+								<div class="calculat-button">
+									<input type="submit" class="calulate" value="SUBMIT" id="submit_button" name="submit_button">
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+			
+			
 		</section>
 		<!-- /.End Of Pricing Area -->
-
+		
 		<section class="footer-area" id="contact">
 			<div class="container">
 				<div class="row">
@@ -171,7 +193,7 @@
 						<div class="single-footer">
 							<h2>More links</h2>
 							<ul class="list">
-								<li><a href="../schedule-a-pickup.php">Schedule a Pickup</a></li>
+								<li><a href="../schedule-a-pickup.html">Schedule a Pickup</a></li>
 								<li><a href="../faq.html">FAQ</a></li>
 								<li><a href="../terms.html">Terms and Conditions</a></li>
 								<li><a href="../privacy-policy.html">Privacy Policy</a></li>
@@ -197,7 +219,7 @@
 			</div>
 		</section>
 		<!--end of footer area-->
-
+		
 		<!--   start copyright text area-->
 		<div class="copyright-area">
 			<div class="container">
@@ -208,19 +230,18 @@
 				</div>
 				<div class="col-xs-12  col-sm-6 col-md-6 text-right">
 					<div class="footer-text">
-						<a href="#" class="fa fa-facebook"></a>
-						<a href="#" class="fa fa-twitter"></a>
-						<a href="#" class="fa fa-instagram"></a>
-					</div>
+						<a href="" class="fa fa-facebook"></a>
+						<a href="" class="fa fa-twitter"></a>
+						<a href="" class="fa fa-instagram"></a>	
+					</div>	
 				</div>
 			</div>
 		</div>
 		<!--    end of copyright text area-->
-
-
-
+		
+		
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 		<script src="resources/js/jquery.counterup.min.js"></script>
@@ -231,19 +252,9 @@
 		<script src="resources/js/jquery.nav.js"></script>
 		<script src="resources/js/jquery.mb.YTPlayer.min.js"></script>
 		<script src="resources/js/main.js"></script>
-		<!-- DATA TABLE SCRIPTS -->
-		<script src="resources/js/dataTables/jquery.dataTables.js"></script>
-		<script src="resources/js/dataTables/dataTables.bootstrap.js"></script>
-		<script>
-			$(document).ready(function () {
-				$('#recent_orders_table').dataTable({
-					"autoWidth": true
-				});
-			});
-		</script>
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
 	</body>
-
-</html>
+	
+</html>		

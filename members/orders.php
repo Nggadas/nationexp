@@ -52,7 +52,18 @@
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-10 col-md-offset-1  col-lg-offset-1 col-lg-7 mobMenuCol">
-							<?php include_once('navheader.php');?>
+							<nav class="navbar">
+								<!-- Collect the nav links, forms, and other content for toggling -->
+                                <ul class="nav navbar-nav navbar-right menu">
+                                    <li class="current-menu-item"><a href="index">Welcome, <?php echo $first_name; ?></a></li>
+									<li><a href="../track.php">track your parcel</a></li>
+                                    <li><a href="../service.php">services</a></li>
+                                    <li><a href="../pricing.php">pricing</a></li>
+                                    <li><a href="../contact.php">contact</a></li>
+									<li class="signup1"><a href="logout">logout</a></li>
+								</ul>
+								<!-- /.navbar-collapse -->
+							</nav>
 						</div>
 					</div>
 				</div>
@@ -98,7 +109,7 @@
 											<thead>
 												<tr>
 													<th style="text-align:center;">Date</th>
-													<th style="text-align:center;">Customer Name</th>
+													<th style="text-align:center;">Product</th>
 													<th style="text-align:center;">Status</th>
 													<th style="text-align:center;">Tracking Number</th>
 													<th style="text-align:center;">Delivery Name</th>
@@ -110,7 +121,7 @@
 												<tfoot>
 												<tr>
 													<th style="text-align:center;">Date</th>
-													<th style="text-align:center;">Customer Name</th>
+													<th style="text-align:center;">Product</th>
 													<th style="text-align:center;">Status</th>
 													<th style="text-align:center;">Tracking Number</th>
 													<th style="text-align:center;">Delivery Name</th>
@@ -123,44 +134,57 @@
 												<?php 
 												$email = $_SESSION['email'];
 												$account_id = $_SESSION['account_id'];
-												
+														
+												if ($status) {
+													$sql_tr = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`='$account_id' AND `booking_no`!='' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC");
+												} else {
+													$sql_tr = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`='$account_id' AND `booking_no`!='' AND `tstatus`!='' AND `old`='' ORDER BY id DESC");
+												}
 													
 												?>
-												<?php do {
-															//wrong code
-															$b_date = $val_tr_orders['tdate'];
-															$b_booking_no = $val_tr_orders['booking_no'];
-															
+												<?php while($val_tr = mysqli_fetch_array($sql_tr)){
+														$b_date = $val_tr['tdate'];
+														$b_booking_no = $val_tr['booking_no'];
 
-															$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` = '$email' AND `account_id`='$account_id' AND `status`='Enabled' ORDER BY id DESC");
-															$row_b_reg = mysqli_num_rows($sql_b_reg);
-															$val_b_reg = mysqli_fetch_assoc($sql_b_reg);	
-															
-															$sql_b_deli = mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `account_id`='$account_id' AND `booking_no`='$b_booking_no' ORDER BY id DESC");
-															$row_b_deli = mysqli_num_rows($sql_b_deli);
-															$val_b_deli = mysqli_fetch_assoc($sql_b_deli);
-															$b_date = $val_b_deli['tdate'];
-															$b_booking_no = $val_b_deli['booking_no'];	
-															
-															
-															$reg_firstname = $val_b_reg['first_name'];
-															$reg_surname = $val_b_reg['sur_name'];
-															
-															$deli_fullname = $val_b_deli['full_name'];
+														$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` = '$email' AND `account_id`='$account_id' AND `status`='Enabled' ORDER BY id DESC");
+														$row_b_reg = mysqli_num_rows($sql_b_reg);
+														$val_b_reg = mysqli_fetch_assoc($sql_b_reg);	
+														
+														$sql_b_deli = mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `account_id`!='' AND `booking_no`='$b_booking_no' ORDER BY id DESC");
+														$row_b_deli = mysqli_num_rows($sql_b_deli);
+														$val_b_deli = mysqli_fetch_assoc($sql_b_deli);
+														$b_date = $val_b_deli['ddate'];
+														
+														$sql_b_parcel = mysqli_query($connect,"SELECT * FROM `parcel_details` WHERE `booking_no`='$b_booking_no' ORDER BY id DESC");
+														$row_b_parcel = mysqli_num_rows($sql_b_parcel);
+														$val_b_parcel = mysqli_fetch_assoc($sql_b_parcel);
+														$product = $val_b_parcel['goods_description'];
+														$p_date = $val_b_parcel['date'];
+														
+														$reg_firstname = $val_b_reg['first_name'];
+														$reg_surname = $val_b_reg['sur_name'];
+														$deli_fullname = $val_b_deli['full_name'];
+
+														$b_status = $val_tr['tstatus'];
 															
 														
-													if($myaccount_id){ ?>
+													if($myaccount_id){
+														
+														?>
 															<tr>
-																<td><?php echo $b_date; ?></td>
-																<td><?php echo $reg_firstname; ?> <?php echo $reg_surname; ?></td>
+																<td><?php echo $p_date; ?></td>
+																<td><?php echo $product ?></td>
 																<td><?php echo ucwords(str_replace('_', ' ', $b_status)); ?></td>
 																<td><?php echo $b_booking_no; ?></td>
 																<td><?php echo $deli_fullname; ?></td>
 																<td><a href="orders_info?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
-																<td><a href="javascript:void(0)" target="_blank"><button class="btn btn-default" title="Click here to Cancel the order" data-toggle="modal" data-target="#cancel" name="cancel">Cancel Order</button></a></td>
+																<!-- <td><a href="javascript:void(0)" target="_blank"><button class="btn btn-default" title="Click here to Cancel the order" data-toggle="modal" data-target="#cancel" name="cancel">Cancel Order</button></a></td> -->
+																<td><a href="javascript:void(0)" target="_blank"><button class="btn btn-default" title="Click here to Cancel the order" data-toggle="modal" data-target="#<?php echo $b_booking_no ?>" name="cancel">Cancel Order</button></a></td>
 															</tr>
-														<?php } 
-													 }while($val_tr_orders = mysqli_fetch_array($sql_tr_orders)) ?>		
+														<?php
+															include('modals/update_order.php');
+														} 
+													} ?>		
 												</tbody>
 										</table>
 									</div>
@@ -234,14 +258,6 @@
 			</div>
 		</div>
 		<!--    end of copyright text area-->
-	
-		<?php
-		
-			include('modals/update_order.php');
-			
-		
-		
-		?>
 
 	
 
