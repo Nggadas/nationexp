@@ -38,7 +38,7 @@ session_start();
 	$val_b_orders = mysqli_fetch_assoc($sql_b_orders);
 
 	//Count all Orders in "Delivered" status
-	$sqlbnot=mysqli_query($connect, "SELECT COUNT(booking_no) AS delivered FROM `tracking_details` WHERE `account_id`='$account_id' AND `status`='delivered' AND `old`=''");
+	$sqlbnot=mysqli_query($connect, "SELECT COUNT(booking_no) AS delivered FROM `tracking_details` WHERE `account_id`='$account_id' AND `tstatus`='delivered' AND `old`=''");
 	while($rowbnot=mysqli_fetch_object($sqlbnot)){ $delivered=$rowbnot->delivered; }
 
 	//Count all Orders in "UnDelivered" status
@@ -72,6 +72,10 @@ session_start();
 	//Count invoices
 	$sqlinvoices=mysqli_query($connect, "SELECT COUNT(email) AS invoices FROM `invoices` WHERE `email`!='' AND `user_id`='$account_id'");
 	while($rowinvoices=mysqli_fetch_object($sqlinvoices)){ $invoices=$rowinvoices->invoices; }
+
+	//Count cash collected
+	$sqlcashcollected=mysqli_query($connect, "SELECT COUNT(booking_no) AS cash_collected FROM `payment_details` WHERE `account_id`='$account_id' AND `cash_collected`!=''");
+	while($rowcashcollected=mysqli_fetch_object($sqlcashcollected)){ $cash_collected=$rowcashcollected->cash_collected; }
 
 
 

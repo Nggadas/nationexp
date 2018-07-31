@@ -61,36 +61,6 @@
             header("Location: ../");
         }
 
-		// $connect = mysqli_connect("localhost","root","","nationex_smartzip");
-		
-		// if($_SESSION['id']==""){
-		// 	unset($_SESSION);
-		// 	unset($_COOKIE);
-		// 	@session_destroy();
-		// 	header("location:../");
-		// }
-
-		// if($_SESSION['id']!=""){
-		// 	$session_id = $_SESSION['id'];
-		// 	$session_email = $_SESSION['email'];
-		// 	$session_title = $_SESSION['title'];
-		// 	$session_account_id = $_SESSION['admin_id'];
-
-		// 	$query_session = mysqli_query($connect,"SELECT * FROM `smart_admin` WHERE `email`='$session_email' AND `admin_id`='$session_account_id' order by id DESC LIMIT 1");
-		// 	$row_session = mysqli_num_rows($query_session);
-		// 	$val_session = mysqli_fetch_assoc($query_session);
-
-		// 	$myacct = $val_session['admin_id'];
-
-		// 	if(!$myacct)
-		// 	{
-		// 		unset($_SESSION);
-		// 		unset($_COOKIE);
-		// 		@session_destroy();
-		// 		header("Location: ../login.html");
-		// 	}
-		// }
-
 	}
 
 ?>

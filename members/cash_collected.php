@@ -1,8 +1,8 @@
-<?php
-	include("check.php");
-	include("orders_check.php");	
-?>
 <!DOCTYPE html>
+<?php
+	include("check.php");	
+	include("cash_check.php");	
+?>
 <html lang="en">
 <head>
 		<meta charset="utf-8">
@@ -12,7 +12,7 @@
 		<meta name="keywords" content="NationExpress24, Nation Express 24, Nation Express, NationExpress, NationalExpress, National Express NationalExpress24, Ship, Deliver, Quick Delivery, Fast Delivery, Same day, Next Day, Courier, Express Delivery, National Delivery, Nation Delivery, Nigeria Delivery, Lagos Delivery, Logistics, Ecommerce, Abuja, Ibadan, Port Harcourt, Maiduguri, DHL, UPS, ACE, Courier Service, Delivery Service, Pickup, Delivery, Pickup and Delivery, Fast Delivery, Express Pickup, Pick-up, Ikeja">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" href="resources/img/nationexpress24.ico" />
-		<title>Orders - NationExpress24 Delivery</title>
+		<title>Cash Collected - NationExpress24 Delivery</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -77,12 +77,8 @@
 						<div class="pricing-desc section-padding-two">
 							<div class="pricing-desc-title">
 								<div class="title">
-									<h2>Orders</h2>
-										<p>Here is where you will view all orders 
-										<?php if($status){ ?> 
-										with the status <font color="blue">"<?php echo $mystatus; ?>"</font>
-										<?php  }?>
-									</p>
+									<h2>Cash Payments</h2>
+									<p>View all cash payments you've made</p>
 								</div>
 							</div>
 						</div>
@@ -93,12 +89,7 @@
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#recent" data-toggle="tab">
-								<?php  
-								 echo $mystatus;  ?>
-								 </a>
-								</li>
-								
+								<li class="active">Cash Info</li>
 							</ul>
 							
 							<div class="tab-content">
@@ -108,93 +99,69 @@
 										<table class=" display table table-striped table-bordered table-hover" id="recent_orders_table" >
 											<thead>
 												<tr>
-													<th style="text-align:center;">Date</th>
 													<th style="text-align:center;">Product</th>
-													<th style="text-align:center;">Status</th>
 													<th style="text-align:center;">Tracking Number</th>
-													<th style="text-align:center;">Delivery Name</th>
-													<th style="text-align:center;">More Info</th>
-													<th style="text-align:center;">Cancel Order</th>
-
+													<th style="text-align:center;">Cash Option</th>
+													<th style="text-align:center;">Amount Collected (₦)</th>
+													<th style="text-align:center;">Product Price (₦)</th>
+													<th style="text-align:center;">Delivery Fee (₦)</th>
 												</tr>
 												</thead>
 												<tfoot>
 												<tr>
-													<th style="text-align:center;">Date</th>
 													<th style="text-align:center;">Product</th>
-													<th style="text-align:center;">Status</th>
 													<th style="text-align:center;">Tracking Number</th>
-													<th style="text-align:center;">Delivery Name</th>
-													<th style="text-align:center;">More Info</th>
-													<th style="text-align:center;">Cancel Order</th>
-
+													<th style="text-align:center;">Cash Option</th>
+													<th style="text-align:center;">Amount Collected (₦)</th>
+													<th style="text-align:center;">Product Price (₦)</th>
+													<th style="text-align:center;">Delivery Fee (₦)</th>
 												</tr>
 												</tfoot>
 												<tbody>
-												<?php 
-												$email = $_SESSION['email'];
+												<?php
 												$account_id = $_SESSION['account_id'];
+
+												$sql_payment = mysqli_query($connect,"SELECT * FROM payment_details WHERE `account_id`='$account_id' AND `cash_collected`!=''");
+												$row_payment = mysqli_num_rows($sql_payment);
+
+												if ($row_payment > 0) {
+													while($payment = $sql_payment->fetch_assoc()) {
+														$booking_no = $payment['booking_no'];
+														$cash_collected = $payment['cash_collected'];
+														$amount_collected = $payment['amount_collected'];
+														$delivery_cost = $payment['delivery_cost'];
+
+														$sql_parcel = mysqli_query($connect,"SELECT * FROM parcel_details WHERE `account_id`='$account_id' AND `booking_no`='$booking_no'");
+														$row_parcel = mysqli_num_rows($sql_parcel);
+														$parcel = mysqli_fetch_assoc($sql_parcel);
 														
-												if ($status) {
-													$sql_tr = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`='$account_id' AND `booking_no`!='' AND `tstatus`='$status' AND `old`='' ORDER BY id DESC");
-												} else {
-													$sql_tr = mysqli_query($connect,"SELECT * FROM `tracking_details` WHERE `account_id`='$account_id' AND `booking_no`!='' AND `tstatus`!='' AND `old`='' ORDER BY id DESC");
+														$product = $parcel['goods_description'];
+														$product_price = $parcel['value_of_contents'];
+
+														if ($cash_collected == 'item_only') {
+															$price = $amount_collected;
+															$delivery_fee = 0;
+														} elseif ($cash_collected == 'delivery_only') {
+															$price = 0;
+															$delivery_fee = $amount_collected;
+														} elseif ($cash_collected == 'item_and_delivery') {
+															$price = $amount_collected - $delivery_cost;
+															$delivery_fee = $amount_collected - $product_price;
+														}
+
+														?> <tr>
+															<td><?php echo $product; ?></td>
+															<td><?php echo $booking_no; ?></td>
+															<td><?php echo $cash_collected; ?></td>
+															<td><?php echo $amount_collected; ?></td>
+															<td><?php echo $price; ?></td>
+															<td><?php echo $delivery_fee; ?></td>
+														</tr>
+													<?php 
+													}
 												}
-													
-												?>
-												<?php while($val_tr = mysqli_fetch_array($sql_tr)){
-														$b_date = $val_tr['tdate'];
-														$b_booking_no = $val_tr['booking_no'];
-
-														$sql_b_reg = mysqli_query($connect,"SELECT * FROM `register` WHERE `email` = '$email' AND `account_id`='$account_id' AND `status`='Enabled' ORDER BY id DESC");
-														$row_b_reg = mysqli_num_rows($sql_b_reg);
-														$val_b_reg = mysqli_fetch_assoc($sql_b_reg);	
 														
-														$sql_b_deli = mysqli_query($connect,"SELECT * FROM `delivery_details` WHERE `account_id`!='' AND `booking_no`='$b_booking_no' ORDER BY id DESC");
-														$row_b_deli = mysqli_num_rows($sql_b_deli);
-														$val_b_deli = mysqli_fetch_assoc($sql_b_deli);
-														$b_date = $val_b_deli['ddate'];
-														
-														$sql_b_parcel = mysqli_query($connect,"SELECT * FROM `parcel_details` WHERE `booking_no`='$b_booking_no' ORDER BY id DESC");
-														$row_b_parcel = mysqli_num_rows($sql_b_parcel);
-														$val_b_parcel = mysqli_fetch_assoc($sql_b_parcel);
-														$product = $val_b_parcel['goods_description'];
-														$p_date = $val_b_parcel['date'];
-														
-														$reg_firstname = $val_b_reg['first_name'];
-														$reg_surname = $val_b_reg['sur_name'];
-														$deli_fullname = $val_b_deli['full_name'];
-
-														$b_status = $val_tr['tstatus'];
-															
-														
-													if($myaccount_id){
-														
-														?>
-															<tr>
-																<td><?php echo $p_date; ?></td>
-																<td><?php echo $product ?></td>
-																<td><?php echo ucwords(str_replace('_', ' ', $b_status)); ?></td>
-																<td><?php echo $b_booking_no; ?></td>
-																<td><?php echo $deli_fullname; ?></td>
-																<td><a href="orders_info?booking_no=<?php echo $b_booking_no; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
-																<!-- <td><a href="javascript:void(0)" target="_blank"><button class="btn btn-default" title="Click here to Cancel the order" data-toggle="modal" data-target="#cancel" name="cancel">Cancel Order</button></a></td> -->
-																<?php 
-																	if($b_status != "delivered") { ?>
-																		<td><a href="javascript:void(0)" target="_blank"><button class="btn btn-danger" title="Click here to Cancel the order" data-toggle="modal" data-target="#<?php echo $b_booking_no ?>" name="cancel">Cancel Order</button></a></td>
-																	<?php } else { ?>
-																		<td>
-																			<button class="btn btn-default" disabled>N/A</button>
-																		</td>
-																	<?php }
-																
-																?>
-															</tr>
-														<?php
-															include('modals/update_order.php');
-														} 
-													} ?>		
-												</tbody>
+												?> </tbody>
 										</table>
 									</div>
 								</div>

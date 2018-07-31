@@ -80,6 +80,11 @@
 <p>Here is where you will view all orders <?php if($status){ ?> with the status <font color="blue">"<?php echo ucwords(str_replace('_', ' ', $status)); ?>"</font><?php }?>
 									</p>
 								</div>
+								<?php
+									if(!empty($error)){
+										echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+									}
+								?>
 							</div>
 						</div>
 					</div>
@@ -88,9 +93,13 @@
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
 							<ul class="nav nav-tabs">
-								<li class="active"><a href="#recent" data-toggle="tab"><?php if($status){ ?><?php echo ucwords(str_replace('_', ' ', $status)); ?><?php }?></a>
+								<li class="active"><a href="#recent" data-toggle="tab"><?php if($status){ ?><?php echo ucwords(str_replace('_', ' ', $status)); ?><?php }?></a></li>
+								<li style="float: right;">
+									<form method="post">
+										<input type="hidden" id="booking_no" name="booking_no" value=""/>
+										<input type="submit" class="btn btn-primary" id="submit" name="submit" value="Update Status"/>
+									</form>
 								</li>
-
 							</ul>
 
 							<div class="tab-content">
@@ -108,6 +117,13 @@
 													<th>Update Status</th>
 													<th>More Info</th>
 													<th>Edit Order</th>
+													<th style="text-align: center;">
+													<?php
+														if($row_num > 0) { ?>
+															<input type="checkbox" id="select-all" name="checkAll" >
+														<?php }
+													?>
+													</th>
 												</tr>
 												</thead>
 												<tfoot>
@@ -120,6 +136,13 @@
 													<th>Update Status</th>
 													<th>More Info</th>
 													<th>Edit Order</th>
+													<th style="text-align: center;">
+													<?php
+														if($row_num > 0) { ?>
+															<input type="checkbox" id="select-all2" name="checkAll" >
+														<?php }
+													?>
+													</th>
 												</tr>
 												</tfoot>
 												<tbody>
@@ -173,6 +196,9 @@
 																			?> N/A <?php
 																		}
 																	?>
+																	</td>
+																	<td>
+																		<input type="checkbox" id="<?php echo $b_booking_no; ?>" name="<?php echo $b_booking_no; ?>" onclick="addBookingID('<?php echo $b_booking_no ?>')" >
 																	</td>
 																</tr>
 															<?php 
@@ -279,6 +305,8 @@
 		<!--Start of Live Chat Script-->
 		<script src="resources/js/chat.js"></script>
 		<!--End of Live Chat Script-->
+		
+		<script src="resources/js/update_status.js"></script>
 	</body>
 
 </html>

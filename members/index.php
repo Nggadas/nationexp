@@ -129,7 +129,7 @@ include("check.php");
 								<h5>Pricing information</h5>
 							</div>
 							<ul class=price-list>
-								<a href="#"><li>Cash Collected <span style="margin-left:10px;" class="badge"><?php echo '0'; ?></span></li></a>
+								<a href="cash_collected"><li>Cash Collected <span style="margin-left:10px;" class="badge"><?php echo $cash_collected; ?></span></li></a>
 								<a href="invoices"><li>Manage Invoices <span style="margin-left:10px;" class="badge"><?php echo $invoices; ?></span></li></a>
 							 </ul>
 							<div class="order-buton">

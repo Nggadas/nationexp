@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 	include("check.php");
-	include("update_status_check.php");
+	include("update_mstatus_check.php");
 ?>
 <html lang="en">
 	<head>
@@ -87,7 +87,7 @@
 					<div class="col-md-5 col-sm-6">
 						<div class="calculate_title">
 							<h2>Update Order Status</h2>
-							<p>You can update the order status for <?php echo $booking_no ?></p>
+							<p>You can update the order status for <strong><?php echo str_replace(',',', ', $booking_array) ?></strong>.</p>
 							<?php
                                 if(!empty($error)){
 									echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
@@ -96,18 +96,6 @@
 						</div>
 						<div class="calculate_form">
 							<form method="post" autocomplete="off">
-								<div style="background: #e0e0d1; color: #000;" class="single_calculate">
-									<input style="background: #e0e0d1; color: #000;" type="text" id="description" name="description" value="<?php echo $good_description ?>" readonly>
-									<label>Product</label>
-								</div>
-								<div style="background: #e0e0d1; color: #000;" class="single_calculate">
-									<input style="background: #e0e0d1; color: #000;" type="text" id="quantity" name="quantity" value="<?php echo $quantity ?>" readonly>
-									<label>Quantity</label>
-								</div>
-								<div style="background: #e0e0d1; color: #000;" class="single_calculate">
-									<input style="background: #e0e0d1; color: #000;" type="text" id="value_of_contents" name="value_of_contents" value="<?php echo $value_of_contents ?>" readonly>
-									<label>Price (₦)</label>
-								</div>
 								<div class="single_calculate">
 									<input type="text" id="description" name="description" value="<?php echo $description ?>">
 									<label>Description</label>
@@ -125,10 +113,6 @@
 									<label>City</label>
 								</div>
 								<!-- Delivery State -->
-								<div style="background: #22313f; color: #fff;" class="single_calculate">
-									<input style="background: #22313f; color: #fff;" type="text" value="<?php echo ucfirst(strtolower($state)); ?>" readonly>
-									<label style="background: #22313f; color: #fff;">Current State :</label>
-								</div>
 								<div class="single_calculate">
 									<select name="state" id="state" required>
 									<option value="<?php echo $state ?>" selected="selected">Change State</option>
@@ -172,10 +156,6 @@
 												</select>
 								</div>
 								<!-- Delivery Status -->
-								<div style="background: #22313f; color: #fff;"  class="single_calculate">
-									<input style="background: #22313f; color: #fff;"  type="text" id="status" name="status" value="<?php echo ucwords(str_replace('_', ' ', $tstatus)); ?>" readonly>
-									<label style="background: #22313f; color: #fff;" >Status :</label>
-								</div>
 								<div class="single_calculate">
 									<select id="select_status" name="new_status" required>
     									<option value="<?php echo $tstatus; ?>" disabled selected>Change Status...</option>
@@ -204,7 +184,7 @@
 								</div><br><br>
 								<div class="single_calculate" id="cash_options" style="display:none;">
 									<select id="cash_collected" name="cash_options">
-    									<option value="<?php echo $cash_option ?>" disabled selected>Cash Options...</option>
+										<option value="<?php echo $cash_option ?>" disabled selected>Cash Options...</option>
 										<option value="item_only">Item price only</option>
 										<option value="delivery_only">Delivery fee only</option>
 										<option value="item_and_delivery">Item and Delivery</option>

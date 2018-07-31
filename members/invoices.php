@@ -83,6 +83,11 @@
 						</div>
 					</div>
 				</div>
+				<?php 
+					if(!empty($error)){
+						echo '<span style="margin-bottom: 10px; padding: 5px; color: #fff; background: #ff471a;">' . $error . '</span>';
+					}
+				?>
 				<div class="row">
 					<div class="col-md-4 col-lg-12 col-sm-4 col-xs-12 text-center">
 						<div class="panel-body">
@@ -105,6 +110,7 @@
 													<th>Status</th>
 													<th>Email Address</th>
 													<th>More Info</th>
+													<th>Cancel Invoice</th>
 												</tr>
 											</thead>
 											<!-- <tfoot>
@@ -118,11 +124,12 @@
 												</tr>
 											</tfoot> -->
 											<tbody>
-												<?php do {?>
+												<?php
+												$sql_b_inv = mysqli_query($connect, "SELECT * FROM `invoices` WHERE `email` != '' AND `user_id`='$account_id' ORDER BY ID DESC");
+												$row_b_inv = mysqli_num_rows($sql_b_inv);
+
+												while($val_b_inv = mysqli_fetch_array($sql_b_inv)) {?>
 													<?php
-														$sql_b_inv = mysqli_query($connect, "SELECT * FROM `invoices` WHERE `email` != '' AND `user_id`='$account_id' ORDER BY ID DESC");
-														$row_b_inv = mysqli_num_rows($sql_b_inv);
-														$val_b_inv = mysqli_fetch_assoc($sql_b_inv);
 
 														$inv_date = $val_b_inv['date'];
 														$inv_full_name = $val_b_inv['full_name'];
@@ -138,10 +145,20 @@
 																<td><?php echo $inv_invoice_no; ?></td>
 																<td><?php echo $inv_status; ?></td>
 																<td><?php echo $inv_email; ?></td>
-																<td><a href="invoice_info?invoice_no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-primary" title="Click for more details">More info</button></a></td>
+																<td><a href="invoice_info?invoice_no=<?php echo $inv_invoice_no; ?>" target="_blank"><button class="btn btn-default" title="Click for more details">More info</button></a></td>
+																<?php
+																	if ($inv_status != 'due') { ?>
+																		<td><button class="btn btn-danger" title="No action" name="cancel" disabled>N/A</button></td>
+																	<?php } else { ?>
+																		<td><a href="javascript:void(0)" target="_blank"><button class="btn btn-danger" title="Click here to cancel the invoice" data-toggle="modal" data-target="#<?php echo $inv_invoice_no ?>" name="cancel">Cancel Invoice</button></a></td>
+																	<?php }
+																	
+																?>
 															</tr>
-														<?php } ?>
-													<?php }while($val_b_inv = mysqli_fetch_array($sql_b_inv)) ?>
+														<?php
+														include('modals/cancel_invoice.php');
+													} ?>
+													<?php } ?>
 
 											</tbody>
 										</table>

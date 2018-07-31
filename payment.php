@@ -3,7 +3,6 @@ session_start();
 include('config.php');
 include('dbc.php');
 if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-	
 	// Get user account details	
 	$customer_id = $_SESSION['account_id'];
 	$u_first_name = $_SESSION['first'];

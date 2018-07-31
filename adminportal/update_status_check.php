@@ -25,9 +25,7 @@
 
     // tracking_details
     $current_city = $tracking['current_city'];
-
     $split = explode(', ', $current_city);
-
     $city = $split[0];
     $state = $split[1];
     $description = $tracking['description'];
@@ -55,21 +53,32 @@
         $new_description = $_POST['description'];
         $new_city = $_POST['city'];
         $new_state = $_POST['state'];
+        $cash_collected = $_POST['toggle_options'];
+        $cash_options = $_POST['cash_options'];
+        $amount_collected = $_POST['amount_collected'];
 
         $current_city = $new_city .', '. $new_state;
 
 		if (!empty($_POST['custom_status']) && !empty($new_activity) && !empty($new_comment)) {
+            // Update previous entries to old
+            $update_previous = mysqli_query($connect,"UPDATE tracking_details SET old='yes' WHERE booking_no='$booking_no'");
+
 			$custom_status = filter($connect,$_POST['custom_status']);
 			$custom_status = strtolower(str_replace(' ', '_', $custom_status));
 			$sql = "INSERT INTO tracking_details (`description`,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
                     VALUES ('$new_description','$current_city','$old','$custom_status','$new_activity','$new_comment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
 
 			if (mysqli_query($connect, $sql)) {
-                $tstatus = $custom_status;?>
+                $tstatus = $custom_status;
+
+                if ($cash_collected == 'yes') {
+                    // Update payment details to include cash collected
+                    $update_payment = mysqli_query($connect,"UPDATE payment_details SET cash_collected='$cash_options', amount_collected='$amount_collected' WHERE booking_no='$booking_no'");
+                } ?>
 
                 <!-- Redirect back to update_status page -->
                 <script>
-                    window.location.href = 'update_status?booking_no=<?php echo $booking_no ?>';
+                    window.location.href = 'orders?status=<?php echo $custom_status ?>';
                 </script>
                 
 			<?php } else {
@@ -80,16 +89,24 @@
 			mysqli_close($connect);
 
 		}elseif (!empty($_POST['new_status']) && !empty($new_activity) && !empty($new_comment)) {
+            // Update previous entries to old
+            $update_previous = mysqli_query($connect,"UPDATE tracking_details SET old='yes' WHERE booking_no='$booking_no'");
+
 			$new_status = filter($connect,$_POST['new_status']);
 			$sql = "INSERT INTO tracking_details (`description`,current_city,old,tstatus,activity,tcomment,booking_no,email,account_id,ship_date,newdate,tdate,ttime,daysOfWeek)
                     VALUES ('$new_description','$current_city','$old','$new_status','$new_activity','$new_comment','$booking_no','$email','$account_id','$ship_date','$newdate','$tdate','$ttime','$day_of_week')";
 
 			if (mysqli_query($connect, $sql)) {
-                $tstatus = $new_status;?>
+                $tstatus = $new_status;
 
+                if ($cash_collected == 'yes') {
+                    // Update payment details to include cash collected
+                    $update_payment = mysqli_query($connect,"UPDATE payment_details SET cash_collected='$cash_options', amount_collected='$amount_collected' WHERE booking_no='$booking_no'");
+                } ?>
+                
                 <!-- Redirect back to update_status page -->
                 <script>
-                    window.location.href = 'update_status?booking_no=<?php echo $booking_no ?>';
+                    window.location.href = 'orders?status=<?php echo $new_status ?>';
                 </script>
                 
 			<?php } else {

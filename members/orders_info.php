@@ -135,11 +135,11 @@ include("orders_info_check.php");
 								<li><span class="badge">NO OF PARCEL</span> <?php echo $no_of_parcel; ?></li>
 								<li><span class="badge">WEIGHT IN KG</span> <?php echo $weight_kg; ?></li>
 								<li><span class="badge">DESCRIPTION</span> <?php echo $goods_description; ?></li>
-								<li><span class="badge">CASH TO COLLECT ON DELIVERY</span> <?php if($value_of_contents){ ?>₦<?php echo number_format($value_of_contents); ?><?php }?></li>
+								<li><span class="badge">PRICE</span> <?php if($value_of_contents){ ?>₦<?php echo number_format($value_of_contents); ?><?php }?></li>
 								<li><span class="badge">ORDER STATUS</span> <?php echo ucwords(str_replace('_', ' ', $order_status)); ?></li>
 							</ul>
 							<div class="order-buton">
-								<a href="track?booking_no=<?php echo $typereg; ?>" title="Tracking Number: <?php echo $typereg; ?>">Track this parcel</a>
+								<a href="../track1?id=<?php echo $typereg; ?>" title="Tracking Number: <?php echo $typereg; ?>">Track this parcel</a>
 							</div>
 						</div>
 					</div>

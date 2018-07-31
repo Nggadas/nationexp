@@ -19,8 +19,8 @@ function addBookingID(id) {
 // Select all checkboxes
 $('#select-all').click(function(event) { 
     if(this.checked) {
-        // Loop through each checkbox
         bookingID = [];
+        // Loop through each checkbox
         $(':checkbox').each(function() {
             this.checked = true;       
             if (this.id != 'select-all' && this.id != 'select-all2') {
@@ -46,7 +46,7 @@ $('#select-all2').click(function(event) {
         bookingID = [];
         // Loop through each checkbox
         $(':checkbox').each(function() {
-            this.checked = true; 
+            this.checked = true;       
             if (this.id != 'select-all' && this.id != 'select-all2') {
                 bookingID.push(this.id);
                 $('#booking_no').val(JSON.stringify(bookingID));

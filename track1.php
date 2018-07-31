@@ -93,7 +93,7 @@
 										if (!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "true") {?>
 											<li><a href="adminportal/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(!empty($_SESSION['isAdmin']) && $_SESSION['isAdmin'] == "false"){ ?>
-											<li class="current-menu-item"><a href="members/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
+											<li><a href="members/">Welcome, <?php echo $_SESSION['first']; ?></a></li>
 										<?php }else if(empty($_SESSION['isAdmin'])){ ?>
 											<li><a href="index.php">home</a></li>
 									<?php } ?>

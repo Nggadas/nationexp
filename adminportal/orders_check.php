@@ -16,5 +16,17 @@
 		$sql = mysqli_query($connect,"SELECT DISTINCT `booking_no` FROM `tracking_details` WHERE `account_id`!='' AND `old`='' ORDER BY id DESC");
 		$row_num = mysqli_num_rows($sql);
 	}
+    
+    if(isset($_POST['submit'])) {
+        if (!empty($_POST['booking_no'])) {
+            $bookingID = json_decode($_POST['booking_no'], true); ?>
+			<script>
+				var bookingID = <?php echo json_encode($bookingID); ?>;
+				window.location.href = "update_multiple_status?booking_id="+bookingID;
+			</script>
+		<?php } else {
+			$error = "No orders where selected";
+		}
+    }
 
 ?>
